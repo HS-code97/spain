@@ -179,7 +179,11 @@ footer{color:var(--sub);font-size:11.5px;text-align:center;padding:10px 16px 30p
 .fcmp{overflow-x:auto}
 table.cmp.fl td,table.cmp.fl th{white-space:nowrap}
 table.cmp.fl td.grp{color:var(--sub);font-size:12px;padding-top:10px}
-table.cmp.fl tr.best td{background:var(--acc-soft)}
+table.cmp.fl tr[data-o]{cursor:pointer}
+table.cmp.fl tr[data-o]:hover td{background:var(--bg)}
+table.cmp.fl tr.sel td{background:var(--acc-soft)}
+.fo{scroll-margin-top:76px}
+.fo.sel{border-color:var(--acc);box-shadow:0 0 0 2px var(--acc),var(--shadow)}
 .fo{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);margin-bottom:12px;overflow:hidden}
 .fo .fh{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding:12px 14px 10px;border-bottom:1px solid var(--line)}
 .fo .fh .no{display:inline-block;font-size:11.5px;color:#fff;background:var(--acc);border-radius:999px;padding:1px 9px;margin-bottom:3px}
@@ -316,19 +320,19 @@ table.cmp.fl tr.best td{background:var(--acc-soft)}
     <table class="cmp fl">
       <tr><th>옵션</th><th>3인 금액</th><th>가는편 출발 · 소요</th><th>귀국 경유</th></tr>
       <tr><td colspan="4" class="grp">8박 · 싱가포르항공</td></tr>
-      <tr class="best"><td><b>옵션 1</b></td><td>$3,969.30</td><td>9/10 16:45 · 23h 20m</td><td>뮌헨</td></tr>
-      <tr><td><b>옵션 2</b></td><td>$3,969.30</td><td>9/10 11:05 · 29h 00m</td><td>뮌헨</td></tr>
-      <tr><td><b>옵션 3</b></td><td>$3,992.70</td><td>9/10 16:45 · 23h 20m</td><td>프랑크푸르트</td></tr>
-      <tr><td><b>옵션 4</b></td><td>$3,992.70</td><td>9/10 11:05 · 29h 00m</td><td>프랑크푸르트</td></tr>
+      <tr data-o="a1" tabindex="0" title="누르면 아래 상세로 이동"><td><b>옵션 1</b></td><td>$3,969.30</td><td>9/10 16:45 · 23h 20m</td><td>뮌헨</td></tr>
+      <tr data-o="a2" tabindex="0" title="누르면 아래 상세로 이동"><td><b>옵션 2</b></td><td>$3,969.30</td><td>9/10 11:05 · 29h 00m</td><td>뮌헨</td></tr>
+      <tr data-o="a3" tabindex="0" title="누르면 아래 상세로 이동"><td><b>옵션 3</b></td><td>$3,992.70</td><td>9/10 16:45 · 23h 20m</td><td>프랑크푸르트</td></tr>
+      <tr data-o="a4" tabindex="0" title="누르면 아래 상세로 이동"><td><b>옵션 4</b></td><td>$3,992.70</td><td>9/10 11:05 · 29h 00m</td><td>프랑크푸르트</td></tr>
       <tr><td colspan="4" class="grp">7박 · 에티하드항공</td></tr>
-      <tr><td><b>옵션 1</b></td><td>$3,834.60</td><td>9/11 01:35 · 25h 05m</td><td>아부다비</td></tr>
+      <tr data-o="b1" tabindex="0" title="누르면 아래 상세로 이동"><td><b>옵션 1</b></td><td>$3,834.60</td><td>9/11 01:35 · 25h 05m</td><td>아부다비</td></tr>
     </table>
-    <div class="note">색칠된 줄: 8박 중 가장 싸면서 출국 소요시간도 가장 짧은 조합.</div>
+    <div class="note">옵션 줄을 누르면 아래 상세 카드로 이동해요. 카드를 누르면 표에서도 표시돼요.</div>
   </div>
 
   <div class="fgrp"><h2>8박 일정</h2><span>9/10 In → 9/18 Out · 싱가포르항공</span></div>
 
-  <div class="fo">
+  <div class="fo" id="o-a1">
     <div class="fh"><div><span class="no">옵션 1</span><h3>싱가포르항공</h3><div class="fare">Economy Standard · 변경/환불 가능(수수료)</div></div>
       <div class="pr"><b>$3,969.30</b><small>약 539만원 · 3인</small><small>1인 약 180만원</small></div></div>
     <div class="leg"><div class="lh">가는편 · 9/10(금)</div>
@@ -338,7 +342,7 @@ table.cmp.fl tr.best td{background:var(--acc-soft)}
     <div class="ft"><span class="chip">⏱ 출국 소요시간 최단</span><span class="chip">귀국 뮌헨 경유</span></div>
   </div>
 
-  <div class="fo">
+  <div class="fo" id="o-a2">
     <div class="fh"><div><span class="no">옵션 2</span><h3>싱가포르항공</h3><div class="fare">Economy Standard · 변경/환불 가능(수수료)</div></div>
       <div class="pr"><b>$3,969.30</b><small>약 539만원 · 3인</small><small>1인 약 180만원</small></div></div>
     <div class="leg"><div class="lh">가는편 · 9/10(금)</div>
@@ -348,7 +352,7 @@ table.cmp.fl tr.best td{background:var(--acc-soft)}
     <div class="ft"><span class="chip warn">싱가포르 7시간 낮 대기</span><span class="chip">귀국 뮌헨 경유</span></div>
   </div>
 
-  <div class="fo">
+  <div class="fo" id="o-a3">
     <div class="fh"><div><span class="no">옵션 3</span><h3>싱가포르항공</h3><div class="fare">Economy Standard · 변경/환불 가능(수수료)</div></div>
       <div class="pr"><b>$3,992.70</b><small>약 542만원 · 3인</small><small>1인 약 181만원</small></div></div>
     <div class="leg"><div class="lh">가는편 · 9/10(금)</div>
@@ -358,7 +362,7 @@ table.cmp.fl tr.best td{background:var(--acc-soft)}
     <div class="ft"><span class="chip">⏱ 환승 1h 35m 적정</span><span class="chip">귀국 프랑크푸르트 경유</span></div>
   </div>
 
-  <div class="fo">
+  <div class="fo" id="o-a4">
     <div class="fh"><div><span class="no">옵션 4</span><h3>싱가포르항공</h3><div class="fare">Economy Standard · 변경/환불 가능(수수료)</div></div>
       <div class="pr"><b>$3,992.70</b><small>약 542만원 · 3인</small><small>1인 약 181만원</small></div></div>
     <div class="leg"><div class="lh">가는편 · 9/10(금)</div>
@@ -370,7 +374,7 @@ table.cmp.fl tr.best td{background:var(--acc-soft)}
 
   <div class="fgrp"><h2>7박 일정</h2><span>9/11 In → 9/18 Out · 에티하드항공</span></div>
 
-  <div class="fo">
+  <div class="fo" id="o-b1">
     <div class="fh"><div><span class="no" style="background:var(--bcn)">옵션 1</span><h3>에티하드항공</h3><div class="fare">Economy Value · 변경/환불 가능 표시</div></div>
       <div class="pr"><b>$3,834.60</b><small>약 520만원 · 3인</small><small>1인 약 173만원</small></div></div>
     <div class="leg"><div class="lh">가는편 · 9/11(토) 새벽</div>
@@ -790,6 +794,17 @@ document.addEventListener('click',e=>{
   if(im){const lb=$('#lb');lb.querySelector('img').src=im.src;lb.querySelector('div').innerHTML=`${im.alt}<br><a href="${SRC(im.dataset.p)}" target="_blank" rel="noopener" style="color:#ffd166">사진 출처 · 라이선스 보기</a>`;lb.classList.add('on');return}
   if(e.target.closest('#lb')&&!e.target.closest('a'))$('#lb').classList.remove('on');
 });
+
+/* ---------- flight select ---------- */
+(function(){
+  function pick(id,go){
+    $$('table.cmp.fl tr[data-o]').forEach(r=>r.classList.toggle('sel',r.dataset.o==id));
+    $$('.fo').forEach(c=>c.classList.toggle('sel',c.id=='o-'+id));
+    if(go)$('#o-'+id).scrollIntoView({behavior:'smooth',block:'start'});
+  }
+  $$('table.cmp.fl tr[data-o]').forEach(r=>{r.onclick=()=>pick(r.dataset.o,true);r.onkeydown=e=>{if(e.key=='Enter'||e.key==' '){e.preventDefault();pick(r.dataset.o,true)}}});
+  $$('.fo').forEach(c=>c.onclick=()=>pick(c.id.slice(2),false));
+})();
 
 renderFood();renderChk();renderBoard();show(cur);
 </script>
