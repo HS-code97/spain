@@ -694,7 +694,9 @@ function moveCard(e){
   return `<div class="card">${e.img?`<div class="ph">${img(e.img,e.n)}</div>`:''}<div class="bd"><h3 style="font-size:16px">${e.n}</h3><p style="margin:4px 0 0">${e.x}</p>${e.r2?`<div class="alt">추천: <b>${R[e.r2].n}</b></div>`:''}</div></div>`;
 }
 let cur=ls.g('day',0);if(!(cur>=0&&cur<D.length))cur=0;
-$('#days').innerHTML=D.map((x,i)=>`<button data-i="${i}">${x.star?`<span class="star">${x.star}</span>`:''}<b>${x.d}</b>${x.w}<i style="background:${CITY[x.c][1]}"></i></button>`).join('');
+/* 날짜 밑 색 = 그날 밤 묵는 도시(상단 도시 박스 색과 동일) */
+const STAY=['mad','mad','mad','sev','sev','bcn','bcn','bcn','bcn'];
+$('#days').innerHTML=D.map((x,i)=>`<button data-i="${i}">${x.star?`<span class="star">${x.star}</span>`:''}<b>${x.d}</b>${x.w}<i style="background:${CITY[STAY[i]][1]}"></i></button>`).join('');
 function show(i,scroll){
   cur=i;ls.s('day',i);const x=D[i];
   $$('#days button').forEach((b,j)=>b.classList.toggle('on',j==i));
