@@ -38,8 +38,9 @@ a{color:var(--acc)}
 
 /* TABS */
 nav.tabs{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line)}
-nav.tabs .wrap{display:flex;gap:6px;padding:10px 16px}
-nav.tabs button{flex:1;padding:9px 0;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;font:inherit;font-size:14px;cursor:pointer}
+nav.tabs .wrap{display:flex;gap:5px;padding:10px 16px}
+@media (max-width:420px){nav.tabs button{font-size:13px}}
+nav.tabs button{flex:1;min-width:0;padding:9px 0;white-space:nowrap;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;font:inherit;font-size:14px;cursor:pointer}
 nav.tabs button.on{background:var(--acc);border-color:var(--acc);color:#fff;font-weight:700}
 main{padding:0 16px 90px}
 section.tab{display:none}section.tab.on{display:block}
@@ -170,6 +171,36 @@ table.cmp th{color:var(--sub);font-weight:600}
 .note{color:var(--sub);font-size:12px;margin-top:6px}
 footer{color:var(--sub);font-size:11.5px;text-align:center;padding:10px 16px 30px}
 
+/* FLIGHT TAB */
+.fsum{display:flex;flex-wrap:wrap;gap:6px;margin:16px 0 4px}
+.fgrp{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px;margin:24px 0 10px}
+.fgrp h2{font-family:"Black Han Sans",sans-serif;font-weight:400;font-size:22px;margin:0}
+.fgrp span{color:var(--sub);font-size:13px}
+.fcmp{overflow-x:auto}
+table.cmp.fl td,table.cmp.fl th{white-space:nowrap}
+table.cmp.fl td.grp{color:var(--sub);font-size:12px;padding-top:10px}
+table.cmp.fl tr.best td{background:var(--acc-soft)}
+.fo{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);margin-bottom:12px;overflow:hidden}
+.fo .fh{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding:12px 14px 10px;border-bottom:1px solid var(--line)}
+.fo .fh .no{display:inline-block;font-size:11.5px;color:#fff;background:var(--acc);border-radius:999px;padding:1px 9px;margin-bottom:3px}
+.fo .fh h3{margin:0;font-size:17px;line-height:1.3}
+.fo .fh .fare{font-size:12px;color:var(--sub)}
+.fo .pr{text-align:right;white-space:nowrap}
+.fo .pr b{display:block;font-family:"Black Han Sans",sans-serif;font-weight:400;font-size:21px;line-height:1.15;color:var(--acc)}
+.fo .pr small{display:block;font-size:12px;color:var(--sub)}
+.leg{padding:10px 14px}
+.leg+.leg{border-top:1px dashed var(--line)}
+.leg .lh{font-size:12px;font-weight:700;color:var(--sub);margin-bottom:4px}
+.lt{display:flex;align-items:center;gap:8px}
+.lt .pt{flex:0 0 auto;text-align:center;line-height:1.2}
+.lt .pt b{display:block;font-size:19px}
+.lt .pt span{font-size:12px;color:var(--sub)}
+.lt .mid{flex:1;min-width:0;text-align:center;font-size:11.5px;color:var(--sub);line-height:1.35}
+.lt .mid i{display:block;height:2px;background:var(--line);margin:5px 0;position:relative}
+.lt .mid i::after{content:"✈";position:absolute;right:-2px;top:-9px;font-style:normal;font-size:12px;color:var(--acc)}
+.lt .mid b{color:var(--ink);font-weight:600}
+.fo .ft{display:flex;flex-wrap:wrap;gap:6px;padding:0 14px 12px}
+
 /* LIGHTBOX */
 #lb{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;padding:16px;flex-direction:column}
 #lb.on{display:flex}
@@ -193,6 +224,7 @@ footer{color:var(--sub);font-size:11.5px;text-align:center;padding:10px 16px 30p
   <button data-t="food">맛집</button>
   <button data-t="mission">미션·퀴즈</button>
   <button data-t="prep">준비</button>
+  <button data-t="air">항공</button>
 </div></nav>
 
 <main class="wrap">
@@ -272,6 +304,83 @@ footer{color:var(--sub);font-size:11.5px;text-align:center;padding:10px 16px 30p
     <h3>우리 여행의 원칙</h3>
     <p style="margin:0;font-size:14px">하루 핵심 2곳, 이동일엔 1곳. 한 곳에서 오래 머물며 사진 찍고, 미션하고, 맛있는 걸 먹기. 더운 오후엔 숙소에서 시에스타. 많이 보기보다 오래 기억하기.</p>
   </div>
+</section>
+
+<section class="tab" id="air">
+  <div class="fsum">
+    <span class="chip">🛬 마드리드 IN</span><span class="chip">🛫 바르셀로나 OUT</span><span class="chip">👨‍👩‍👧 3인 합산 금액</span><span class="chip">🧳 위탁 1인 1개</span>
+  </div>
+
+  <h2 class="sec">한눈에 비교</h2>
+  <div class="box fcmp">
+    <table class="cmp fl">
+      <tr><th>옵션</th><th>3인 금액</th><th>가는편 출발 · 소요</th><th>귀국 경유</th></tr>
+      <tr><td colspan="4" class="grp">8박 · 싱가포르항공</td></tr>
+      <tr class="best"><td><b>옵션 1</b></td><td>$3,969.30</td><td>9/10 16:45 · 23h 20m</td><td>뮌헨</td></tr>
+      <tr><td><b>옵션 2</b></td><td>$3,969.30</td><td>9/10 11:05 · 29h 00m</td><td>뮌헨</td></tr>
+      <tr><td><b>옵션 3</b></td><td>$3,992.70</td><td>9/10 16:45 · 23h 20m</td><td>프랑크푸르트</td></tr>
+      <tr><td><b>옵션 4</b></td><td>$3,992.70</td><td>9/10 11:05 · 29h 00m</td><td>프랑크푸르트</td></tr>
+      <tr><td colspan="4" class="grp">7박 · 에티하드항공</td></tr>
+      <tr><td><b>옵션 1</b></td><td>$3,834.60</td><td>9/11 01:35 · 25h 05m</td><td>아부다비</td></tr>
+    </table>
+    <div class="note">색칠된 줄: 8박 중 가장 싸면서 출국 소요시간도 가장 짧은 조합.</div>
+  </div>
+
+  <div class="fgrp"><h2>8박 일정</h2><span>9/10 In → 9/18 Out · 싱가포르항공</span></div>
+
+  <div class="fo">
+    <div class="fh"><div><span class="no">옵션 1</span><h3>싱가포르항공</h3><div class="fare">Economy Standard · 변경/환불 가능(수수료)</div></div>
+      <div class="pr"><b>$3,969.30</b><small>약 539만원 · 3인</small><small>1인 약 180만원</small></div></div>
+    <div class="leg"><div class="lh">가는편 · 9/10(금)</div>
+      <div class="lt"><div class="pt"><b>16:45</b><span>ICN</span></div><div class="mid">싱가포르 환승 1h 35m<i></i>총 <b>23h 20m</b></div><div class="pt"><b>09:05</b><span>MAD · 9/11(토)</span></div></div></div>
+    <div class="leg"><div class="lh">오는편 · 9/18(토)</div>
+      <div class="lt"><div class="pt"><b>07:55</b><span>BCN</span></div><div class="mid">뮌헨·싱가포르 2회 환승<i></i>총 <b>24h 35m</b></div><div class="pt"><b>15:30</b><span>ICN · 9/19(일)</span></div></div></div>
+    <div class="ft"><span class="chip">⏱ 출국 소요시간 최단</span><span class="chip">귀국 뮌헨 경유</span></div>
+  </div>
+
+  <div class="fo">
+    <div class="fh"><div><span class="no">옵션 2</span><h3>싱가포르항공</h3><div class="fare">Economy Standard · 변경/환불 가능(수수료)</div></div>
+      <div class="pr"><b>$3,969.30</b><small>약 539만원 · 3인</small><small>1인 약 180만원</small></div></div>
+    <div class="leg"><div class="lh">가는편 · 9/10(금)</div>
+      <div class="lt"><div class="pt"><b>11:05</b><span>ICN</span></div><div class="mid">싱가포르 환승 7h 00m<i></i>총 <b>29h 00m</b></div><div class="pt"><b>09:05</b><span>MAD · 9/11(토)</span></div></div></div>
+    <div class="leg"><div class="lh">오는편 · 9/18(토)</div>
+      <div class="lt"><div class="pt"><b>07:55</b><span>BCN</span></div><div class="mid">뮌헨·싱가포르 2회 환승<i></i>총 <b>24h 35m</b></div><div class="pt"><b>15:30</b><span>ICN · 9/19(일)</span></div></div></div>
+    <div class="ft"><span class="chip warn">싱가포르 7시간 낮 대기</span><span class="chip">귀국 뮌헨 경유</span></div>
+  </div>
+
+  <div class="fo">
+    <div class="fh"><div><span class="no">옵션 3</span><h3>싱가포르항공</h3><div class="fare">Economy Standard · 변경/환불 가능(수수료)</div></div>
+      <div class="pr"><b>$3,992.70</b><small>약 542만원 · 3인</small><small>1인 약 181만원</small></div></div>
+    <div class="leg"><div class="lh">가는편 · 9/10(금)</div>
+      <div class="lt"><div class="pt"><b>16:45</b><span>ICN</span></div><div class="mid">싱가포르 환승 1h 35m<i></i>총 <b>23h 20m</b></div><div class="pt"><b>09:05</b><span>MAD · 9/11(토)</span></div></div></div>
+    <div class="leg"><div class="lh">오는편 · 9/18(토)</div>
+      <div class="lt"><div class="pt"><b>08:00</b><span>BCN</span></div><div class="mid">프랑크푸르트·싱가포르 2회 환승<i></i>총 <b>24h 30m</b></div><div class="pt"><b>15:30</b><span>ICN · 9/19(일)</span></div></div></div>
+    <div class="ft"><span class="chip">⏱ 환승 1h 35m 적정</span><span class="chip">귀국 프랑크푸르트 경유</span></div>
+  </div>
+
+  <div class="fo">
+    <div class="fh"><div><span class="no">옵션 4</span><h3>싱가포르항공</h3><div class="fare">Economy Standard · 변경/환불 가능(수수료)</div></div>
+      <div class="pr"><b>$3,992.70</b><small>약 542만원 · 3인</small><small>1인 약 181만원</small></div></div>
+    <div class="leg"><div class="lh">가는편 · 9/10(금)</div>
+      <div class="lt"><div class="pt"><b>11:05</b><span>ICN</span></div><div class="mid">싱가포르 환승 7h 00m<i></i>총 <b>29h 00m</b></div><div class="pt"><b>09:05</b><span>MAD · 9/11(토)</span></div></div></div>
+    <div class="leg"><div class="lh">오는편 · 9/18(토)</div>
+      <div class="lt"><div class="pt"><b>08:00</b><span>BCN</span></div><div class="mid">프랑크푸르트·싱가포르 2회 환승<i></i>총 <b>24h 30m</b></div><div class="pt"><b>15:30</b><span>ICN · 9/19(일)</span></div></div></div>
+    <div class="ft"><span class="chip warn">싱가포르 7시간 낮 대기</span><span class="chip">귀국 프랑크푸르트 경유</span></div>
+  </div>
+
+  <div class="fgrp"><h2>7박 일정</h2><span>9/11 In → 9/18 Out · 에티하드항공</span></div>
+
+  <div class="fo">
+    <div class="fh"><div><span class="no" style="background:var(--bcn)">옵션 1</span><h3>에티하드항공</h3><div class="fare">Economy Value · 변경/환불 가능 표시</div></div>
+      <div class="pr"><b>$3,834.60</b><small>약 520만원 · 3인</small><small>1인 약 173만원</small></div></div>
+    <div class="leg"><div class="lh">가는편 · 9/11(토) 새벽</div>
+      <div class="lt"><div class="pt"><b>01:35</b><span>ICN</span></div><div class="mid">아부다비 환승 7h 45m<i></i>총 <b>25h 05m</b></div><div class="pt"><b>19:40</b><span>MAD · 9/11(토)</span></div></div></div>
+    <div class="leg"><div class="lh">오는편 · 9/18(토)</div>
+      <div class="lt"><div class="pt"><b>10:45</b><span>BCN</span></div><div class="mid">아부다비 환승 1h 50m<i></i>총 <b>17h 05m</b></div><div class="pt"><b>10:50</b><span>ICN · 9/19(일)</span></div></div></div>
+    <div class="ft"><span class="chip">💰 가장 저렴</span><span class="chip">왕복 모두 1회 경유</span><span class="chip">귀국 연결 우수</span><span class="chip warn">토요일 새벽 출발</span></div>
+  </div>
+
+  <p class="note">금액·스케줄은 조회 시점 기준이라 바뀔 수 있어요. 예약 전에 다시 확인하세요. 원화는 대략적인 환산이고, 1인 금액은 3인 합산을 3으로 나눈 값이에요.</p>
 </section>
 
 </main>
