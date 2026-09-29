@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#c8442b">
+<title>스페인 가족여행 2027</title>
+<style>
+:root{--bg:#faf7f2;--card:#fff;--ink:#231f1c;--sub:#6d645c;--line:#e8e0d5;--acc:#c8442b;--acc2:#f3d9d2;--mad:#c8442b;--sev:#d9902f;--bcn:#2b6cb0}
+@media(prefers-color-scheme:dark){:root{--bg:#171412;--card:#221e1b;--ink:#f2ece4;--sub:#a79d92;--line:#37312c;--acc:#ee7a5f;--acc2:#3a2620}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 -apple-system,"Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;-webkit-text-size-adjust:100%}
+header{padding:28px 16px 12px;max-width:720px;margin:0 auto}
+h1{margin:0 0 4px;font-size:24px;letter-spacing:-.02em}
+.meta{color:var(--sub);font-size:13px}
+main{max-width:720px;margin:0 auto;padding:0 16px 80px}
+nav.tabs{position:sticky;top:0;z-index:5;background:var(--bg);display:flex;gap:6px;padding:10px 16px;max-width:720px;margin:0 auto;border-bottom:1px solid var(--line)}
+nav.tabs button{flex:1;padding:9px 0;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;font:inherit;font-size:14px;cursor:pointer}
+nav.tabs button.on{background:var(--acc);border-color:var(--acc);color:#fff;font-weight:600}
+section{display:none;padding-top:16px}section.on{display:block}
+.route{display:flex;gap:6px;margin:4px 0 16px}
+.route div{flex:1;border-radius:10px;padding:10px 6px;text-align:center;color:#fff;font-size:13px}
+.route b{display:block;font-size:15px}
+.days{display:flex;gap:8px;overflow-x:auto;padding:4px 0 12px;scrollbar-width:none}
+.days::-webkit-scrollbar{display:none}
+.days button{flex:0 0 auto;min-width:62px;padding:8px 6px;border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;font:inherit;font-size:13px;line-height:1.3;cursor:pointer}
+.days button b{display:block;font-size:16px}
+.days button.on{border-color:var(--acc);background:var(--acc2)}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:12px}
+.card h2{margin:0 0 2px;font-size:19px}
+.card .sub{color:var(--sub);font-size:13px;margin-bottom:10px}
+.item{display:flex;gap:12px;padding:12px 0;border-top:1px solid var(--line)}
+.item:first-of-type{border-top:0}
+.t{flex:0 0 44px;font-size:12px;font-weight:700;color:var(--acc);padding-top:3px}
+.item p{margin:2px 0 0;font-size:14px;color:var(--sub)}
+.item a{font-size:13px;color:var(--acc);text-decoration:none}
+.tip{background:var(--acc2);border-radius:10px;padding:10px 12px;font-size:13px;margin-top:8px}
+.pn{display:flex;gap:8px;margin-top:6px}
+.pn button{flex:1;padding:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;font:inherit;font-size:14px;cursor:pointer}
+.pn button:disabled{opacity:.35}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--sub);font-weight:600}
+.chk{display:flex;gap:10px;align-items:flex-start;padding:11px 0;border-top:1px solid var(--line);font-size:15px}
+.chk:first-of-type{border-top:0}
+.chk input{width:22px;height:22px;flex:0 0 auto;margin-top:1px;accent-color:var(--acc)}
+.chk input:checked+span{text-decoration:line-through;color:var(--sub)}
+.prog{height:8px;border-radius:4px;background:var(--line);overflow:hidden;margin:6px 0 14px}
+.prog i{display:block;height:100%;background:var(--acc);width:0;transition:width .3s}
+ol{padding-left:20px;margin:6px 0}li{margin-bottom:8px}
+.cmp td:first-child{font-weight:600;white-space:nowrap}
+</style>
+</head>
+<body>
+<header>
+  <h1>🇪🇸 스페인 가족여행 2027</h1>
+  <div class="meta">2027.9.10(금) ~ 9.18(토) · 6명 · 마드리드 → 세비야 → 바르셀로나 · V1.1 (2026.9.29 KST 작성)</div>
+</header>
+<nav class="tabs">
+  <button data-t="plan" class="on">일정</button>
+  <button data-t="list">준비물·예약</button>
+  <button data-t="info">정보</button>
+</nav>
+<main>
+
+<section id="plan" class="on">
+  <div class="route" id="route"></div>
+  <div class="days" id="days"></div>
+  <div id="day"></div>
+  <div class="pn"><button id="prev">← 이전 날</button><button id="next">다음 날 →</button></div>
+</section>
+
+<section id="list">
+  <div class="card">
+    <h2>예약·준비 체크리스트</h2>
+    <div class="sub" id="cnt"></div>
+    <div class="prog"><i id="bar"></i></div>
+    <div id="chks"></div>
+    <div class="sub" style="margin-top:10px">체크 표시는 이 기기(브라우저)에만 저장돼요. 각자의 폰에서 따로 관리됩니다.</div>
+  </div>
+</section>
+
+<section id="info">
+  <div class="card">
+    <h2>세 번째 도시: 세비야 vs 그라나다</h2>
+    <table class="cmp">
+      <tr><td>대표 명소</td><td>알카사르, 대성당·히랄다 탑, 스페인 광장</td><td>알함브라 궁전</td></tr>
+      <tr><td>마드리드에서</td><td>AVE 약 2시간 30분</td><td>열차/버스 약 4시간 내외</td></tr>
+      <tr><td>바르셀로나로</td><td>항공 약 2시간</td><td>항공 약 1시간 30분</td></tr>
+      <tr><td>주의</td><td>9월에도 낮 30℃ 안팎</td><td>알함브라 입장권 조기 매진</td></tr>
+    </table>
+    <div class="sub" style="margin-top:8px">이동시간·기온은 대략적인 값이니 예약 전 확인하세요.</div>
+  </div>
+  <div class="card">
+    <h2>아직 정할 것</h2>
+    <ol>
+      <li><b>박수</b> — 9/10 밤 도착이면 8박. 7박이면 9/11 도착으로 보고 하루 조정.</li>
+      <li><b>세 번째 도시</b> — 세비야 유지 / 그라나다로 변경.</li>
+      <li><b>세비야→바르셀로나</b> — 항공(약 2시간) vs 열차(약 5시간 30분).</li>
+      <li><b>선택 일정</b> — 톨레도·몬세라트 둘 다 할지.</li>
+    </ol>
+  </div>
+  <div class="card">
+    <h2>여행 원칙</h2>
+    <p style="margin:0;font-size:14px;color:var(--sub)">하루 핵심 2곳, 이동일엔 1곳. 많이 보기보다 오래 기억에 남기기. 낮 더운 시간엔 시에스타.</p>
+  </div>
+</section>
+
+</main>
+<script>
+const C={M:['마드리드','var(--mad)'],S:['세비야','var(--sev)'],B:['바르셀로나','var(--bcn)'],X:['이동','#6d645c']};
+const mp=q=>'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(q);
+const D=[
+{d:'9/10',w:'금',c:'X',t:'인천 출발 → 마드리드',s:'비행 · 밤 늦게 도착 (가정)',i:[
+ ['출발','인천 출발','오픈조 항공. 직항 또는 1회 경유, 총 약 14~20시간.'],
+ ['밤','마드리드 도착·숙소 이동','공항에서 바로 숙소로 이동해 휴식.',null]],
+ tip:'스페인은 한국보다 7시간 늦어요(서머타임 기간).'},
+{d:'9/11',w:'토',c:'M',t:'마드리드 1일차 · 도시 익히기',s:'왕궁 + 광장 + 일몰',i:[
+ ['오전','마드리드 왕궁','내부 관람 약 1시간 30분. 알무데나 성당 외관까지.','Palacio Real de Madrid'],
+ ['오후','마요르 광장 · 산 미겔 시장','시장에서 타파스로 점심.','Mercado de San Miguel Madrid'],
+ ['일몰','데보드 신전','시차 적응 느리게. 노을 보며 쉬기.','Templo de Debod']],
+ tip:'첫날이라 무리하지 않기.'},
+{d:'9/12',w:'일',c:'M',t:'톨레도 당일치기',s:'열차 약 30분',i:[
+ ['오전','AVE로 톨레도 이동','아토차 역 출발.','Estación de Madrid Atocha'],
+ ['낮','대성당 · 산토 토메 교회','엘 그레코 그림 관람.','Catedral de Toledo'],
+ ['오후','전망 포인트에서 사진','구시가지가 한눈에 보이는 곳.','Mirador del Valle Toledo']],
+ tip:'일요일엔 성당·유적 개방시간이 줄 수 있으니 사전 확인.'},
+{d:'9/13',w:'월',c:'X',t:'마드리드 → 세비야',s:'프라도 + AVE 이동',i:[
+ ['오전','프라도 미술관','벨라스케스·고야 중심으로 2시간 압축.','Museo del Prado'],
+ ['오후','아토차 역에서 AVE 탑승','약 2시간 30분. 세비야 체크인.','Estación de Madrid Atocha'],
+ ['저녁','스페인 광장 야경 · 산타크루스 지구 식사','','Plaza de España Sevilla']]},
+{d:'9/14',w:'화',c:'S',t:'세비야 하루 종일',s:'알카사르 + 대성당 + 플라멩코',i:[
+ ['오전','세비야 알카사르','사전 예매 필수.','Real Alcázar de Sevilla'],
+ ['오후','대성당 · 히랄다 탑 → 낮잠','더운 시간대엔 숙소 휴식.','Catedral de Sevilla'],
+ ['저녁','플라멩코 공연','트리아나 지구 또는 소규모 공연장. 예약 권장.','Triana Sevilla flamenco']]},
+{d:'9/15',w:'수',c:'X',t:'세비야 → 바르셀로나 (추석)',s:'항공 약 1시간 40분',i:[
+ ['오전','항공으로 바르셀로나 이동','이른 항공편 선택, 숙소에 짐 맡기기.','Aeropuerto de Sevilla'],
+ ['오후','고딕 지구 · 람블라스 · 보케리아 시장','',mpq('Barrio Gótico Barcelona')],
+ ['저녁','추석 저녁 · 가벼운 가족 식사','한식당도 좋아요.',null]]},
+{d:'9/16',w:'목',c:'B',t:'바르셀로나 · 가우디의 하루',s:'사그라다 + 바트요/구엘',i:[
+ ['오전','사그라다 파밀리아','타임드 예매 필수, 탑 입장 포함 권장.','Sagrada Família'],
+ ['오후','카사 바트요 또는 파르크 구엘','둘 다 넣으면 무리 — 하나 선택.','Casa Batlló']],
+ tip:'몬주익 분수쇼는 요일·시간이 시즌마다 달라요. 확인 필요.'},
+{d:'9/17',w:'금',c:'B',t:'바르셀로나 마무리',s:'몬세라트 또는 몬주익 + 해변',i:[
+ ['A','몬세라트 수도원 반나절','톱니바퀴 열차·케이블카.','Montserrat'],
+ ['B','몬주익 언덕 + 케이블카','A 대신 선택.','Montjuïc'],
+ ['저녁','바르셀로네타 해변 · 가족 파에야 만찬','여행 마무리.','Barceloneta Beach']]},
+{d:'9/18',w:'토',c:'X',t:'바르셀로나 → 인천',s:'귀국 · 9/19 도착',i:[
+ ['','공항 이동 · 출국','오후 출발이면 오전에 라발라 시장 산책.','Aeropuerto de Barcelona-El Prat']]}
+];
+function mpq(q){return q}
+const K=[
+ '오픈조 항공권 (인천→마드리드 / 바르셀로나→인천) 6명 확보',
+ '사그라다 파밀리아 타임드 입장권 (탑 포함 여부)',
+ '세비야 알카사르 입장권',
+ '마드리드 왕궁·프라도 입장권',
+ '마드리드→톨레도 열차, 마드리드→세비야 AVE (Renfe/Iryo/Ouigo 비교)',
+ '세비야→바르셀로나 국내선 (수하물 규정, 이른 편)',
+ '카사 바트요 또는 파르크 구엘 입장권',
+ '몬세라트 톱니바퀴 열차·케이블카 (선택 시)',
+ '플라멩코 공연 예약',
+ '숙소: 마드리드 3박 · 세비야 2박 · 바르셀로나 3박 (무료취소 옵션)',
+ '여행자 보험 · eSIM',
+ '소매치기 주의 안내 (가방은 앞으로)'
+];
+const $=s=>document.querySelector(s);
+const g=(k,d)=>{try{return localStorage.getItem(k)??d}catch(e){return d}};
+const st=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
+let cur=+g('day',0);
+if(!(cur>=0&&cur<D.length))cur=0;
+// route bar
+$('#route').innerHTML=[['M','3박'],['S','2박'],['B','3박']].map(([c,n])=>`<div style="background:${C[c][1]}"><b>${C[c][0]}</b>${n}</div>`).join('');
+// day chips
+$('#days').innerHTML=D.map((x,i)=>`<button data-i="${i}"><b>${x.d}</b>${x.w} <span class="dot" style="background:${C[x.c][1]}"></span></button>`).join('');
+function show(i){
+  cur=i;st('day',i);
+  const x=D[i];
+  document.querySelectorAll('#days button').forEach((b,j)=>b.classList.toggle('on',j==i));
+  document.querySelectorAll('#days button')[i].scrollIntoView({inline:'center',block:'nearest',behavior:'smooth'});
+  $('#day').innerHTML=`<div class="card"><h2>${x.t}</h2><div class="sub"><span class="dot" style="background:${C[x.c][1]}"></span>${x.d}(${x.w}) · ${x.s}</div>`+
+    x.i.map(([t,n,d,q])=>`<div class="item"><div class="t">${t}</div><div><b>${n}</b>${d?`<p>${d}</p>`:''}${q?`<a target="_blank" rel="noopener" href="${mp(q)}">📍 지도 열기</a>`:''}</div></div>`).join('')+
+    (x.tip?`<div class="tip">💡 ${x.tip}</div>`:'')+`</div>`;
+  $('#prev').disabled=i==0;$('#next').disabled=i==D.length-1;
+}
+$('#days').onclick=e=>{const b=e.target.closest('button');if(b)show(+b.dataset.i)};
+$('#prev').onclick=()=>{show(cur-1);scrollTo(0,0)};
+$('#next').onclick=()=>{show(cur+1);scrollTo(0,0)};
+// tabs
+document.querySelectorAll('nav.tabs button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('nav.tabs button').forEach(x=>x.classList.toggle('on',x==b));
+  document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id==b.dataset.t));
+  scrollTo(0,0);
+});
+// checklist
+let done=[];try{done=JSON.parse(g('chk','[]'))}catch(e){}
+function renderChk(){
+  $('#chks').innerHTML=K.map((t,i)=>`<label class="chk"><input type="checkbox" data-i="${i}" ${done.includes(i)?'checked':''}><span>${t}</span></label>`).join('');
+  $('#cnt').textContent=`${done.length} / ${K.length} 완료`;
+  $('#bar').style.width=(done.length/K.length*100)+'%';
+}
+$('#chks').onchange=e=>{const i=+e.target.dataset.i;done=e.target.checked?[...done,i]:done.filter(x=>x!=i);st('chk',JSON.stringify(done));renderChk()};
+renderChk();show(cur);
+</script>
+</body>
+</html>
