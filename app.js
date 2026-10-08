@@ -396,7 +396,7 @@
 
   /* ---------- 지도 ---------- */
   let map, markers = {}, mapFilter = "all";
-  const VIEWS = { city: [[36.0, -9.0], [43.0, 3.0]] };
+  const VIEWS = { city: [[36.0, -9.0], [43.0, 3.0]], all: [[36.0, -9.0], [43.0, 3.0]] };
   function initMap() {
     if (map || !window.L) return;
     map = L.map("map", { zoomControl: false, attributionControl: true }).fitBounds(VIEWS.city);
@@ -486,8 +486,8 @@
       if (!("speechSynthesis" in window)) return toast("이 기기는 음성 재생을 지원하지 않아요");
       speechSynthesis.cancel();
       const u = new SpeechSynthesisUtterance(p.jp.replace(/○○/g, "キム"));
-      u.lang = "ja-JP"; u.rate = .85;
-      const ja = speechSynthesis.getVoices().find(v => v.lang?.startsWith("ja"));
+      u.lang = "es-ES"; u.rate = .85;
+      const ja = speechSynthesis.getVoices().find(v => v.lang?.startsWith("es"));
       if (ja) u.voice = ja;
       $$(".phrase").forEach(x => x.classList.remove("playing")); b.classList.add("playing");
       u.onend = () => b.classList.remove("playing");
