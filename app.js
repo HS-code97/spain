@@ -1,4 +1,4 @@
-/* ============ ?�포�?겨울 ?�화 ????============ */
+/* ============ 삿포로 겨울 동화 — 앱 ============ */
 (() => {
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -8,19 +8,19 @@
   };
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const gmap = q => "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(q);
-  const TYPE_LABEL = { spot: "SIGHT · 관�?, food: "EAT · ?�사", shop: "SHOP · ?�핑", stay: "STAY · ?�소" };
+  const TYPE_LABEL = { spot: "SIGHT · 관광", food: "EAT · 식사", shop: "SHOP · 쇼핑", stay: "STAY · 숙소" };
 
-  // ?�정 카드???�택지: options가 ?�으�?1·2�??�당, ?�으�?카드 ?�체가 ?�나???�택지
+  // 일정 카드의 선택지: options가 있으면 1·2번 식당, 없으면 카드 자체가 하나의 선택지
   const optsOf = it => it.options || [{ title: it.title, text: it.text, place: it.place }];
 
-  // ?�소가 ?�장?�는 ?�짜 매핑
+  // 장소가 등장하는 날짜 매핑
   const placeDays = {};
   DAYS.forEach((d, i) => d.items.forEach(it => optsOf(it).forEach(o => {
     if (!o.place) return;
     (placeDays[o.place] ||= new Set()).add(i);
   })));
 
-  /* ---------- ???�리??캔버??---------- */
+  /* ---------- 눈 내리는 캔버스 ---------- */
   function snow() {
     const cv = $("#snow"), ctx = cv.getContext("2d");
     const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -49,17 +49,17 @@
     resize(); tick();
   }
 
-  /* ---------- 카운?�다??---------- */
+  /* ---------- 카운트다운 ---------- */
   function countdown() {
     const el = $("#countdown"), start = new Date(TRIP.start), end = new Date(TRIP.end);
     function draw() {
       const now = new Date();
       if (now >= start && now <= end) {
         const dayIdx = todayIndex();
-        el.innerHTML = `<div class="cd-msg">?�️ 지�??�포�??�행 �? ?�늘?� ${DAYS[dayIdx]?.label || ""} · ${esc(DAYS[dayIdx]?.title || "")}</div>`;
+        el.innerHTML = `<div class="cd-msg">❄️ 지금 삿포로 여행 중! 오늘은 ${DAYS[dayIdx]?.label || ""} · ${esc(DAYS[dayIdx]?.title || "")}</div>`;
         return;
       }
-      if (now > end) { el.innerHTML = `<div class="cd-msg">?�� 추억 ?�???�료! ?�음 겨울????만나??</div>`; return; }
+      if (now > end) { el.innerHTML = `<div class="cd-msg">📸 추억 저장 완료! 다음 겨울에 또 만나요.</div>`; return; }
       let s = Math.floor((start - now) / 1000);
       const d = Math.floor(s / 86400); s %= 86400;
       const h = Math.floor(s / 3600); s %= 3600;
@@ -74,7 +74,7 @@
     return DAYS.findIndex(d => d.date === t);
   }
 
-  /* ---------- ?��?지 ---------- */
+  /* ---------- 이미지 ---------- */
   function bg(el, p) {
     if (!p.img) { el.textContent = p.emoji; el.style.background = "linear-gradient(135deg,#cfe0f3,#eaf2fb)"; return; }
     const im = new Image();
@@ -83,7 +83,7 @@
     el.textContent = p.emoji;
     im.src = p.img;
   }
-  // ?�면???�어????로드
+  // 화면에 들어올 때 로드
   const io = "IntersectionObserver" in window ? new IntersectionObserver(es => es.forEach(e => {
     if (!e.isIntersecting) return; io.unobserve(e.target); bg(e.target, PLACES[e.target.dataset.img]);
   }), { rootMargin: "300px" }) : null;
@@ -92,20 +92,20 @@
   /* ---------- 개요 ---------- */
   function overview() {
     $("#overview").innerHTML = `
-      <h2 class="ov-title">?�눈??보는 5??/h2>
+      <h2 class="ov-title">한눈에 보는 5일</h2>
       <div class="ov-list">
         ${DAYS.map((d, i) => `
           <button class="ov-item" data-go="${i}">
-            <div class="ov-date"><b>${+d.date.slice(8)}</b><small>1??· ${d.dow}</small></div>
+            <div class="ov-date"><b>${+d.date.slice(8)}</b><small>1월 · ${d.dow}</small></div>
             <div class="ov-main"><b>${esc(d.title)}</b><span>${esc(d.subtitle)}</span></div>
             <i class="ov-dot" style="background:${d.hue};color:${d.hue}"></i>
           </button>`).join("")}
       </div>
-      <p class="ov-note">?�� 1~3�? Snow Light Hotel Sapporo (?�어비앤�?· 미나�?�??�시11초메)<br>?�️ 4�? 조잔케???�나모�?지<br>?�� ?�키?�테 2�?· ?�� ?�들 ?�용 ?�이 · ?�� ?�경 · ?�️ ?�천까�?!</p>`;
+      <p class="ov-note">🏠 1~3박: Snow Light Hotel Sapporo (에어비앤비 · 미나미4조 니시11초메)<br>♨️ 4박: 조잔케이 하나모미지<br>🐧 돈키호테 2번 · 🎮 아들 전용 데이 · 🌃 야경 · ♨️ 온천까지!</p>`;
     $$(".ov-item").forEach(b => b.onclick = () => { selectDay(+b.dataset.go); $("#daybarWrap").scrollIntoView({ behavior: "smooth" }); });
   }
 
-  /* ---------- ?�정 ---------- */
+  /* ---------- 일정 ---------- */
   let curDay = 0, team = store.get("team", "all");
   function daybar() {
     const ti = todayIndex();
@@ -129,7 +129,7 @@
     let idx = -1; items.forEach((it, k) => { if (it.time <= hm) idx = k; });
     return idx;
   }
-  // 카드�??�택???�당 번호 (?�짜 ??�� ?��????��?, ?�로고침?�면 1번으�?
+  // 카드별 선택된 식당 번호 (날짜 탭을 오가도 유지, 새로고침하면 1번으로)
   const optSel = {};
   function optBodyHTML(o) {
     const p = o.place && PLACES[o.place];
@@ -139,8 +139,8 @@
       ${p ? `
         <button class="tl-place" data-open="${o.place}">
           <div class="tl-thumb" data-img="${o.place}"></div>
-          <div class="tl-place-main"><b>${esc(p.name)}</b><span>${esc(p.area || "")}</span>${p.menu ? `<br><em>${p.menu.adult ? "?��?�👩‍�??�리 가�?맞춤 메뉴 보기" : "?�� 주문 ??보기"}</em>` : ""}</div>
-          <span class="tl-arrow">??/span>
+          <div class="tl-place-main"><b>${esc(p.name)}</b><span>${esc(p.area || "")}</span>${p.menu ? `<br><em>${p.menu.adult ? "👨‍👩‍👧 우리 가족 맞춤 메뉴 보기" : "📝 주문 팁 보기"}</em>` : ""}</div>
+          <span class="tl-arrow">›</span>
         </button>` : ""}`;
   }
   function bindOptTabs(card, d, items) {
@@ -163,7 +163,7 @@
       });
       body.setAttribute("aria-labelledby", tabs[n].id);
       if (focus) tabs[n].focus();
-      // 가벼운 ?�이??+ ?�이 보간
+      // 가벼운 페이드 + 높이 보간
       clearTimeout(timer);
       wrap.style.height = wrap.offsetHeight + "px";
       body.classList.add("fade");
@@ -198,37 +198,37 @@
     const missionDone = store.get("mission:" + d.id, []);
     $("#dayPanel").innerHTML = `
       <div class="day-head" style="--hue:${d.hue}">
-        <div class="dh-label">${d.label} · 1??${+d.date.slice(8)}??(${d.dow})</div>
+        <div class="dh-label">${d.label} · 1월 ${+d.date.slice(8)}일 (${d.dow})</div>
         <div class="dh-title">${esc(d.title)}</div>
         <div class="dh-sub">${esc(d.subtitle)}</div>
         <div class="dh-meta">
-          <span>?���?${d.temp}</span><span>?�� ?�몰 ${d.sunset}</span>
-          <span>?�� 체력 ${"??.repeat(d.stamina)}${"??.repeat(3 - d.stamina)}</span>
-          ${d.holiday ? `<span class="dh-holiday">?�� ${esc(d.holiday)}</span>` : ""}
+          <span>🌡️ ${d.temp}</span><span>🌇 일몰 ${d.sunset}</span>
+          <span>🚶 체력 ${"●".repeat(d.stamina)}${"○".repeat(3 - d.stamina)}</span>
+          ${d.holiday ? `<span class="dh-holiday">🎌 ${esc(d.holiday)}</span>` : ""}
         </div>
       </div>
       ${d.split ? `
         <div class="team-switch" id="teamSwitch">
-          <button data-team="all">?��?�👩‍👧‍�??�체</button>
-          <button data-team="girls">?? ?��??�</button>
-          <button data-team="boy">?�� ?�년?�</button>
+          <button data-team="all">👨‍👩‍👧‍👦 전체</button>
+          <button data-team="girls">🎀 소녀팀</button>
+          <button data-team="boy">🎮 소년팀</button>
         </div>
-        <p class="team-note">${team === "girls" ? "?? ?��??�: �? ??3�?+ ?�른 5�????��?�? : team === "boy" ? "?�� ?�년?�: �? ?�들 + ?�른 1�????�프?�·?�켓�?�게?? : "?�전~?�후?????�?�로 ?�뉘�? 17???�후 ?�포로역?�서 ?�류?�요."}</p>` : ""}
+        <p class="team-note">${team === "girls" ? "🎀 소녀팀: 중2 딸 3명 + 어른 5명 → 오타루" : team === "boy" ? "🎮 소년팀: 초4 아들 + 어른 1명 → 점프대·포켓몬·게임" : "오전~오후는 두 팀으로 나뉘고, 17시 이후 삿포로역에서 합류해요."}</p>` : ""}
       <div class="timeline">
         ${items.map((it, k) => {
           const opts = optsOf(it), multi = !!it.options;
           const key = d.id + ":" + it.k;
           const sel = multi ? Math.min(optSel[key] || 0, opts.length - 1) : 0;
-          const badge = it.team === "girls" ? '<span class="tl-badge girls">?? ?��??�</span>' : it.team === "boy" ? '<span class="tl-badge boy">?�� ?�년?�</span>' : "";
+          const badge = it.team === "girls" ? '<span class="tl-badge girls">🎀 소녀팀</span>' : it.team === "boy" ? '<span class="tl-badge boy">🎮 소년팀</span>' : "";
           return `
           <div class="tl-item">
             <div class="tl-time"><b>${it.time}</b><div class="tl-icon">${it.icon}</div></div>
             <div class="tl-card${k === nowIdx ? " now" : ""}" ${multi ? `data-key="${key}"` : ""}>
               ${multi ? `<div class="opt-row">
-                <div class="opt-tabs" role="tablist" aria-label="?�당 ?�택">
+                <div class="opt-tabs" role="tablist" aria-label="식당 선택">
                   ${opts.map((o, n) => {
                     const nm = PLACES[o.place]?.name || o.title;
-                    return `<button type="button" class="opt-tab${n === sel ? " active" : ""}" role="tab" id="ot-${key.replace(":", "-")}-${n}" aria-controls="op-${key.replace(":", "-")}" aria-selected="${n === sel}" tabindex="${n === sel ? 0 : -1}" data-n="${n}" title="${esc(nm)}" aria-label="${n + 1}�?${esc(nm)}">${n + 1}</button>`;
+                    return `<button type="button" class="opt-tab${n === sel ? " active" : ""}" role="tab" id="ot-${key.replace(":", "-")}-${n}" aria-controls="op-${key.replace(":", "-")}" aria-selected="${n === sel}" tabindex="${n === sel ? 0 : -1}" data-n="${n}" title="${esc(nm)}" aria-label="${n + 1}번 ${esc(nm)}">${n + 1}</button>`;
                   }).join("")}
                 </div>${badge}</div>` : badge}
               <div class="opt-wrap">
@@ -239,13 +239,13 @@
         }).join("")}
       </div>
       <div class="mission">
-        <h3>???�늘??가�?미션</h3>
+        <h3>✨ 오늘의 가족 미션</h3>
         ${d.mission.map((m, k) => `
           <label class="check"><input type="checkbox" data-m="${k}" ${missionDone.includes(k) ? "checked" : ""}><span>${esc(m)}</span></label>`).join("")}
       </div>
       <div class="day-nav">
-        <button id="prevDay" ${curDay === 0 ? "disabled" : ""}>???�전 ??/button>
-        <button id="nextDay" ${curDay === DAYS.length - 1 ? "disabled" : ""}>?�음 ????/button>
+        <button id="prevDay" ${curDay === 0 ? "disabled" : ""}>‹ 이전 날</button>
+        <button id="nextDay" ${curDay === DAYS.length - 1 ? "disabled" : ""}>다음 날 ›</button>
       </div>`;
     lazy($("#dayPanel"));
     $$("[data-open]", $("#dayPanel")).forEach(b => b.onclick = () => openSheet(b.dataset.open));
@@ -253,7 +253,7 @@
     $$(".mission input").forEach(cb => cb.onchange = () => {
       const done = $$(".mission input").filter(x => x.checked).map(x => +x.dataset.m);
       store.set("mission:" + d.id, done);
-      if (cb.checked) toast("미션 ?�료! ?�️");
+      if (cb.checked) toast("미션 완료! ❄️");
     });
     if (d.split) {
       $$("#teamSwitch button").forEach(b => {
@@ -265,7 +265,7 @@
     $("#nextDay").onclick = () => { selectDay(curDay + 1); $("#daybarWrap").scrollIntoView({ behavior: "smooth" }); };
   }
 
-  /* ---------- 바�??�트 ---------- */
+  /* ---------- 바텀시트 ---------- */
   const sheet = $("#sheet"), backdrop = $("#sheetBackdrop");
   let sheetOpen = false;
   function openSheet(id) {
@@ -279,16 +279,16 @@
         <h2>${esc(p.name)}</h2>
         <div class="sh-jp">${esc(p.jp)}</div>
         <div class="sh-meta">
-          ${p.area ? `<span>?�� ${esc(p.area)}</span>` : ""}
-          ${days.length ? `<span>?���?${days.join(", ")}</span>` : ""}
-          ${p.price ? `<span>?�� ${esc(p.price)}</span>` : ""}
+          ${p.area ? `<span>📍 ${esc(p.area)}</span>` : ""}
+          ${days.length ? `<span>🗓️ ${days.join(", ")}</span>` : ""}
+          ${p.price ? `<span>💴 ${esc(p.price)}</span>` : ""}
         </div>
         <p>${esc(p.desc)}</p>
-        ${p.menu ? `<h4>${p.menu.adult ? "?���??�리 가�?맞춤 메뉴" : "?���?주문 ??}</h4>${menuHTML(p)}` : ""}
-        ${p.tips?.length ? `<h4>?�� ?�아?�면 좋�? ??/h4><ul class="sh-tips">${p.tips.map(t => `<li>${esc(t)}</li>`).join("")}</ul>` : ""}
+        ${p.menu ? `<h4>${p.menu.adult ? "🍽️ 우리 가족 맞춤 메뉴" : "🍽️ 주문 팁"}</h4>${menuHTML(p)}` : ""}
+        ${p.tips?.length ? `<h4>💡 알아두면 좋은 팁</h4><ul class="sh-tips">${p.tips.map(t => `<li>${esc(t)}</li>`).join("")}</ul>` : ""}
         <div class="sh-actions">
-          <a class="btn dark" href="${gmap(p.q || p.jp)}" target="_blank" rel="noopener">?���?구�?�?길찾�?/a>
-          <button class="btn light" id="shOnMap">?�� 지?�에??보기</button>
+          <a class="btn dark" href="${gmap(p.q || p.jp)}" target="_blank" rel="noopener">🗺️ 구글맵 길찾기</a>
+          <button class="btn light" id="shOnMap">📍 지도에서 보기</button>
         </div>
       </div>`;
     const img = $("#shImg");
@@ -319,7 +319,7 @@
   addEventListener("popstate", () => closeSheet(true));
   backdrop.onclick = () => closeSheet();
   $("#sheetClose").onclick = () => closeSheet();
-  // ?�래�??��??�프?�서 ?�기
+  // 아래로 스와이프해서 닫기
   (() => {
     let y0 = null, dy = 0;
     const body = $("#sheetBody");
@@ -329,16 +329,16 @@
   })();
 
   function menuHTML(p) {
-    if (!p.menu.adult) return `<div class="menu-col a"><h5>?�� 주문 ??/h5><ul>${p.menu.order.map(m => `<li>${esc(m)}</li>`).join("")}</ul></div>`;
+    if (!p.menu.adult) return `<div class="menu-col a"><h5>📝 주문 팁</h5><ul>${p.menu.order.map(m => `<li>${esc(m)}</li>`).join("")}</ul></div>`;
     return `<div class="menu-grid">
-      <div class="menu-col a"><h5>?��?��??�른 6�?/h5><ul>${p.menu.adult.map(m => `<li>${esc(m)}</li>`).join("")}</ul></div>
-      <div class="menu-col t"><h5>?�� ?�이 4�?(�?·�?)</h5><ul>${p.menu.teen.map(m => `<li>${esc(m)}</li>`).join("")}</ul></div>
+      <div class="menu-col a"><h5>👨‍👩 어른 6명</h5><ul>${p.menu.adult.map(m => `<li>${esc(m)}</li>`).join("")}</ul></div>
+      <div class="menu-col t"><h5>🎒 아이 4명 (중2·초4)</h5><ul>${p.menu.teen.map(m => `<li>${esc(m)}</li>`).join("")}</ul></div>
     </div>`;
   }
 
   /* ---------- 맛집 ---------- */
   const FOOD_FILTERS = [
-    ["all", "?�체"], ["meal", "?���??�사"], ["sweet", "?�� ?��??�·간??],
+    ["all", "전체"], ["meal", "🍽️ 식사"], ["sweet", "🍰 디저트·간식"],
     ["d0", "DAY 1"], ["d1", "DAY 2"], ["d2", "DAY 3"], ["d3", "DAY 4"], ["d4", "DAY 5"],
   ];
   const SWEET = new Set(["kinotoya", "letao", "parfait", "airportSweets", "shiroi", "seico", "umier", "kitaichiHall"]);
@@ -373,13 +373,13 @@
           <p>${esc(p.desc)}</p>
           ${menuHTML(p)}
           <div class="fc-actions">
-            <button class="btn light" data-open="${id}">?�세??· ??/button>
-            <a class="btn dark" href="${gmap(p.q || p.jp)}" target="_blank" rel="noopener">?���?길찾�?/a>
+            <button class="btn light" data-open="${id}">자세히 · 팁</button>
+            <a class="btn dark" href="${gmap(p.q || p.jp)}" target="_blank" rel="noopener">🗺️ 길찾기</a>
           </div>
         </div>
       </article>`;
     }).join("");
-    // fc-img ?�의 배�?가 지?��?지 ?�도�??�용 로더
+    // fc-img 안의 배지가 지워지지 않도록 전용 로더
     $$("#foodList .fc-img").forEach(el => {
       const p = PLACES[el.dataset.img]; el.removeAttribute("data-img");
       const load = () => {
@@ -394,9 +394,11 @@
     $$("#foodList [data-open]").forEach(b => b.onclick = () => openSheet(b.dataset.open));
   }
 
-  /* ---------- 지??---------- */
+  /* ---------- 지도 ---------- */
   let map, markers = {}, mapFilter = "all";
-  const VIEWS = { city: [[36.0, -9.0], [43.0, 3.0]] };
+  const VIEWS = {
+    city: [[36.0, -9.0], [43.0, 3.0]],
+  };
   function initMap() {
     if (map || !window.L) return;
     map = L.map("map", { zoomControl: false, attributionControl: true }).fitBounds(VIEWS.city);
@@ -414,11 +416,11 @@
         html: `<div class="pin${id === "airbnb" ? " home" : ""}" style="background:${color}"><span>${p.emoji}</span></div>`,
       });
       const m = L.marker([p.lat, p.lng], { icon, zIndexOffset: id === "airbnb" ? 1000 : 0 }).addTo(map);
-      m.bindPopup(`<div class="pop"><b>${p.emoji} ${esc(p.name)}</b><span>${esc(p.area || "")} ${di.map(i => DAYS[i].label).join(" · ")}</span><br><button data-pop="${id}">?�세??보기</button></div>`);
+      m.bindPopup(`<div class="pop"><b>${p.emoji} ${esc(p.name)}</b><span>${esc(p.area || "")} ${di.map(i => DAYS[i].label).join(" · ")}</span><br><button data-pop="${id}">자세히 보기</button></div>`);
       m.on("popupopen", e => { e.popup.getElement().querySelector("[data-pop]").onclick = () => openSheet(id); });
       markers[id] = { m, days: id === "airbnb" ? [0, 1, 2] : di };
     });
-    $("#mapFilters").innerHTML = [["all", "?�체", "#fff"], ...DAYS.map((d, i) => [String(i), `${d.label} · ${d.title}`, d.hue])]
+    $("#mapFilters").innerHTML = [["all", "전체", "#fff"], ...DAYS.map((d, i) => [String(i), `${d.label} · ${d.title}`, d.hue])]
       .map(([k, l, c]) => `<button class="chip" data-mf="${k}"><i style="background:${c}"></i>${esc(l)}</button>`).join("");
     $$("#mapFilters .chip").forEach(b => b.onclick = () => filterMap(b.dataset.mf));
     $$("#jumpRow button").forEach(b => b.onclick = () => {
@@ -447,7 +449,7 @@
     setTimeout(() => mk.m.openPopup(), 950);
   }
 
-  /* ---------- ?�핑 ---------- */
+  /* ---------- 쇼핑 ---------- */
   function shopView() {
     const done = new Set(store.get("donki", []));
     const total = DONKI.reduce((a, g) => a + g.items.length, 0);
@@ -457,16 +459,16 @@
       </div>`).join("");
     const prog = () => {
       const n = store.get("donki", []).length;
-      $("#donkiProgress").innerHTML = `<p>?�키 미션 ?�성�?/p><b>${n} / ${total}</b><div class="bar"><i style="width:${n / total * 100}%"></i></div>`;
+      $("#donkiProgress").innerHTML = `<p>쇼핑 미션 달성률</p><b>${n} / ${total}</b><div class="bar"><i style="width:${n / total * 100}%"></i></div>`;
     };
     $$("#donkiList input").forEach(cb => cb.onchange = () => {
       store.set("donki", $$("#donkiList input").filter(x => x.checked).map(x => x.dataset.k)); prog();
-      if (cb.checked) toast("?�바구니?????��");
+      if (cb.checked) toast("장바구니에 쏙 🛒");
     });
     prog();
   }
 
-  /* ---------- 준�?---------- */
+  /* ---------- 준비 ---------- */
   function infoView() {
     const done = new Set(store.get("pack", []));
     const total = PACKING.reduce((a, g) => a + g.items.length, 0);
@@ -478,14 +480,14 @@
     $$("#packList input").forEach(cb => cb.onchange = () => { store.set("pack", $$("#packList input").filter(x => x.checked).map(x => x.dataset.k)); cnt(); });
     cnt();
 
-    // ?�본??발음
+    // 일본어 발음
     $("#phrases").innerHTML = PHRASES.map((p, i) => `
-      <button class="phrase" data-i="${i}"><b>${esc(p.ko)}</b><span class="jp">${esc(p.jp)}</span><small>${esc(p.read)}</small><span class="spk">?��</span></button>`).join("");
+      <button class="phrase" data-i="${i}"><b>${esc(p.ko)}</b><span class="jp">${esc(p.jp)}</span><small>${esc(p.read)}</small><span class="spk">🔊</span></button>`).join("");
     $$(".phrase").forEach(b => b.onclick = () => {
       const p = PHRASES[+b.dataset.i];
-      if (!("speechSynthesis" in window)) return toast("??기기???�성 ?�생??지?�하지 ?�아??);
+      if (!("speechSynthesis" in window)) return toast("이 기기는 음성 재생을 지원하지 않아요");
       speechSynthesis.cancel();
-      const u = new SpeechSynthesisUtterance(p.jp.replace(/?�○/g, "??��"));
+      const u = new SpeechSynthesisUtterance(p.jp.replace(/○○/g, "キム"));
       u.lang = "ja-JP"; u.rate = .85;
       const ja = speechSynthesis.getVoices().find(v => v.lang?.startsWith("ja"));
       if (ja) u.voice = ja;
@@ -494,7 +496,7 @@
       speechSynthesis.speak(u);
     });
 
-    // ?�율
+    // 환율
     const jpy = $("#fxJpy"), krw = $("#fxKrw"), rate = $("#fxRate");
     rate.value = store.get("rate", 930);
     const r = () => (+rate.value || 930) / 100;
@@ -506,12 +508,12 @@
     $$("#fxQuick button").forEach(b => b.onclick = () => { jpy.value = b.dataset.v; fromJ(); });
     fromJ();
 
-    // ?�진 출처
+    // 사진 출처
     $("#credits").innerHTML = creditList().map(([f, line]) =>
       `<li><a href="https://commons.wikimedia.org/wiki/File:${encodeURIComponent(f.replace(/ /g, "_"))}" target="_blank" rel="noopener">${esc(f)}</a>${line ? `<br><span class="photo-credit-line">${esc(line)}</span>` : ""}</li>`).join("");
   }
 
-  /* ---------- ???�환 ---------- */
+  /* ---------- 탭 전환 ---------- */
   function showView(v) {
     $$(".view").forEach(s => s.classList.toggle("active", s.id === "view-" + v));
     $$(".tab").forEach(t => t.classList.toggle("active", t.dataset.view === v));
@@ -521,18 +523,18 @@
   }
   $$(".tab").forEach(t => t.onclick = () => showView(t.dataset.view));
 
-  /* ---------- 공유 / ?�스??---------- */
+  /* ---------- 공유 / 토스트 ---------- */
   let tt;
   function toast(msg) { const t = $("#toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(tt); tt = setTimeout(() => t.classList.remove("show"), 1600); }
   $("#shareBtn").onclick = async () => {
-    const data = { title: "?�️ ?�포�? 겨울 ?�화", text: "??가�??�포�??�행 ?�정 (2027.1.8??.12)", url: location.href };
+    const data = { title: "❄️ 삿포로, 겨울 동화", text: "세 가족 삿포로 여행 일정 (2027.1.8–1.12)", url: location.href };
     try {
       if (navigator.share) await navigator.share(data);
-      else { await navigator.clipboard.writeText(location.href); toast("링크�?복사?�어???��"); }
+      else { await navigator.clipboard.writeText(location.href); toast("링크를 복사했어요 📋"); }
     } catch {}
   };
 
-  /* ---------- ?�작 ---------- */
+  /* ---------- 시작 ---------- */
   (() => {
     const box = $("#heroBg"), list = TRIP.heroes;
     const slides = list.map(h => {
@@ -553,5 +555,3 @@
   selectDay(ti >= 0 ? ti : store.get("day", 0));
   foodView(); shopView(); infoView();
 })();
-
-

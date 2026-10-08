@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="ko">
 <head>
 <meta charset="utf-8">
@@ -6,12 +6,12 @@
 <meta name="theme-color" content="#0a1628">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>?욱룷濡?寃⑥슱 ?숉솕</title>
-<meta name="description" content="??媛議?10紐낆쓽 ?욱룷濡?寃⑥슱 ?ы뻾 2027.1.8 ??1.12 ?쇱젙, 留쏆쭛, 吏?? 以鍮꾨Ъ">
-<meta property="og:title" content="?꾬툘 ?욱룷濡? 寃⑥슱 ?숉솕 ????媛議??ы뻾 2027">
-<meta property="og:description" content="1.8(湲? ??1.12(?? 쨌 ?쇱젙 쨌 留쏆쭛 쨌 吏??쨌 ?덊궎 誘몄뀡">
+<title>여유로운 스페인 가족 여행</title>
+<meta name="description" content="세 가족 10명의 삿포로 겨울 여행 2027.1.8 – 1.12 일정, 맛집, 지도, 준비물">
+<meta property="og:title" content="🇪🇸 삿포로, 겨울 동화 — 세 가족 여행 2027">
+<meta property="og:description" content="1.8(금) – 1.12(화) · 일정 · 맛집 · 지도 · 돈키 미션">
 <meta property="og:image" content="https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d9/City_nightscape_of_Sapporo_from_Mt._Moiwa_20260703b.jpg/960px-City_nightscape_of_Sapporo_from_Mt._Moiwa_20260703b.jpg">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>?꾬툘</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🇪🇸</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Serif+JP:wght@500&display=swap" rel="stylesheet">
@@ -23,29 +23,29 @@
 <canvas id="snow" aria-hidden="true"></canvas>
 
 <main id="app">
-  <!-- ============ ?쇱젙 ============ -->
-  <section class="view active" id="view-plan" aria-label="?쇱젙">
+  <!-- ============ 일정 ============ -->
+  <section class="view active" id="view-plan" aria-label="일정">
     <header class="hero" id="hero">
       <div class="hero-bg" id="heroBg"></div>
       <div class="hero-inner">
-        <p class="hero-kicker"><span class="star">??/span> SAPPORO 쨌 2027 WINTER <span class="jp">??/span></p>
-        <h1 class="hero-title">?욱룷濡?<br>寃⑥슱 ?숉솕</h1>
-        <p class="hero-sub">??媛議???紐낆씠 ?④퍡 嫄룸뒗 4諛?5?쇱쓽 ?덇만</p>
+        <p class="hero-kicker"><span class="star">★</span> SAPPORO · 2027 WINTER <span class="jp">冬</span></p>
+        <h1 class="hero-title">삿포로,<br>겨울 동화</h1>
+        <p class="hero-sub">세 가족 열 명이 함께 걷는 4박 5일의 눈길</p>
         <div class="hero-dates">
-          <span>1.8 <small>湲?/small></span><i></i><span>1.12 <small>??/small></span>
+          <span>1.8 <small>금</small></span><i></i><span>1.12 <small>화</small></span>
         </div>
         <div class="countdown" id="countdown"></div>
         <div class="crew">
-          <span class="crew-chip">?뫅?랅윉??대Ⅸ 6</span>
-          <span class="crew-chip">?? 以? ??3</span>
-          <span class="crew-chip">?렜 珥? ?꾨뱾 1</span>
+          <span class="crew-chip">👨‍👩 어른 6</span>
+          <span class="crew-chip">🎀 중2 딸 3</span>
+          <span class="crew-chip">🎮 초4 아들 1</span>
         </div>
         <button class="share-btn" id="shareBtn" type="button">
           <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M18 16a3 3 0 0 0-2.4 1.2l-6.7-3.4a3 3 0 0 0 0-1.6l6.7-3.4A3 3 0 1 0 15 7l-6.7 3.4a3 3 0 1 0 0 3.2L15 17a3 3 0 1 0 3-1Z"/></svg>
-          媛議깆뿉寃?怨듭쑀
+          가족에게 공유
         </button>
       </div>
-      <div class="hero-scroll" aria-hidden="true">??/div>
+      <div class="hero-scroll" aria-hidden="true">▾</div>
     </header>
 
     <div class="overview" id="overview"></div>
@@ -56,190 +56,196 @@
     <div id="dayPanel"></div>
   </section>
 
-  <!-- ============ 吏??============ -->
-  <section class="view" id="view-map" aria-label="吏??>
+  <!-- ============ 지도 ============ -->
+  <section class="view" id="view-map" aria-label="지도">
     <header class="page-head">
-      <p class="page-kicker">MAP 쨌 ?겼쎋</p>
-      <h2>?곕━ ?숈꽑 ?쒕늿??/h2>
-      <p class="page-desc">????꾨Ⅴ硫??μ냼 ?뺣낫媛 ?대젮?? ?ㅽ?猷㉱룹“?붿??는룰났??? ?꾨옒 踰꾪듉?쇰줈 ?대룞.</p>
+      <p class="page-kicker">MAP · 地図</p>
+      <h2>우리 동선 한눈에</h2>
+      <p class="page-desc">핀을 누르면 장소 정보가 열려요. 오타루·조잔케이·공항은 아래 버튼으로 이동.</p>
     </header>
     <div class="map-filters" id="mapFilters"></div>
     <div class="map-box"><div id="map"></div></div>
-    <div class="jump-row" id="jumpRow"><button data-fly="city">🇪🇸 스페인 전역</button><button data-fly="all">📍 핀 전체보기</button></div>
+    <div class="jump-row" id="jumpRow">
+      <button data-fly="city">🏙️ 삿포로 시내</button>
+      <button data-fly="otaru">🏮 오타루</button>
+      
+      
+      <button data-fly="all">🗾 전체</button>
+    </div>
     <div class="stay-note">
-      <b>?룧 ?숈냼: Snow Light Hotel Sapporo (?먯뼱鍮꾩븻鍮? 쨌 ???↑?11訝곭쎅1291-13</b> 援ш?留?醫뚰몴 湲곗? ?꾩튂?덉슂. ?욱룷濡??꾨┛?ㅽ샇??怨듯빆踰꾩뒪 ?섏감 吏???먯꽌 ?꾨낫 ??5遺?嫄곕━?덉슂.
+      <b>🏠 숙소: Snow Light Hotel Sapporo (에어비앤비) · 南4条西11丁目1291-13</b> 구글맵 좌표 기준 위치예요. 삿포로 프린스호텔(공항버스 하차 지점)에서 도보 약 5분 거리예요.
     </div>
   </section>
 
-  <!-- ============ 留쏆쭛 ============ -->
-  <section class="view" id="view-food" aria-label="留쏆쭛">
+  <!-- ============ 맛집 ============ -->
+  <section class="view" id="view-food" aria-label="맛집">
     <header class="page-head">
-      <p class="page-kicker">EAT 쨌 繇?/p>
-      <h2>?곕━ 媛議?留욎땄 硫붾돱??/h2>
-      <p class="page-desc">?앸떦留덈떎 <b class="tag-a">?대Ⅸ 6</b>怨?<b class="tag-t">?꾩씠 4 (以? ??3 쨌 珥? ?꾨뱾 1)</b>???꾪븳 異붿쿇 硫붾돱瑜?怨⑤씪??댁슂.</p>
+      <p class="page-kicker">EAT · 食</p>
+      <h2>우리 가족 맞춤 메뉴판</h2>
+      <p class="page-desc">식당마다 <b class="tag-a">어른 6</b>과 <b class="tag-t">아이 4 (중2 딸 3 · 초4 아들 1)</b>을 위한 추천 메뉴를 골라뒀어요.</p>
     </header>
     <div class="chips" id="foodFilters"></div>
     <div class="food-list" id="foodList"></div>
   </section>
 
-  <!-- ============ ?쇳븨 ============ -->
-  <section class="view" id="view-shop" aria-label="?쇳븨">
+  <!-- ============ 쇼핑 ============ -->
+  <section class="view" id="view-shop" aria-label="쇼핑">
     <header class="page-head">
-      <p class="page-kicker">SHOP 쨌 縕?/p>
-      <h2>?덊궎?명뀒 ?쇳븨 誘몄뀡</h2>
-      <p class="page-desc">1李??먯깋??1?쇱감 諛? ??2李?蹂멸쾶??3?쇱감 諛?. 泥댄겕??嫄????곗뿉 ??λ뤌??</p>
+      <p class="page-kicker">SHOP · 買</p>
+      <h2>기념품 쇼핑 미션</h2>
+      <p class="page-desc">1차 탐색전(1일차 밤) → 2차 본게임(3일차 밤). 체크한 건 이 폰에 저장돼요.</p>
     </header>
     <div class="donki-progress" id="donkiProgress"></div>
     <div id="donkiList"></div>
 
     <div class="card soft">
-      <h3>?㎨ 硫댁꽭 轅??/h3>
+      <h3>🧾 면세 꿀팁</h3>
       <ul class="dots">
-        <li>??媛寃뚯뿉???섎（ <b>5,000???몄쟾) ?댁긽</b> 援щℓ ??硫댁꽭 ?????<b>?ш텒 ?ㅻЪ</b> ?꾩닔.</li>
-        <li>?쇰낯 硫댁꽭?쒕룄媛 <b>2026??11?붾????섑솚湲됲삎??/b>?쇰줈 諛붾뚯뼱?? 援щℓ ???멸툑 ?ы븿 寃곗젣 ??異쒓뎅 ??怨듯빆 ?멸? ?뺤씤 ???섍툒. 異쒕컻 ??理쒖떊 ?덉감瑜?瑗??뺤씤!</li>
-        <li>?섍툒 ???臾쇨굔? <b>異쒓뎅 ?ъ궗 ?꾧퉴吏 媛쒕큺쨌?ъ슜 湲덉?</b>?????덉쑝???곕줈 紐⑥븘?먭린.</li>
-        <li>媛議깅퀎濡?怨꾩궛?섎㈃ ?뺤궛???명빐?? ??span class="jp">?γ끹겓?뺛걚?얇걲</span>(踰좎툩踰좎툩???섎씪?대쭏????/li>
+        <li>한 가게에서 하루 <b>5,000엔(세전) 이상</b> 구매 시 면세 대상 — <b>여권 실물</b> 필수.</li>
+        <li>일본 면세제도가 <b>2026년 11월부터 ‘환급형’</b>으로 바뀌어요: 구매 시 세금 포함 결제 → 출국 때 공항 세관 확인 후 환급. 출발 전 최신 절차를 꼭 확인!</li>
+        <li>환급 대상 물건은 <b>출국 심사 전까지 개봉·사용 금지</b>일 수 있으니 따로 모아두기.</li>
+        <li>가족별로 계산하면 정산이 편해요: “<span class="jp">別々に払います</span>(베츠베츠니 하라이마스)”</li>
       </ul>
     </div>
 
     <div class="card soft">
-      <h3>?렜 ?꾨뱾 ?쇳븨 吏??/h3>
+      <h3>🎮 아들 쇼핑 지도</h3>
       <ul class="dots">
-        <li><b>?ъ폆紐ъ꽱???욱룷濡?/b> (?ㅼ씠留덈（ 諛깊솕?? ???뗭뭅?대룄 ?쒖젙 援우쫰</li>
-        <li><b>?붾룄諛붿떆 移대찓??/b> ??寃뚯엫쨌嫄댄봽?셋룹뭅?쑣룸젅怨?/li>
-        <li><b>?ㅻ늻?ㅼ퐫吏</b> ??媛梨좎닄, ?명삎戮묎린 ?ㅻ씫??/li>
-        <li><b>?좎튂?좎꽭 怨듯빆</b> ???ъ폆紐??ㅽ넗??& ?꾨씪?먮そ ??(留덉?留?李ъ뒪)</li>
+        <li><b>포켓몬센터 삿포로</b> (다이마루 백화점) — 홋카이도 한정 굿즈</li>
+        <li><b>요도바시 카메라</b> — 게임·건프라·카드·레고</li>
+        <li><b>다누키코지</b> — 가챠숍, 인형뽑기 오락실</li>
+        <li><b>신치토세 공항</b> — 포켓몬 스토어 & 도라에몽 숍 (마지막 찬스)</li>
       </ul>
     </div>
 
     <div class="card soft">
-      <h3>?럞 ?뗭뭅?대룄 湲곕뀗??踰좎뒪??/h3>
+      <h3>🎁 홋카이도 기념품 베스트</h3>
       <div class="souv">
-        <span>?뜪 濡쒖씠???섎쭏珥덉퐳由?/span><span>?뜧 ?쒕줈??肄붿씠鍮꾪넗</span><span>?쭏 濡?뭅?뚯씠 踰꾪꽣?뚮뱶</span>
-        <span>?쪛 ?먭??ъ퓼猷?/span><span>?뜲 瑜댄????붾툝 ?꾨줈留덉?</span><span>?뙺 ?μ닔??珥덉퐳由?/span>
-        <span>?뜄 ?좊컮由?硫쒕줎 ?ㅻ━</span><span>?렧 ?ㅽ?猷??ㅻⅤ怨?/span><span>?쪉 ?덉뭅 ?꾩뒪??(?대Ⅸ)</span>
+        <span>🍫 로이스 나마초콜릿</span><span>🍪 시로이 코이비토</span><span>🧈 롯카테이 버터샌드</span>
+        <span>🥔 자가포쿠루</span><span>🍰 르타오 더블 프로마쥬</span><span>🌽 옥수수 초콜릿</span>
+        <span>🍈 유바리 멜론 젤리</span><span>🎶 오타루 오르골</span><span>🥃 니카 위스키 (어른)</span>
       </div>
     </div>
   </section>
 
-  <!-- ============ 以鍮?============ -->
-  <section class="view" id="view-info" aria-label="?ы뻾 以鍮?>
+  <!-- ============ 준비 ============ -->
+  <section class="view" id="view-info" aria-label="여행 준비">
     <header class="page-head">
-      <p class="page-kicker">READY 쨌 繹뽩굺</p>
-      <h2>異쒕컻 ??泥댄겕</h2>
-      <p class="page-desc">1???욱룷濡쒕뒗 ?섏쭊吏?寃⑥슱?숈씠?먯슂. ?곕쑜?섍쾶, 誘몃걚?쎌? ?딄쾶!</p>
+      <p class="page-kicker">READY · 準備</p>
+      <h2>출발 전 체크</h2>
+      <p class="page-desc">1월 삿포로는 ‘진짜 겨울’이에요. 따뜻하게, 미끄럽지 않게!</p>
     </header>
 
     <div class="weather">
       <div class="w-main">
-        <div class="w-temp">-1째<small>/ -7째</small></div>
-        <div class="w-label">1???됯퇏 理쒓퀬 / 理쒖?</div>
+        <div class="w-temp">-1°<small>/ -7°</small></div>
+        <div class="w-label">1월 평균 최고 / 최저</div>
       </div>
       <div class="w-grid">
-        <div><b>07:05</b><span>????/span></div>
-        <div><b>16:25</b><span>??吏?/span></div>
-        <div><b>嫄곗쓽 留ㅼ씪</b><span>??/span></div>
-        <div><b>+0h</b><span>?쒖감 ?놁쓬</span></div>
+        <div><b>07:05</b><span>해 뜸</span></div>
+        <div><b>16:25</b><span>해 짐</span></div>
+        <div><b>거의 매일</b><span>눈</span></div>
+        <div><b>+0h</b><span>시차 없음</span></div>
       </div>
     </div>
 
     <details class="acc" open>
-      <summary>?㎡ 以鍮꾨Ъ 泥댄겕由ъ뒪??<span class="acc-count" id="packCount"></span></summary>
+      <summary>🧳 준비물 체크리스트 <span class="acc-count" id="packCount"></span></summary>
       <div id="packList"></div>
     </details>
 
     <details class="acc">
-      <summary>?맕 ?덇만 嫄룸뒗 踰?(??톬 嫄몄쓬)</summary>
+      <summary>🐧 눈길 걷는 법 (펭귄 걸음)</summary>
       <ul class="dots">
-        <li>蹂댄룺? ?묎쾶, 諛쒕컮???꾩껜濡??섍씁???붾뵒湲? 臾닿쾶以묒떖? ?쎄컙 ?욎쑝濡?</li>
-        <li>二쇰㉧?덉뿉 ???ｊ퀬 嫄룹? ?딄린 ???섏뼱吏????먯쑝濡?吏싳뼱???댁슂.</li>
-        <li>?〓떒蹂대룄 ???? 嫄대Ъ ?낃뎄 留ㅽ듃 二쇰?, 吏?섏쿋 異쒓뎄 怨꾨떒???쒖씪 誘몃걚?ъ썙??</li>
-        <li>?좊컻???꾩씠?졖룸??꾨읆諛⑹? 諛대뱶???몄쓽?먃룸룉?ㅽ샇?뚯뿉?쒕룄 ?붿븘??</li>
-        <li>?욱룷濡쒖뿭~?ㅻ룄由??ㅼ뒪?ㅻ끂??<b>吏?섎룄(移섏뭅?맞룻뤃???</b>濡??곌껐 ??異붿슫 ?좎? 吏?섎줈!</li>
+        <li>보폭은 작게, 발바닥 전체로 ‘꾹’ 디디기. 무게중심은 약간 앞으로.</li>
+        <li>주머니에 손 넣고 걷지 않기 — 넘어질 때 손으로 짚어야 해요.</li>
+        <li>횡단보도 흰 선, 건물 입구 매트 주변, 지하철 출구 계단이 제일 미끄러워요.</li>
+        <li>신발용 아이젠·미끄럼방지 밴드는 편의점·기념품에서도 팔아요.</li>
+        <li>삿포로역~오도리~스스키노는 <b>지하도(치카호·폴타운)</b>로 연결 — 추운 날은 지하로!</li>
       </ul>
     </details>
 
     <details class="acc">
-      <summary>?쉮 援먰넻 쨌 ?앹떆 ?붾졊</summary>
+      <summary>🚆 교통 · 택시 요령</summary>
       <ul class="dots">
-        <li>?쇰낯? <b>以묓븰?앸????대Ⅸ ?붽툑</b> ??以? ?몃뱾? ?대Ⅸ ?붽툑, <b>珥? ?꾨뱾? ?대┛???붽툑(蹂댄넻 諛섍컪)</b>?댁뿉??(JR쨌吏?섏쿋쨌濡쒗봽?⑥씠 ??.</li>
-        <li>援먰넻移대뱶: ?꾩씠?곗? 吏媛??깆뿉 <b>Suica</b> 異붽? 媛?? ?ㅻЪ 移대뱶??JR ??뿉??<b>Kitaca</b> 援щℓ.</li>
-        <li>10紐낆? ?앹떆 <b>3?</b>(4쨌3쨌3). ?깆? <b>GO</b> ?먮뒗 <b>DiDi</b> ???몄텧 ??媛議??⑦넚?????몄감/2?몄감/3?몄감???뺥븯湲?</li>
-        <li>?앹떆 臾몄? ?먮룞! 吏곸젒 ?닿퀬 ?レ? 留덉꽭??</li>
-        <li>?숈냼 ???ㅻ늻?ㅼ퐫吏쨌?덊궎?명뀒 ?꾨낫 ??16遺?/ 吏?섏쿋 ?꾩옄?댁꽑 ?덉떆11珥덈찓???꾨낫 ??7遺?</li>
-        <li><b>?꾩갑??1/8 湲?</b>: 怨듯빆 ???숈냼??JR 苡뚯냽 ?먯뼱?ы듃(??37遺? + ?앹떆 3?瑜?湲곕낯?쇰줈 ?댁슂. 怨듯빆踰꾩뒪???욱룷濡??꾨┛?ㅽ샇?붿뿉???대━硫??꾨낫 ??5遺꾩씠吏留? ?덉빟??????10紐낆씠 ?????紐??????덇퀬 湲덉슂???닿렐 ?뺤껜쨌?덉씠硫?90~120遺?嫄몃┫ ???덉뼱??</li>
+        <li>일본은 <b>중학생부터 어른 요금</b> — 중2 딸들은 어른 요금, <b>초4 아들은 어린이 요금(보통 반값)</b>이에요 (JR·지하철·로프웨이 등).</li>
+        <li>교통카드: 아이폰은 지갑 앱에 <b>Suica</b> 추가 가능. 실물 카드는 JR 역에서 <b>Kitaca</b> 구매.</li>
+        <li>10명은 택시 <b>3대</b>(4·3·3). 앱은 <b>GO</b> 또는 <b>DiDi</b> — 호출 전 가족 단톡에 ‘1호차/2호차/3호차’ 정하기.</li>
+        <li>택시 문은 자동! 직접 열고 닫지 마세요.</li>
+        <li>숙소 → 다누키코지·기념품 도보 약 16분 / 지하철 도자이선 니시11초메역 도보 약 7분.</li>
+        <li><b>도착일(1/8 금)</b>: 공항 → 숙소는 JR 쾌속 에어포트(약 37분) + 택시 3대를 기본으로 해요. 공항버스는 삿포로 프린스호텔에서 내리면 도보 약 5분이지만, 예약이 안 돼 10명이 한 대에 못 탈 수 있고 금요일 퇴근 정체·눈이면 90~120분 걸릴 수 있어요.</li>
       </ul>
     </details>
 
     <details class="acc">
-      <summary>?⑨툘 ?⑥쿇 ?먰떚耳?(?꾩씠??泥??⑥쿇?대씪硫?</summary>
+      <summary>♨️ 온천 에티켓 (아이들 첫 온천이라면)</summary>
       <ul class="dots">
-        <li>?뺤뿉 ?ㅼ뼱媛湲???<b>紐몄쓣 癒쇱? ?산린</b> (?됱븘???ㅼ썙).</li>
-        <li>?묒? ?섍굔? <b>???덉뿉 ?ｌ? ?딄린</b> ??癒몃━ ?꾩뿉 ?щ젮?먭린.</li>
-        <li>湲?癒몃━??臾띠뼱??臾쇱뿉 ?우? ?딄쾶.</li>
-        <li>?덉쓽?ㅒ룻깢 ?덉뿉?쒕뒗 <b>?ъ쭊 珥ъ쁺 ?덈? 湲덉?</b>, ?대??곗? ?щЪ?⑥뿉.</li>
-        <li>?섏쁺蹂?NO, 議곗슜????? ?ㅻ옒 ?덉쑝硫??댁??ъ슦??臾??먯＜ 留덉떆湲?</li>
-        <li>?몄쿇?뺤뿉??癒몃━????留욎쑝硫??쒖븘~???섎뒗 寃??뺤꽍 ?꾬툘</li>
+        <li>탕에 들어가기 전 <b>몸을 먼저 씻기</b> (앉아서 샤워).</li>
+        <li>작은 수건은 <b>탕 안에 넣지 않기</b> — 머리 위에 올려두기.</li>
+        <li>긴 머리는 묶어서 물에 닿지 않게.</li>
+        <li>탈의실·탕 안에서는 <b>사진 촬영 절대 금지</b>, 휴대폰은 사물함에.</li>
+        <li>수영복 NO, 조용히 대화. 오래 있으면 어지러우니 물 자주 마시기.</li>
+        <li>노천탕에서 머리에 눈 맞으며 “아~” 하는 게 정석 🇪🇸</li>
       </ul>
     </details>
 
     <details class="acc">
-      <summary>?뿣截??쇰낯???쒕쭏??<small>(??븯硫?諛쒖쓬 ?ъ깮)</small></summary>
+      <summary>🗣️ 일본어 한마디 <small>(탭하면 발음 재생)</small></summary>
       <div class="phrases" id="phrases"></div>
     </details>
 
     <div class="card soft">
-      <h3>?뮪 ?섏쑉 怨꾩궛湲?/h3>
+      <h3>💴 환율 계산기</h3>
       <div class="fx">
-        <label><span>??(짜)</span><input id="fxJpy" type="number" inputmode="decimal" value="1000"></label>
+        <label><span>엔 (¥)</span><input id="fxJpy" type="number" inputmode="decimal" value="1000"></label>
         <span class="fx-eq">=</span>
-        <label><span>??(??</span><input id="fxKrw" type="number" inputmode="decimal"></label>
+        <label><span>원 (₩)</span><input id="fxKrw" type="number" inputmode="decimal"></label>
       </div>
-      <label class="fx-rate">100??= <input id="fxRate" type="number" inputmode="decimal" step="1" value="930"> ??<small>(異쒕컻 ???ㅼ젣 ?섏쑉濡??섏젙)</small></label>
+      <label class="fx-rate">100엔 = <input id="fxRate" type="number" inputmode="decimal" step="1" value="930"> 원 <small>(출발 전 실제 환율로 수정)</small></label>
       <div class="fx-quick" id="fxQuick"></div>
     </div>
 
     <div class="card emergency">
-      <h3>?슚 湲닿툒 ?곕씫泥?/h3>
-      <a href="tel:110">?슀 寃쎌같 <b>110</b></a>
-      <a href="tel:119">?쉻 援ш툒쨌?붿옱 <b>119</b></a>
-      <a href="tel:+81112180288">?눖?눟 二쇱궭?щ줈 ??쒕?援?珥앹쁺?ш? <b>+81-11-218-0288</b></a>
-      <a href="tel:+82232100404">?뱸 ?멸탳遺 ?곸궗肄쒖꽱??(24?쒓컙) <b>+82-2-3210-0404</b></a>
-      <p class="small">踰덊샇??異쒕컻 ????踰????뺤씤?섏꽭?? ?꾩씠???곗뿉?????</p>
+      <h3>🚨 긴급 연락처</h3>
+      <a href="tel:110">🚓 경찰 <b>110</b></a>
+      <a href="tel:119">🚑 구급·화재 <b>119</b></a>
+      <a href="tel:+81112180288">🇰🇷 주삿포로 대한민국 총영사관 <b>+81-11-218-0288</b></a>
+      <a href="tel:+82232100404">📞 외교부 영사콜센터 (24시간) <b>+82-2-3210-0404</b></a>
+      <p class="small">번호는 출발 전 한 번 더 확인하세요. 아이들 폰에도 저장!</p>
     </div>
 
     <details class="acc">
-      <summary>?벜 ?ъ쭊 異쒖쿂</summary>
-      <p class="small">紐⑤뱺 ?ъ쭊? Wikimedia Commons???먯쑀 ?쇱씠?좎뒪 ?대?吏?낅땲?? ?쇰? ?앸떦? ????붾━ ?ъ쭊(李멸퀬 ?대?吏)???ъ슜?덉뼱?? ??묒옄쨌?쇱씠?좎뒪??媛?留곹겕?먯꽌 ?뺤씤?????덉뒿?덈떎.</p>
+      <summary>📷 사진 출처</summary>
+      <p class="small">모든 사진은 Wikimedia Commons의 자유 라이선스 이미지입니다. 일부 식당은 대표 요리 사진(참고 이미지)을 사용했어요. 저작자·라이선스는 각 링크에서 확인할 수 있습니다.</p>
       <ul class="credits" id="credits"></ul>
     </details>
 
     <div class="card soft">
-      <h3>?븩 異쒕컻 ??瑗??뺤씤</h3>
-      <p>?곸뾽?쒓컙怨??대Т?쇱? 異쒕컻 吏곸쟾??援ш?留듭쑝濡?瑗??ㅼ떆 ?뺤씤?섏꽭?? ?뱁엳 1/10(??, 1/11(?붋룰났?댁씪)? ?밸퀎 ?곸뾽?쇱씪 ???덉뼱?? 10紐낆? 4쨌3쨌3紐??먮뒗 5쨌5紐낆쑝濡??섎닠 ?낆옣?섎뒗 寃껋쓣 湲곕낯?쇰줈 ?섏꽭??</p>
+      <h3>🕒 출발 전 꼭 확인</h3>
+      <p>영업시간과 휴무일은 출발 직전에 구글맵으로 꼭 다시 확인하세요. 특히 1/10(일), 1/11(월·공휴일)은 특별 영업일일 수 있어요. 10명은 4·3·3명 또는 5·5명으로 나눠 입장하는 것을 기본으로 하세요.</p>
     </div>
 
     <footer class="foot">
-      <p>?꾬툘 ??媛議깆쓽 ?욱룷濡?寃⑥슱 ?숉솕 쨌 2027</p>
-      <p class="small">?곸뾽?쒓컙쨌?붽툑쨌?뷀? ?쒓컙? 蹂?숇맆 ???덉쑝??諛⑸Ц ???뺤씤?섏꽭??</p>
+      <p>🇪🇸 세 가족의 여유로운 스페인 가족 여행 · 2027</p>
+      <p class="small">영업시간·요금·셔틀 시간은 변동될 수 있으니 방문 전 확인하세요.</p>
     </footer>
   </section>
 </main>
 
-<!-- ?섎떒 ??컮 -->
-<nav class="tabbar" id="tabbar" aria-label="硫붾돱">
-  <button class="tab active" data-view="plan"><svg viewBox="0 0 24 24"><path d="M7 3v2M17 3v2M4 8h16M5 5h14a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z"/><path d="M8 12h3M8 16h6"/></svg><span>?쇱젙</span></button>
-  <button class="tab" data-view="map"><svg viewBox="0 0 24 24"><path d="M12 21s-6-5.3-6-11a6 6 0 1 1 12 0c0 5.7-6 11-6 11Z"/><circle cx="12" cy="10" r="2.3"/></svg><span>吏??/span></button>
-  <button class="tab" data-view="food"><svg viewBox="0 0 24 24"><path d="M5 11h14a7 7 0 0 1-14 0ZM4 21h16M9 3c0 2 1.5 2 1.5 4M13 3c0 2 1.5 2 1.5 4"/></svg><span>留쏆쭛</span></button>
-  <button class="tab" data-view="shop"><svg viewBox="0 0 24 24"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span>?쇳븨</span></button>
-  <button class="tab" data-view="info"><svg viewBox="0 0 24 24"><path d="M12 3v18M4.5 7.5l15 9M19.5 7.5l-15 9"/><path d="M10 4.5 12 6l2-1.5M10 19.5 12 18l2 1.5"/></svg><span>以鍮?/span></button>
+<!-- 하단 탭바 -->
+<nav class="tabbar" id="tabbar" aria-label="메뉴">
+  <button class="tab active" data-view="plan"><svg viewBox="0 0 24 24"><path d="M7 3v2M17 3v2M4 8h16M5 5h14a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z"/><path d="M8 12h3M8 16h6"/></svg><span>일정</span></button>
+  <button class="tab" data-view="map"><svg viewBox="0 0 24 24"><path d="M12 21s-6-5.3-6-11a6 6 0 1 1 12 0c0 5.7-6 11-6 11Z"/><circle cx="12" cy="10" r="2.3"/></svg><span>지도</span></button>
+  <button class="tab" data-view="food"><svg viewBox="0 0 24 24"><path d="M5 11h14a7 7 0 0 1-14 0ZM4 21h16M9 3c0 2 1.5 2 1.5 4M13 3c0 2 1.5 2 1.5 4"/></svg><span>맛집</span></button>
+  <button class="tab" data-view="shop"><svg viewBox="0 0 24 24"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span>쇼핑</span></button>
+  <button class="tab" data-view="info"><svg viewBox="0 0 24 24"><path d="M12 3v18M4.5 7.5l15 9M19.5 7.5l-15 9"/><path d="M10 4.5 12 6l2-1.5M10 19.5 12 18l2 1.5"/></svg><span>준비</span></button>
 </nav>
 
-<!-- ?μ냼 ?곸꽭 諛뷀??쒗듃 -->
+<!-- 장소 상세 바텀시트 -->
 <div class="sheet-backdrop" id="sheetBackdrop" hidden></div>
 <article class="sheet" id="sheet" aria-modal="true" role="dialog" aria-hidden="true">
   <div class="sheet-grip" id="sheetGrip"><i></i></div>
-  <button class="sheet-close" id="sheetClose" aria-label="?リ린">??/button>
+  <button class="sheet-close" id="sheetClose" aria-label="닫기">✕</button>
   <div class="sheet-body" id="sheetBody"></div>
 </article>
 
@@ -250,4 +256,3 @@
 <script src="app.js?v=4" defer></script>
 </body>
 </html>
-
