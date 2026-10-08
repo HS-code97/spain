@@ -396,9 +396,7 @@
 
   /* ---------- 지도 ---------- */
   let map, markers = {}, mapFilter = "all";
-  const VIEWS = {
-    city: [[36.0, -9.0], [43.0, 3.0]],
-  };
+  const VIEWS = { city: [[36.0, -9.0], [43.0, 3.0]] };
   function initMap() {
     if (map || !window.L) return;
     map = L.map("map", { zoomControl: false, attributionControl: true }).fitBounds(VIEWS.city);
