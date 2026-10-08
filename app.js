@@ -1,17 +1,23 @@
-/* ============ 삿포로 겨울 동화 — 앱 ============ */
+/* ============ 태양의 나라, 스페인 — 앱 ============ */
 (() => {
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const store = {
-    get(k, d) { try { const v = localStorage.getItem("sp27:" + k); return v === null ? d : JSON.parse(v); } catch { return d; } },
-    set(k, v) { try { localStorage.setItem("sp27:" + k, JSON.stringify(v)); } catch {} },
+    get(k, d) { try { const v = localStorage.getItem("spain27:" + k); return v === null ? d : JSON.parse(v); } catch { return d; } },
+    set(k, v) { try { localStorage.setItem("spain27:" + k, JSON.stringify(v)); } catch {} },
   };
-  const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const gmap = q => "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(q);
-  const TYPE_LABEL = { spot: "SIGHT · 관광", food: "EAT · 식사", shop: "SHOP · 쇼핑", stay: "STAY · 숙소" };
+  const TYPE_LABEL = {
+    spot: "SIGHT · 관광",
+    food: "EAT · 식사",
+    shop: "SHOP · 쇼핑",
+    stay: "STAY · 숙소",
+    move: "MOVE · 교통",
+  };
 
   // 일정 카드의 선택지: options가 있으면 1·2번 식당, 없으면 카드 자체가 하나의 선택지
-  const optsOf = it => it.options || [{ title: it.title, text: it.text, place: it.place }];
+  const optsOf = it => it.options || [{ title: it.title, text: it.text || it.desc || "", place: it.place }];
 
   // 장소가 등장하는 날짜 매핑
   const placeDays = {};
@@ -20,27 +26,29 @@
     (placeDays[o.place] ||= new Set()).add(i);
   })));
 
-  /* ---------- 눈 내리는 캔버스 ---------- */
+  /* ---------- 따뜻한 빛 입자 캔버스 ---------- */
   function snow() {
-    const cv = $("#snow"), ctx = cv.getContext("2d");
+    const cv = $("#snow");
+    if (!cv) return;
+    const ctx = cv.getContext("2d");
     const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
     let W, H, flakes = [], dpr = Math.min(devicePixelRatio || 1, 2), running = true;
     function resize() {
       W = innerWidth; H = innerHeight; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const n = reduce ? 0 : Math.round(Math.min(110, W * H / 9000));
+      const n = reduce ? 0 : Math.round(Math.min(70, W * H / 14000));
       flakes = Array.from({ length: n }, () => mk(true));
     }
     function mk(any) {
-      const r = Math.random() * 2.4 + .6;
-      return { x: Math.random() * W, y: any ? Math.random() * H : -10, r, s: r * .35 + .25, w: Math.random() * Math.PI * 2, o: Math.random() * .5 + .35 };
+      const r = Math.random() * 2.2 + .6;
+      return { x: Math.random() * W, y: any ? Math.random() * H : -10, r, s: r * .25 + .15, w: Math.random() * Math.PI * 2, o: Math.random() * .4 + .2 };
     }
     function tick() {
       if (!running) return;
       ctx.clearRect(0, 0, W, H);
       for (const f of flakes) {
-        f.w += .01; f.y += f.s; f.x += Math.sin(f.w) * .35;
+        f.w += .01; f.y += f.s; f.x += Math.sin(f.w) * .3;
         if (f.y > H + 5) Object.assign(f, mk(false));
-        ctx.beginPath(); ctx.arc(f.x, f.y, f.r, 0, 7); ctx.fillStyle = `rgba(255,255,255,${f.o})`; ctx.fill();
+        ctx.beginPath(); ctx.arc(f.x, f.y, f.r, 0, 7); ctx.fillStyle = `rgba(255,235,180,${f.o})`; ctx.fill();
       }
       requestAnimationFrame(tick);
     }
@@ -56,10 +64,10 @@
       const now = new Date();
       if (now >= start && now <= end) {
         const dayIdx = todayIndex();
-        el.innerHTML = `<div class="cd-msg">❄️ 지금 삿포로 여행 중! 오늘은 ${DAYS[dayIdx]?.label || ""} · ${esc(DAYS[dayIdx]?.title || "")}</div>`;
+        el.innerHTML = `<div class="cd-msg">🇪🇸 지금 스페인 여행 중! 오늘은 ${DAYS[dayIdx]?.label || ""} · ${esc(DAYS[dayIdx]?.title || "")}</div>`;
         return;
       }
-      if (now > end) { el.innerHTML = `<div class="cd-msg">📸 추억 저장 완료! 다음 겨울에 또 만나요.</div>`; return; }
+      if (now > end) { el.innerHTML = `<div class="cd-msg">📸 스페인 추억 저장 완료! ¡Hasta luego, España!</div>`; return; }
       let s = Math.floor((start - now) / 1000);
       const d = Math.floor(s / 86400); s %= 86400;
       const h = Math.floor(s / 3600); s %= 3600;
@@ -70,12 +78,13 @@
     draw(); setInterval(draw, 30000);
   }
   function todayIndex() {
-    const t = new Date().toLocaleDateString("sv-SE", { timeZone: "Asia/Tokyo" });
+    const t = new Date().toLocaleDateString("sv-SE", { timeZone: "Europe/Madrid" });
     return DAYS.findIndex(d => d.date === t);
   }
 
   /* ---------- 이미지 ---------- */
   function bg(el, p) {
+    if (!p) return;
     if (!p.img) { el.textContent = p.emoji; el.style.background = "linear-gradient(135deg,#cfe0f3,#eaf2fb)"; return; }
     const im = new Image();
     im.onload = () => { el.style.backgroundImage = `url("${p.img}")`; el.textContent = ""; };
@@ -83,7 +92,6 @@
     el.textContent = p.emoji;
     im.src = p.img;
   }
-  // 화면에 들어올 때 로드
   const io = "IntersectionObserver" in window ? new IntersectionObserver(es => es.forEach(e => {
     if (!e.isIntersecting) return; io.unobserve(e.target); bg(e.target, PLACES[e.target.dataset.img]);
   }), { rootMargin: "300px" }) : null;
@@ -92,16 +100,16 @@
   /* ---------- 개요 ---------- */
   function overview() {
     $("#overview").innerHTML = `
-      <h2 class="ov-title">한눈에 보는 5일</h2>
+      <h2 class="ov-title">한눈에 보는 10일 여정</h2>
       <div class="ov-list">
         ${DAYS.map((d, i) => `
           <button class="ov-item" data-go="${i}">
-            <div class="ov-date"><b>${+d.date.slice(8)}</b><small>1월 · ${d.dow}</small></div>
+            <div class="ov-date"><b>${+d.date.slice(8)}</b><small>9월 · ${d.dow}</small></div>
             <div class="ov-main"><b>${esc(d.title)}</b><span>${esc(d.subtitle)}</span></div>
             <i class="ov-dot" style="background:${d.hue};color:${d.hue}"></i>
           </button>`).join("")}
       </div>
-      <p class="ov-note">🏠 1~3박: Snow Light Hotel Sapporo (에어비앤비 · 미나미4조 니시11초메)<br>♨️ 4박: 조잔케이 하나모미지<br>🐧 돈키호테 2번 · 🎮 아들 전용 데이 · 🌃 야경 · ♨️ 온천까지!</p>`;
+      <p class="ov-note">👑 <b>1~3박 마드리드</b>: 솔·마요르 광장 베이스캠프 (프라도 · 왕궁 · 레티로 · 톨레도/세고비아 대신 시내 심층 탐방)<br>🏰 <b>4~5박 그라나다</b>: 렌페(AVE) 이동 · 알함브라 궁전 · 알바이신 산 니콜라스 노을 · 무료 타파스 투어<br>⛪ <b>6~7박 바르셀로나</b>: 부엘링 항공 이동 · 가우디 투어(사그라다 파밀리아·구엘·바트요·밀라) · 고딕지구 & 바르셀로네타</p>`;
     $$(".ov-item").forEach(b => b.onclick = () => { selectDay(+b.dataset.go); $("#daybarWrap").scrollIntoView({ behavior: "smooth" }); });
   }
 
@@ -112,11 +120,12 @@
     $("#daybar").innerHTML = DAYS.map((d, i) => `
       <button class="day-chip" role="tab" data-i="${i}">
         <b style="color:${d.hue}">${d.label}${i === ti ? '<span class="today">TODAY</span>' : ""}</b>
-        <span>1/${+d.date.slice(8)}</span><small>${d.dow}</small>
+        <span>9/${+d.date.slice(8)}</span><small>${d.dow}</small>
       </button>`).join("");
     $$(".day-chip").forEach(b => b.onclick = () => selectDay(+b.dataset.i));
   }
   function selectDay(i) {
+    if (i < 0 || i >= DAYS.length) i = 0;
     curDay = i;
     $$(".day-chip").forEach(b => b.classList.toggle("active", +b.dataset.i === i));
     $(".day-chip.active")?.scrollIntoView({ inline: "center", block: "nearest", behavior: "smooth" });
@@ -125,21 +134,20 @@
   }
   function nowItemIndex(d, items) {
     if (todayIndex() !== DAYS.indexOf(d)) return -1;
-    const hm = new Date().toLocaleTimeString("en-GB", { timeZone: "Asia/Tokyo", hour: "2-digit", minute: "2-digit" });
+    const hm = new Date().toLocaleTimeString("en-GB", { timeZone: "Europe/Madrid", hour: "2-digit", minute: "2-digit" });
     let idx = -1; items.forEach((it, k) => { if (it.time <= hm) idx = k; });
     return idx;
   }
-  // 카드별 선택된 식당 번호 (날짜 탭을 오가도 유지, 새로고침하면 1번으로)
   const optSel = {};
   function optBodyHTML(o) {
     const p = o.place && PLACES[o.place];
     return `
       <h4>${esc(o.title)}</h4>
-      <p>${esc(o.text)}</p>
+      <p>${esc(o.text || o.desc || "")}</p>
       ${p ? `
         <button class="tl-place" data-open="${o.place}">
           <div class="tl-thumb" data-img="${o.place}"></div>
-          <div class="tl-place-main"><b>${esc(p.name)}</b><span>${esc(p.area || "")}</span>${p.menu ? `<br><em>${p.menu.adult ? "👨‍👩‍👧 우리 가족 맞춤 메뉴 보기" : "📝 주문 팁 보기"}</em>` : ""}</div>
+          <div class="tl-place-main"><b>${esc(p.name)}</b><span>${esc(p.area || "")}</span>${p.menu ? `<br><em>${p.menu.adult ? "👨‍👩‍👧 6인 가족 맞춤 추천 메뉴 보기" : "📝 이용 & 주문 팁 보기"}</em>` : `<br><em>📸 대표 사진 · 상세 정보 보기</em>`}</div>
           <span class="tl-arrow">›</span>
         </button>` : ""}`;
   }
@@ -163,7 +171,6 @@
       });
       body.setAttribute("aria-labelledby", tabs[n].id);
       if (focus) tabs[n].focus();
-      // 가벼운 페이드 + 높이 보간
       clearTimeout(timer);
       wrap.style.height = wrap.offsetHeight + "px";
       body.classList.add("fade");
@@ -196,39 +203,34 @@
     }
     const nowIdx = nowItemIndex(d, items);
     const missionDone = store.get("mission:" + d.id, []);
+    const stam = Math.min(3, Math.max(1, d.stamina || 2));
+    const missions = d.mission || [];
     $("#dayPanel").innerHTML = `
       <div class="day-head" style="--hue:${d.hue}">
-        <div class="dh-label">${d.label} · 1월 ${+d.date.slice(8)}일 (${d.dow})</div>
+        <div class="dh-label">${d.label} · 9월 ${+d.date.slice(8)}일 (${d.dow})</div>
         <div class="dh-title">${esc(d.title)}</div>
         <div class="dh-sub">${esc(d.subtitle)}</div>
         <div class="dh-meta">
-          <span>🌡️ ${d.temp}</span><span>🌇 일몰 ${d.sunset}</span>
-          <span>🚶 체력 ${"●".repeat(d.stamina)}${"○".repeat(3 - d.stamina)}</span>
-          ${d.holiday ? `<span class="dh-holiday">🎌 ${esc(d.holiday)}</span>` : ""}
+          <span>🌡️ ${esc(d.temp || "26° / 16°")}</span><span>🌇 일몰 ${esc(d.sunset || "20:20")}</span>
+          <span>🚶 체력 ${"●".repeat(stam)}${"○".repeat(3 - stam)}</span>
+          ${d.city ? `<span class="dh-holiday">📍 ${esc(d.city)}</span>` : ""}
         </div>
       </div>
-      ${d.split ? `
-        <div class="team-switch" id="teamSwitch">
-          <button data-team="all">👨‍👩‍👧‍👦 전체</button>
-          <button data-team="girls">🎀 소녀팀</button>
-          <button data-team="boy">🎮 소년팀</button>
-        </div>
-        <p class="team-note">${team === "girls" ? "🎀 소녀팀: 중2 딸 3명 + 어른 5명 → 오타루" : team === "boy" ? "🎮 소년팀: 초4 아들 + 어른 1명 → 점프대·포켓몬·게임" : "오전~오후는 두 팀으로 나뉘고, 17시 이후 삿포로역에서 합류해요."}</p>` : ""}
       <div class="timeline">
         ${items.map((it, k) => {
           const opts = optsOf(it), multi = !!it.options;
           const key = d.id + ":" + it.k;
           const sel = multi ? Math.min(optSel[key] || 0, opts.length - 1) : 0;
-          const badge = it.team === "girls" ? '<span class="tl-badge girls">🎀 소녀팀</span>' : it.team === "boy" ? '<span class="tl-badge boy">🎮 소년팀</span>' : "";
+          const badge = it.badge ? `<span class="tl-badge girls">${esc(it.badge)}</span>` : "";
           return `
           <div class="tl-item">
             <div class="tl-time"><b>${it.time}</b><div class="tl-icon">${it.icon}</div></div>
             <div class="tl-card${k === nowIdx ? " now" : ""}" ${multi ? `data-key="${key}"` : ""}>
               ${multi ? `<div class="opt-row">
-                <div class="opt-tabs" role="tablist" aria-label="식당 선택">
+                <div class="opt-tabs" role="tablist" aria-label="추천 선택지">
                   ${opts.map((o, n) => {
                     const nm = PLACES[o.place]?.name || o.title;
-                    return `<button type="button" class="opt-tab${n === sel ? " active" : ""}" role="tab" id="ot-${key.replace(":", "-")}-${n}" aria-controls="op-${key.replace(":", "-")}" aria-selected="${n === sel}" tabindex="${n === sel ? 0 : -1}" data-n="${n}" title="${esc(nm)}" aria-label="${n + 1}번 ${esc(nm)}">${n + 1}</button>`;
+                    return `<button type="button" class="opt-tab${n === sel ? " active" : ""}" role="tab" id="ot-${key.replace(":", "-")}-${n}" aria-controls="op-${key.replace(":", "-")}" aria-selected="${n === sel}" tabindex="${n === sel ? 0 : -1}" data-n="${n}" title="${esc(nm)}" aria-label="${n + 1}번 ${esc(nm)}">추천 ${n + 1}</button>`;
                   }).join("")}
                 </div>${badge}</div>` : badge}
               <div class="opt-wrap">
@@ -238,11 +240,12 @@
           </div>`;
         }).join("")}
       </div>
+      ${missions.length ? `
       <div class="mission">
-        <h3>✨ 오늘의 가족 미션</h3>
-        ${d.mission.map((m, k) => `
+        <h3>✨ 오늘의 6인 가족 미션</h3>
+        ${missions.map((m, k) => `
           <label class="check"><input type="checkbox" data-m="${k}" ${missionDone.includes(k) ? "checked" : ""}><span>${esc(m)}</span></label>`).join("")}
-      </div>
+      </div>` : ""}
       <div class="day-nav">
         <button id="prevDay" ${curDay === 0 ? "disabled" : ""}>‹ 이전 날</button>
         <button id="nextDay" ${curDay === DAYS.length - 1 ? "disabled" : ""}>다음 날 ›</button>
@@ -253,14 +256,8 @@
     $$(".mission input").forEach(cb => cb.onchange = () => {
       const done = $$(".mission input").filter(x => x.checked).map(x => +x.dataset.m);
       store.set("mission:" + d.id, done);
-      if (cb.checked) toast("미션 완료! ❄️");
+      if (cb.checked) toast("미션 완료! ¡Olé! 🇪🇸");
     });
-    if (d.split) {
-      $$("#teamSwitch button").forEach(b => {
-        b.classList.toggle("active", b.dataset.team === team);
-        b.onclick = () => { team = b.dataset.team; store.set("team", team); renderDay(); };
-      });
-    }
     $("#prevDay").onclick = () => { selectDay(curDay - 1); $("#daybarWrap").scrollIntoView({ behavior: "smooth" }); };
     $("#nextDay").onclick = () => { selectDay(curDay + 1); $("#daybarWrap").scrollIntoView({ behavior: "smooth" }); };
   }
@@ -275,19 +272,19 @@
       <div class="sh-img" id="shImg">${p.imgNote ? `<span class="note">${esc(p.imgNote)}</span>` : ""}</div>
       ${p.photoCredit ? `<p class="photo-credit">${esc(p.photoCredit)}</p>` : ""}
       <div class="sh-content">
-        <div class="sh-type">${TYPE_LABEL[p.type]}</div>
+        <div class="sh-type">${TYPE_LABEL[p.type] || "SIGHT · 장소"}</div>
         <h2>${esc(p.name)}</h2>
-        <div class="sh-jp">${esc(p.jp)}</div>
+        <div class="sh-jp">${esc(p.jp || "")}</div>
         <div class="sh-meta">
           ${p.area ? `<span>📍 ${esc(p.area)}</span>` : ""}
           ${days.length ? `<span>🗓️ ${days.join(", ")}</span>` : ""}
-          ${p.price ? `<span>💴 ${esc(p.price)}</span>` : ""}
+          ${p.price ? `<span>💶 ${esc(p.price)}</span>` : ""}
         </div>
         <p>${esc(p.desc)}</p>
-        ${p.menu ? `<h4>${p.menu.adult ? "🍽️ 우리 가족 맞춤 메뉴" : "🍽️ 주문 팁"}</h4>${menuHTML(p)}` : ""}
+        ${p.menu ? `<h4>${p.menu.adult ? "🍽️ 우리 가족 맞춤 추천 메뉴" : "🍽️ 이용 & 주문 팁"}</h4>${menuHTML(p)}` : ""}
         ${p.tips?.length ? `<h4>💡 알아두면 좋은 팁</h4><ul class="sh-tips">${p.tips.map(t => `<li>${esc(t)}</li>`).join("")}</ul>` : ""}
         <div class="sh-actions">
-          <a class="btn dark" href="${gmap(p.q || p.jp)}" target="_blank" rel="noopener">🗺️ 구글맵 길찾기</a>
+          <a class="btn dark" href="${gmap(p.q || p.jp || p.name)}" target="_blank" rel="noopener">🗺️ 구글맵 길찾기</a>
           <button class="btn light" id="shOnMap">📍 지도에서 보기</button>
         </div>
       </div>`;
@@ -319,7 +316,6 @@
   addEventListener("popstate", () => closeSheet(true));
   backdrop.onclick = () => closeSheet();
   $("#sheetClose").onclick = () => closeSheet();
-  // 아래로 스와이프해서 닫기
   (() => {
     let y0 = null, dy = 0;
     const body = $("#sheetBody");
@@ -329,19 +325,23 @@
   })();
 
   function menuHTML(p) {
-    if (!p.menu.adult) return `<div class="menu-col a"><h5>📝 주문 팁</h5><ul>${p.menu.order.map(m => `<li>${esc(m)}</li>`).join("")}</ul></div>`;
+    if (!p.menu) return "";
+    if (!p.menu.adult) return `<div class="menu-col a"><h5>📝 주문 & 이용 팁</h5><ul>${(p.menu.order || []).map(m => `<li>${esc(m)}</li>`).join("")}</ul></div>`;
     return `<div class="menu-grid">
-      <div class="menu-col a"><h5>👨‍👩 어른 6명</h5><ul>${p.menu.adult.map(m => `<li>${esc(m)}</li>`).join("")}</ul></div>
-      <div class="menu-col t"><h5>🎒 아이 4명 (중2·초4)</h5><ul>${p.menu.teen.map(m => `<li>${esc(m)}</li>`).join("")}</ul></div>
+      <div class="menu-col a"><h5>👨‍👩‍👧 어른 4명 추천</h5><ul>${p.menu.adult.map(m => `<li>${esc(m)}</li>`).join("")}</ul></div>
+      <div class="menu-col t"><h5>🎀 중3 딸 2명 추천</h5><ul>${p.menu.teen.map(m => `<li>${esc(m)}</li>`).join("")}</ul></div>
     </div>`;
   }
 
   /* ---------- 맛집 ---------- */
   const FOOD_FILTERS = [
-    ["all", "전체"], ["meal", "🍽️ 식사"], ["sweet", "🍰 디저트·간식"],
-    ["d0", "DAY 1"], ["d1", "DAY 2"], ["d2", "DAY 3"], ["d3", "DAY 4"], ["d4", "DAY 5"],
+    ["all", "전체"],
+    ["madrid", "👑 마드리드"],
+    ["granada", "🏰 그라나다"],
+    ["barcelona", "⛪ 바르셀로나"],
+    ["sweet", "🍫 츄러스·디저트"],
   ];
-  const SWEET = new Set(["kinotoya", "letao", "parfait", "airportSweets", "shiroi", "seico", "umier", "kitaichiHall"]);
+  const SWEET = new Set(["san_gines", "valor_madrid", "xurreria", "granja_viader", "la_pallaresa"]);
   let foodFilter = "all";
   function foodView() {
     $("#foodFilters").innerHTML = FOOD_FILTERS.map(([k, l]) => `<button class="chip" data-f="${k}">${l}</button>`).join("");
@@ -350,15 +350,18 @@
   }
   function renderFood() {
     $$("#foodFilters .chip").forEach(b => b.classList.toggle("active", b.dataset.f === foodFilter));
-    const ids = Object.keys(PLACES).filter(id => PLACES[id].menu).filter(id => {
+    const ids = Object.keys(PLACES).filter(id => PLACES[id].type === "food" && PLACES[id].menu).filter(id => {
+      const p = PLACES[id];
       if (foodFilter === "all") return true;
-      if (foodFilter === "meal") return !SWEET.has(id);
       if (foodFilter === "sweet") return SWEET.has(id);
-      return placeDays[id]?.has(+foodFilter.slice(1));
-    }).sort((a, b) => Math.min(...(placeDays[a] || [9])) - Math.min(...(placeDays[b] || [9])));
+      if (foodFilter === "madrid") return (p.area || "").includes("마드리드");
+      if (foodFilter === "granada") return (p.area || "").includes("그라나다");
+      if (foodFilter === "barcelona") return (p.area || "").includes("바르셀로나");
+      return true;
+    }).sort((a, b) => Math.min(...(placeDays[a] || [99])) - Math.min(...(placeDays[b] || [99])));
     $("#foodList").innerHTML = ids.map(id => {
       const p = PLACES[id];
-      const days = [...(placeDays[id] || [])].sort().map(i => `<span style="background:${DAYS[i].hue};color:#0a1628">${DAYS[i].label}</span>`).join("");
+      const days = [...(placeDays[id] || [])].sort((a, b) => a - b).map(i => `<span style="background:${DAYS[i].hue};color:#0a1628">${DAYS[i].label}</span>`).join("");
       return `
       <article class="food-card">
         <div class="fc-img" data-img="${id}">
@@ -369,17 +372,16 @@
         ${p.photoCredit ? `<p class="photo-credit">${esc(p.photoCredit)}</p>` : ""}
         <div class="fc-body">
           <h3>${p.emoji} ${esc(p.name)}</h3>
-          <div class="fc-jp">${esc(p.jp)} · ${esc(p.area || "")}</div>
+          <div class="fc-jp">${esc(p.jp || "")} · ${esc(p.area || "")}</div>
           <p>${esc(p.desc)}</p>
           ${menuHTML(p)}
           <div class="fc-actions">
             <button class="btn light" data-open="${id}">자세히 · 팁</button>
-            <a class="btn dark" href="${gmap(p.q || p.jp)}" target="_blank" rel="noopener">🗺️ 길찾기</a>
+            <a class="btn dark" href="${gmap(p.q || p.jp || p.name)}" target="_blank" rel="noopener">🗺️ 길찾기</a>
           </div>
         </div>
       </article>`;
     }).join("");
-    // fc-img 안의 배지가 지워지지 않도록 전용 로더
     $$("#foodList .fc-img").forEach(el => {
       const p = PLACES[el.dataset.img]; el.removeAttribute("data-img");
       const load = () => {
@@ -396,10 +398,15 @@
 
   /* ---------- 지도 ---------- */
   let map, markers = {}, mapFilter = "all";
-  const VIEWS = { city: [[36.0, -9.0], [43.0, 3.0]], all: [[36.0, -9.0], [43.0, 3.0]] };
+  const VIEWS = {
+    madrid: [[40.398, -3.725], [40.460, -3.670]],
+    granada: [[37.168, -3.610], [37.190, -3.580]],
+    barcelona: [[41.365, 2.140], [41.422, 2.195]],
+    all: [[36.5, -4.5], [42.0, 2.8]],
+  };
   function initMap() {
     if (map || !window.L) return;
-    map = L.map("map", { zoomControl: false, attributionControl: true }).fitBounds(VIEWS.city);
+    map = L.map("map", { zoomControl: false, attributionControl: true }).fitBounds(VIEWS.all);
     L.control.zoom({ position: "topright" }).addTo(map);
     L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
       maxZoom: 19,
@@ -408,15 +415,16 @@
     Object.entries(PLACES).forEach(([id, p]) => {
       if (!p.lat) return;
       const di = [...(placeDays[id] || [])];
-      const color = id === "airbnb" ? "#ff5a5f" : di.length ? DAYS[Math.min(...di)].hue : "#9cc6ec";
+      const isHome = p.type === "stay";
+      const color = isHome ? "#ff5a5f" : di.length ? DAYS[Math.min(...di)].hue : "#9cc6ec";
       const icon = L.divIcon({
         className: "", iconSize: [34, 34], iconAnchor: [4, 34], popupAnchor: [13, -30],
-        html: `<div class="pin${id === "airbnb" ? " home" : ""}" style="background:${color}"><span>${p.emoji}</span></div>`,
+        html: `<div class="pin${isHome ? " home" : ""}" style="background:${color}"><span>${p.emoji}</span></div>`,
       });
-      const m = L.marker([p.lat, p.lng], { icon, zIndexOffset: id === "airbnb" ? 1000 : 0 }).addTo(map);
+      const m = L.marker([p.lat, p.lng], { icon, zIndexOffset: isHome ? 1000 : 0 }).addTo(map);
       m.bindPopup(`<div class="pop"><b>${p.emoji} ${esc(p.name)}</b><span>${esc(p.area || "")} ${di.map(i => DAYS[i].label).join(" · ")}</span><br><button data-pop="${id}">자세히 보기</button></div>`);
       m.on("popupopen", e => { e.popup.getElement().querySelector("[data-pop]").onclick = () => openSheet(id); });
-      markers[id] = { m, days: id === "airbnb" ? [0, 1, 2] : di };
+      markers[id] = { m, days: di };
     });
     $("#mapFilters").innerHTML = [["all", "전체", "#fff"], ...DAYS.map((d, i) => [String(i), `${d.label} · ${d.title}`, d.hue])]
       .map(([k, l, c]) => `<button class="chip" data-mf="${k}"><i style="background:${c}"></i>${esc(l)}</button>`).join("");
@@ -424,7 +432,7 @@
     $$("#jumpRow button").forEach(b => b.onclick = () => {
       const k = b.dataset.fly;
       if (k === "all") map.flyToBounds(L.latLngBounds(Object.values(markers).map(x => x.m.getLatLng())).pad(.1), { duration: 1 });
-      else map.flyToBounds(VIEWS[k], { duration: 1 });
+      else if (VIEWS[k]) map.flyToBounds(VIEWS[k], { duration: 1 });
     });
     filterMap("all");
   }
@@ -478,33 +486,33 @@
     $$("#packList input").forEach(cb => cb.onchange = () => { store.set("pack", $$("#packList input").filter(x => x.checked).map(x => x.dataset.k)); cnt(); });
     cnt();
 
-    // 일본어 발음
+    // 스페인어 발음
     $("#phrases").innerHTML = PHRASES.map((p, i) => `
       <button class="phrase" data-i="${i}"><b>${esc(p.ko)}</b><span class="jp">${esc(p.jp)}</span><small>${esc(p.read)}</small><span class="spk">🔊</span></button>`).join("");
     $$(".phrase").forEach(b => b.onclick = () => {
       const p = PHRASES[+b.dataset.i];
       if (!("speechSynthesis" in window)) return toast("이 기기는 음성 재생을 지원하지 않아요");
       speechSynthesis.cancel();
-      const u = new SpeechSynthesisUtterance(p.jp.replace(/○○/g, "キム"));
-      u.lang = "es-ES"; u.rate = .85;
-      const ja = speechSynthesis.getVoices().find(v => v.lang?.startsWith("es"));
-      if (ja) u.voice = ja;
+      const u = new SpeechSynthesisUtterance(p.jp.replace(/○○/g, "Kim"));
+      u.lang = "es-ES"; u.rate = .9;
+      const esVoice = speechSynthesis.getVoices().find(v => v.lang?.startsWith("es"));
+      if (esVoice) u.voice = esVoice;
       $$(".phrase").forEach(x => x.classList.remove("playing")); b.classList.add("playing");
       u.onend = () => b.classList.remove("playing");
       speechSynthesis.speak(u);
     });
 
-    // 환율
-    const jpy = $("#fxJpy"), krw = $("#fxKrw"), rate = $("#fxRate");
-    rate.value = store.get("rate", 930);
-    const r = () => (+rate.value || 930) / 100;
-    const fromJ = () => { krw.value = Math.round((+jpy.value || 0) * r()); };
-    const fromK = () => { jpy.value = Math.round((+krw.value || 0) / r()); };
-    jpy.oninput = fromJ; krw.oninput = fromK;
-    rate.oninput = () => { store.set("rate", +rate.value); fromJ(); };
-    $("#fxQuick").innerHTML = [500, 1000, 3000, 5000, 10000].map(v => `<button data-v="${v}">¥${v.toLocaleString()}</button>`).join("");
-    $$("#fxQuick button").forEach(b => b.onclick = () => { jpy.value = b.dataset.v; fromJ(); });
-    fromJ();
+    // 환율 (유로 € <-> 원 ₩)
+    const eur = $("#fxJpy"), krw = $("#fxKrw"), rate = $("#fxRate");
+    rate.value = store.get("rate", 1500);
+    const r = () => (+rate.value || 1500);
+    const fromE = () => { krw.value = Math.round((+eur.value || 0) * r()); };
+    const fromK = () => { eur.value = Math.round((+krw.value || 0) / r() * 10) / 10; };
+    eur.oninput = fromE; krw.oninput = fromK;
+    rate.oninput = () => { store.set("rate", +rate.value); fromE(); };
+    $("#fxQuick").innerHTML = [5, 10, 20, 50, 100].map(v => `<button data-v="${v}">€${v}</button>`).join("");
+    $$("#fxQuick button").forEach(b => b.onclick = () => { eur.value = b.dataset.v; fromE(); });
+    fromE();
 
     // 사진 출처
     $("#credits").innerHTML = creditList().map(([f, line]) =>
@@ -525,7 +533,7 @@
   let tt;
   function toast(msg) { const t = $("#toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(tt); tt = setTimeout(() => t.classList.remove("show"), 1600); }
   $("#shareBtn").onclick = async () => {
-    const data = { title: "❄️ 삿포로, 겨울 동화", text: "세 가족 삿포로 여행 일정 (2027.1.8–1.12)", url: location.href };
+    const data = { title: "🇪🇸 태양의 나라, 스페인 여행", text: "두 가족 6인의 스페인(마드리드·그라나다·바르셀로나) 여행 일정 (2027.9.10–9.19)", url: location.href };
     try {
       if (navigator.share) await navigator.share(data);
       else { await navigator.clipboard.writeText(location.href); toast("링크를 복사했어요 📋"); }

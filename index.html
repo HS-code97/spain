@@ -6,18 +6,18 @@
 <meta name="theme-color" content="#0a1628">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>여유로운 스페인 가족 여행</title>
-<meta name="description" content="세 가족 10명의 삿포로 겨울 여행 2027.1.8 – 1.12 일정, 맛집, 지도, 준비물">
-<meta property="og:title" content="🇪🇸 삿포로, 겨울 동화 — 세 가족 여행 2027">
-<meta property="og:description" content="1.8(금) – 1.12(화) · 일정 · 맛집 · 지도 · 돈키 미션">
-<meta property="og:image" content="https://commons.wikimedia.org/wiki/Special:FilePath/Sagrada_Familia_01.jpg?width=960">
+<title>태양의 나라, 스페인 — 두 가족 여행 2027</title>
+<meta name="description" content="두 가족 6명(어른 4 · 중3 딸 2)의 마드리드·그라나다·바르셀로나 스페인 여행 2027.9.10 – 9.19 일정, 맛집, 지도, 쇼핑, 준비물">
+<meta property="og:title" content="🇪🇸 태양의 나라, 스페인 — 두 가족 6인 여행 2027">
+<meta property="og:description" content="9.10(금) – 9.19(일) · 마드리드 · 그라나다 · 바르셀로나 · 일정 · 맛집 · 지도 · 쇼핑 미션">
+<meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Sagrada_Familia_01.jpg/960px-Sagrada_Familia_01.jpg">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🇪🇸</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Serif+JP:wght@500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
-<link rel="stylesheet" href="style.css?v=4">
+<link rel="stylesheet" href="style.css?v=10">
 </head>
 <body>
 <canvas id="snow" aria-hidden="true"></canvas>
@@ -28,16 +28,17 @@
     <header class="hero" id="hero">
       <div class="hero-bg" id="heroBg"></div>
       <div class="hero-inner">
-        <p class="hero-kicker"><span class="star">✧</span> SPAIN · 2027 AUTUMN <span class="jp">🇪🇸</span></p>
-        <h1 class="hero-title">여유로운<br>스페인 여행</h1>
-        <p class="hero-sub">두 가족 6명이 함께 떠나는 9박 10일 여정</p>
+        <p class="hero-kicker"><span class="star">★</span> SPAIN · 2027 AUTUMN <span class="jp">¡Hola!</span></p>
+        <h1 class="hero-title">태양의 나라,<br>스페인 여행</h1>
+        <p class="hero-sub">두 가족 여섯 명이 여유롭고 깊숙이 걷는 마드리드 · 그라나다 · 바르셀로나</p>
         <div class="hero-dates">
           <span>9.10 <small>금</small></span><i></i><span>9.19 <small>일</small></span>
         </div>
         <div class="countdown" id="countdown"></div>
         <div class="crew">
-          <span class="crew-chip">👨‍👩‍👧‍👦 어른 4</span>
-          <span class="crew-chip">👧 자녀 2 (중3 등)</span>
+          <span class="crew-chip">👨‍👩‍👧 어른 4</span>
+          <span class="crew-chip">🎀 중3 딸 2</span>
+          <span class="crew-chip">🇪🇸 두 가족 6인</span>
         </div>
         <button class="share-btn" id="shareBtn" type="button">
           <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M18 16a3 3 0 0 0-2.4 1.2l-6.7-3.4a3 3 0 0 0 0-1.6l6.7-3.4A3 3 0 1 0 15 7l-6.7 3.4a3 3 0 1 0 0 3.2L15 17a3 3 0 1 0 3-1Z"/></svg>
@@ -58,27 +59,32 @@
   <!-- ============ 지도 ============ -->
   <section class="view" id="view-map" aria-label="지도">
     <header class="page-head">
-      <p class="page-kicker">MAP · 地図</p>
+      <p class="page-kicker">MAP · MAPA</p>
       <h2>우리 동선 한눈에</h2>
-      <p class="page-desc">핀을 누르면 장소 정보가 열려요. 오타루·조잔케이·공항은 아래 버튼으로 이동.</p>
+      <p class="page-desc">핀을 누르면 장소와 교통편 정보가 열려요. 마드리드·그라나다·바르셀로나 도시별 이동은 아래 버튼으로!</p>
     </header>
     <div class="map-filters" id="mapFilters"></div>
     <div class="map-box"><div id="map"></div></div>
     <div class="jump-row" id="jumpRow">
-          <button data-fly="city">🇪🇸 스페인 전역</button>
-          <button data-fly="all">📍 핀 전체보기</button>
-        </div>
+      <button data-fly="madrid">👑 마드리드</button>
+      <button data-fly="granada">🏰 그라나다</button>
+      <button data-fly="barcelona">⛪ 바르셀로나</button>
+      <button data-fly="all">🇪🇸 스페인 전체</button>
+    </div>
     <div class="stay-note">
-      <b>🏠 숙소: Snow Light Hotel Sapporo (에어비앤비) · 南4条西11丁目1291-13</b> 구글맵 좌표 기준 위치예요. 삿포로 프린스호텔(공항버스 하차 지점)에서 도보 약 5분 거리예요.
+      <b>🏠 6인 가족 도시별 숙소 베이스캠프</b><br>
+      · <b>마드리드 (1~3박)</b>: 솔 광장 · 마요르 광장 인근 6인용 아파트<br>
+      · <b>그라나다 (4~5박)</b>: 이사벨 라 카톨리카 광장 인근 숙소<br>
+      · <b>바르셀로나 (6~7박)</b>: 카탈루냐 광장 · 에이샴플라 중심가 숙소
     </div>
   </section>
 
   <!-- ============ 맛집 ============ -->
   <section class="view" id="view-food" aria-label="맛집">
     <header class="page-head">
-      <p class="page-kicker">EAT · 食</p>
+      <p class="page-kicker">EAT · GASTRONOMÍA</p>
       <h2>우리 가족 맞춤 메뉴판</h2>
-      <p class="page-desc">식당마다 <b class="tag-a">어른 6</b>과 <b class="tag-t">아이 4 (중2 딸 3 · 초4 아들 1)</b>을 위한 추천 메뉴를 골라뒀어요.</p>
+      <p class="page-desc">매 끼니 <b class="tag-a">2곳 이상의 추천 식당</b>을 비교할 수 있고, <b class="tag-a">어른 4명</b>과 <b class="tag-t">중3 딸 2명</b>이 모두 좋아하는 추천 메뉴를 정리했어요.</p>
     </header>
     <div class="chips" id="foodFilters"></div>
     <div class="food-list" id="foodList"></div>
@@ -87,39 +93,39 @@
   <!-- ============ 쇼핑 ============ -->
   <section class="view" id="view-shop" aria-label="쇼핑">
     <header class="page-head">
-      <p class="page-kicker">SHOP · 買</p>
-      <h2>돈키호테 쇼핑 미션</h2>
-      <p class="page-desc">1차 탐색전(1일차 밤) → 2차 본게임(3일차 밤). 체크한 건 이 폰에 저장돼요.</p>
+      <p class="page-kicker">SHOP · COMPRAS</p>
+      <h2>스페인 쇼핑 미션</h2>
+      <p class="page-desc">메르카도나 마트 · 엘 코르테 잉글레스 백화점 · 자라 본고장 쇼핑! 체크한 건 이 폰에 저장돼요.</p>
     </header>
     <div class="donki-progress" id="donkiProgress"></div>
     <div id="donkiList"></div>
 
     <div class="card soft">
-      <h3>🧾 면세 꿀팁</h3>
+      <h3>🧾 스페인 택스프리(DIVA) 꿀팁</h3>
       <ul class="dots">
-        <li>한 가게에서 하루 <b>5,000엔(세전) 이상</b> 구매 시 면세 대상 — <b>여권 실물</b> 필수.</li>
-        <li>일본 면세제도가 <b>2026년 11월부터 ‘환급형’</b>으로 바뀌어요: 구매 시 세금 포함 결제 → 출국 때 공항 세관 확인 후 환급. 출발 전 최신 절차를 꼭 확인!</li>
-        <li>환급 대상 물건은 <b>출국 심사 전까지 개봉·사용 금지</b>일 수 있으니 따로 모아두기.</li>
-        <li>가족별로 계산하면 정산이 편해요: “<span class="jp">別々に払います</span>(베츠베츠니 하라이마스)”</li>
+        <li>스페인은 <b>최소 구매 금액 제한이 없어요!</b> 소액이라도 Tax Free 로고가 있는 매장이라면 무조건 여권(모바일 사본도 가능하지만 실물 권장)을 제시하고 <b>“Tax Free, por favor”</b>를 요청하세요.</li>
+        <li>영수증과 함께 받은 <b>DIVA 바코드 서류</b>를 잘 모아두세요.</li>
+        <li>마지막 출국지인 <b>바르셀로나 엘 프라트 공항(T1)</b> 출발층 체크인 전에 <b>DIVA 자동 스캔 키오스크</b>에서 바코드를 찍어 초록불(“Validado”)이 뜨면 세관 도장 없이 바로 통과!</li>
+        <li>두 가족별로 계산을 나누고 싶을 땐: <b>“La cuenta por separado, por favor”</b></li>
       </ul>
     </div>
 
     <div class="card soft">
-      <h3>🎮 아들 쇼핑 지도</h3>
+      <h3>🎀 중3 딸들 취향저격 쇼핑 스팟</h3>
       <ul class="dots">
-        <li><b>포켓몬센터 삿포로</b> (다이마루 백화점) — 홋카이도 한정 굿즈</li>
-        <li><b>요도바시 카메라</b> — 게임·건프라·카드·레고</li>
-        <li><b>다누키코지</b> — 가챠숍, 인형뽑기 오락실</li>
-        <li><b>신치토세 공항</b> — 포켓몬 스토어 & 도라에몽 숍 (마지막 찬스)</li>
+        <li><b>인디텍스(Inditex) 본고장</b> — 자라(Zara), 마시모두띠, 버쉬카(Bershka), 풀앤베어, 스트라디바리우스 (한국보다 30~40% 저렴!)</li>
+        <li><b>프리모르(Primor) & 세포라</b> — 스페인 국민 뷰티 편집숍, 마티덤 앰플·립밤·향수 쇼핑</li>
+        <li><b>비센스(Torrons Vicens)</b> — 시식이 가능한 고급 수제 뚜론(아몬드 누가) 전문점</li>
+        <li><b>레알 마드리드 & FC 바르셀로나 메가스토어</b> — 공식 유니폼 마킹 & 키링·머플러 굿즈</li>
       </ul>
     </div>
 
     <div class="card soft">
-      <h3>🎁 홋카이도 기념품 베스트</h3>
+      <h3>🎁 스페인 기념품 베스트</h3>
       <div class="souv">
-        <span>🍫 로이스 나마초콜릿</span><span>🍪 시로이 코이비토</span><span>🧈 롯카테이 버터샌드</span>
-        <span>🥔 자가포쿠루</span><span>🍰 르타오 더블 프로마쥬</span><span>🌽 옥수수 초콜릿</span>
-        <span>🍈 유바리 멜론 젤리</span><span>🎶 오타루 오르골</span><span>🥃 니카 위스키 (어른)</span>
+        <span>🫒 엑스트라버진 올리브유</span><span>🍯 오르니만스 꿀국화차</span><span>🍫 비센스 수제 뚜론</span>
+        <span>🥩 이베리코 하몬 진공팩</span><span>🥔 보닐라 대용량 감자칩</span><span>🥫 라치나타 올리브·트러플</span>
+        <span>🧴 마티덤(MartiDerm) 앰플</span><span>⚽ 레알·바르샤 유니폼</span><span>🍷 리오하 와인 & 카바</span>
       </div>
     </div>
   </section>
@@ -127,21 +133,21 @@
   <!-- ============ 준비 ============ -->
   <section class="view" id="view-info" aria-label="여행 준비">
     <header class="page-head">
-      <p class="page-kicker">READY · 準備</p>
+      <p class="page-kicker">READY · PREPARACIÓN</p>
       <h2>출발 전 체크</h2>
-      <p class="page-desc">1월 삿포로는 ‘진짜 겨울’이에요. 따뜻하게, 미끄럽지 않게!</p>
+      <p class="page-desc">9월 스페인은 햇살이 눈부시고 습도가 낮아 여행하기 가장 완벽한 초가을 날씨예요!</p>
     </header>
 
     <div class="weather">
       <div class="w-main">
-        <div class="w-temp">-1°<small>/ -7°</small></div>
-        <div class="w-label">1월 평균 최고 / 최저</div>
+        <div class="w-temp">27°<small>/ 15°</small></div>
+        <div class="w-label">9월 평균 최고 / 최저</div>
       </div>
       <div class="w-grid">
-        <div><b>07:05</b><span>해 뜸</span></div>
-        <div><b>16:25</b><span>해 짐</span></div>
-        <div><b>거의 매일</b><span>눈</span></div>
-        <div><b>+0h</b><span>시차 없음</span></div>
+        <div><b>07:50</b><span>해 뜸</span></div>
+        <div><b>20:20</b><span>해 짐</span></div>
+        <div><b>쾌청 ☀️</b><span>강수 적음</span></div>
+        <div><b>-7h</b><span>한국보다 7시간 느림</span></div>
       </div>
     </div>
 
@@ -151,63 +157,58 @@
     </details>
 
     <details class="acc">
-      <summary>🐧 눈길 걷는 법 (펭귄 걸음)</summary>
+      <summary>🛡️ 안전 수칙 · 소매치기 완벽 예방</summary>
       <ul class="dots">
-        <li>보폭은 작게, 발바닥 전체로 ‘꾹’ 디디기. 무게중심은 약간 앞으로.</li>
-        <li>주머니에 손 넣고 걷지 않기 — 넘어질 때 손으로 짚어야 해요.</li>
-        <li>횡단보도 흰 선, 건물 입구 매트 주변, 지하철 출구 계단이 제일 미끄러워요.</li>
-        <li>신발용 아이젠·미끄럼방지 밴드는 편의점·돈키호테에서도 팔아요.</li>
-        <li>삿포로역~오도리~스스키노는 <b>지하도(치카호·폴타운)</b>로 연결 — 추운 날은 지하로!</li>
+        <li>식당 야외 테라스나 카페 테이블 위에 <b>스마트폰을 절대 올려두지 마세요</b> (지도 보다가 내려놓는 순간 가장 위험).</li>
+        <li>스마트폰에는 <b>손목 스트랩이나 크로스 줄</b>을 연결하고, 가방은 지퍼가 달린 크로스백을 앞으로 메기.</li>
+        <li>지하철 에스컬레이터나 붐비는 관광지(사그라다 파밀리아, 솔 광장, 람블라스 거리)에서 6명이 서로 가방 지퍼를 봐주기.</li>
+        <li>여권 원본은 숙소 금고에 두고, 평소에는 <b>여권 컬러 사본 + 휴대폰 사진</b>을 지참하세요 (단, 백화점 고액 면세 시 실물 필요 여부 확인).</li>
       </ul>
     </details>
 
     <details class="acc">
-      <summary>🚆 교통 · 택시 요령</summary>
+      <summary>🚄 6인 가족 교통 · 택시 · 고속열차 요령</summary>
       <ul class="dots">
-        <li>일본은 <b>중학생부터 어른 요금</b> — 중2 딸들은 어른 요금, <b>초4 아들은 어린이 요금(보통 반값)</b>이에요 (JR·지하철·로프웨이 등).</li>
-        <li>교통카드: 아이폰은 지갑 앱에 <b>Suica</b> 추가 가능. 실물 카드는 JR 역에서 <b>Kitaca</b> 구매.</li>
-        <li>10명은 택시 <b>3대</b>(4·3·3). 앱은 <b>GO</b> 또는 <b>DiDi</b> — 호출 전 가족 단톡에 ‘1호차/2호차/3호차’ 정하기.</li>
-        <li>택시 문은 자동! 직접 열고 닫지 마세요.</li>
-        <li>숙소 → 다누키코지·돈키호테 도보 약 16분 / 지하철 도자이선 니시11초메역 도보 약 7분.</li>
-        <li><b>도착일(1/8 금)</b>: 공항 → 숙소는 JR 쾌속 에어포트(약 37분) + 택시 3대를 기본으로 해요. 공항버스는 삿포로 프린스호텔에서 내리면 도보 약 5분이지만, 예약이 안 돼 10명이 한 대에 못 탈 수 있고 금요일 퇴근 정체·눈이면 90~120분 걸릴 수 있어요.</li>
+        <li><b>6명 택시 이동</b>: 스페인 일반 택시는 최대 4인 탑승이 엄격해요. <b>Uber / Cabify / FreeNow</b> 앱에서 6인승 밴(XL)을 호출하거나, 일반 택시 <b>2대(3명·3명)</b>로 나누어 이동하세요.</li>
+        <li><b>마드리드·바르셀로나 지하철</b>: 다회권(마드리드 Multi 카드 10회권 / 바르셀로나 T-familiar 8회권 등)을 공유해서 찍으면 경제적이에요.</li>
+        <li><b>도시 간 이동</b>: 마드리드 → 그라나다는 <b>렌페(Renfe) AVE 고속열차(약 3시간 25분)</b>, 그라나다 → 바르셀로나는 장거리 열차(6시간 반) 대신 <b>부엘링(Vueling) 국내선 항공(1시간 25분)</b>으로 체력을 아껴요.</li>
+        <li><b>사전 예약 필수 3대장</b>: 알함브라 궁전(3개월 전 오픈 즉시), 사그라다 파밀리아, 구엘 공원은 반드시 한국에서 미리 시간 지정 예약을 완료해야 해요!</li>
       </ul>
     </details>
 
     <details class="acc">
-      <summary>♨️ 온천 에티켓 (아이들 첫 온천이라면)</summary>
+      <summary>🍽️ 스페인 식사 시간 & 주문 에티켓</summary>
       <ul class="dots">
-        <li>탕에 들어가기 전 <b>몸을 먼저 씻기</b> (앉아서 샤워).</li>
-        <li>작은 수건은 <b>탕 안에 넣지 않기</b> — 머리 위에 올려두기.</li>
-        <li>긴 머리는 묶어서 물에 닿지 않게.</li>
-        <li>탈의실·탕 안에서는 <b>사진 촬영 절대 금지</b>, 휴대폰은 사물함에.</li>
-        <li>수영복 NO, 조용히 대화. 오래 있으면 어지러우니 물 자주 마시기.</li>
-        <li>노천탕에서 머리에 눈 맞으며 “아~” 하는 게 정석 🇪🇸</li>
+        <li>스페인 현지인의 식사 시간은 <b>점심 13:30~15:30, 저녁 20:30~22:30</b>으로 한국보다 늦어요. 인기 맛집은 오픈 직후(13시, 20시)에 가면 대기가 훨씬 짧아요!</li>
+        <li>스페인 음식(특히 빠에야, 하몬, 타파스)은 한국인 입맛에 짤 수 있어요. 주문할 때 <b>“Sin sal, por favor (소금 빼고 주세요)”</b> 또는 <b>“Poco salado, por favor (덜 짜게 해주세요)”</b>라고 말하면 훨씬 맛있게 즐길 수 있어요.</li>
+        <li>식당에서 물(Agua)은 무료가 아니에요. 탄산수를 원치 않으면 꼭 <b>“Agua sin gas (탄산 없는 생수)”</b>로 주문하세요.</li>
+        <li>그라나다에서는 음료(맥주·콜라·무알콜 맥주 등)를 1잔 시킬 때마다 <b>무료 타파스 요리 1접시</b>가 함께 나오는 특별한 문화가 있어요!</li>
       </ul>
     </details>
 
     <details class="acc">
-      <summary>🗣️ 일본어 한마디 <small>(탭하면 발음 재생)</small></summary>
+      <summary>🗣️ 스페인어 한마디 <small>(탭하면 발음 재생)</small></summary>
       <div class="phrases" id="phrases"></div>
     </details>
 
     <div class="card soft">
-      <h3>💴 환율 계산기</h3>
+      <h3>💶 환율 계산기</h3>
       <div class="fx">
-        <label><span>엔 (¥)</span><input id="fxJpy" type="number" inputmode="decimal" value="1000"></label>
+        <label><span>유로 (€)</span><input id="fxJpy" type="number" inputmode="decimal" value="10"></label>
         <span class="fx-eq">=</span>
         <label><span>원 (₩)</span><input id="fxKrw" type="number" inputmode="decimal"></label>
       </div>
-      <label class="fx-rate">100엔 = <input id="fxRate" type="number" inputmode="decimal" step="1" value="930"> 원 <small>(출발 전 실제 환율로 수정)</small></label>
+      <label class="fx-rate">1유로 (€1) = <input id="fxRate" type="number" inputmode="decimal" step="10" value="1500"> 원 <small>(출발 전 실제 환율로 수정)</small></label>
       <div class="fx-quick" id="fxQuick"></div>
     </div>
 
     <div class="card emergency">
       <h3>🚨 긴급 연락처</h3>
-      <a href="tel:110">🚓 경찰 <b>110</b></a>
-      <a href="tel:119">🚑 구급·화재 <b>119</b></a>
-      <a href="tel:+81112180288">🇰🇷 주삿포로 대한민국 총영사관 <b>+81-11-218-0288</b></a>
+      <a href="tel:112">🚓 스페인 통합 긴급신고 (경찰·구급·소방) <b>112</b></a>
+      <a href="tel:+34913532000">🇰🇷 주스페인 대한민국 대사관 (마드리드) <b>+34-91-353-2000</b></a>
+      <a href="tel:+34934873145">🇰🇷 주바르셀로나 대한민국 총영사관 <b>+34-93-487-3145</b></a>
       <a href="tel:+82232100404">📞 외교부 영사콜센터 (24시간) <b>+82-2-3210-0404</b></a>
-      <p class="small">번호는 출발 전 한 번 더 확인하세요. 아이들 폰에도 저장!</p>
+      <p class="small">번호는 출발 전 한 번 더 확인하세요. 중3 딸들 폰에도 저장!</p>
     </div>
 
     <details class="acc">
@@ -218,12 +219,12 @@
 
     <div class="card soft">
       <h3>🕒 출발 전 꼭 확인</h3>
-      <p>영업시간과 휴무일은 출발 직전에 구글맵으로 꼭 다시 확인하세요. 특히 1/10(일), 1/11(월·공휴일)은 특별 영업일일 수 있어요. 10명은 4·3·3명 또는 5·5명으로 나눠 입장하는 것을 기본으로 하세요.</p>
+      <p>9월 24일 전후 바르셀로나는 ‘라 메르세(La Mercè)’ 축제 기간과 맞물릴 수 있고, 일요일은 대형 마트(메르카도나)·백화점이 쉬는 경우가 많아요. 6명 가족 식사는 유명 레스토랑의 경우 구글맵·더포크(TheFork) 또는 공식 홈페이지에서 6인 테이블 사전 예약을 권장합니다.</p>
     </div>
 
     <footer class="foot">
-      <p>🇪🇸 세 가족의 여유로운 스페인 가족 여행 · 2027</p>
-      <p class="small">영업시간·요금·셔틀 시간은 변동될 수 있으니 방문 전 확인하세요.</p>
+      <p>🇪🇸 두 가족 6인의 여유로운 스페인 여행 · 2027</p>
+      <p class="small">영업시간·요금·열차/항공 시간은 변동될 수 있으니 방문 전 확인하세요.</p>
     </footer>
   </section>
 </main>
@@ -248,7 +249,7 @@
 <div class="toast" id="toast" role="status"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" defer></script>
-<script src="data.js?v=4" defer></script>
-<script src="app.js?v=4" defer></script>
+<script src="data.js?v=10" defer></script>
+<script src="app.js?v=10" defer></script>
 </body>
 </html>
