@@ -1,814 +1,253 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="ko">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#c8442b">
-<title>윤하 & 서윤의 스페인 대모험</title>
+<meta name="theme-color" content="#0a1628">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>?욱룷濡?寃⑥슱 ?숉솕</title>
+<meta name="description" content="??媛議?10紐낆쓽 ?욱룷濡?寃⑥슱 ?ы뻾 2027.1.8 ??1.12 ?쇱젙, 留쏆쭛, 吏?? 以鍮꾨Ъ">
+<meta property="og:title" content="?꾬툘 ?욱룷濡? 寃⑥슱 ?숉솕 ????媛議??ы뻾 2027">
+<meta property="og:description" content="1.8(湲? ??1.12(?? 쨌 ?쇱젙 쨌 留쏆쭛 쨌 吏??쨌 ?덊궎 誘몄뀡">
+<meta property="og:image" content="https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d9/City_nightscape_of_Sapporo_from_Mt._Moiwa_20260703b.jpg/960px-City_nightscape_of_Sapporo_from_Mt._Moiwa_20260703b.jpg">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>?꾬툘</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Black+Han+Sans&display=swap" rel="stylesheet">
-<style>
-:root{
-  --bg:#fbf6ee;--card:#ffffff;--ink:#2a211c;--sub:#75685d;--line:#eadfd0;
-  --acc:#c8442b;--acc-soft:#fbe3dc;--gold:#e7a824;
-  --mad:#c8442b;--tol:#8a5a2b;--sev:#e08a1e;--bcn:#2563a8;--mv:#6f6259;
-  --shadow:0 6px 20px rgba(60,30,10,.08);
-}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#16120f;--card:#221c18;--ink:#f3ece3;--sub:#ad9f92;--line:#3a312a;
-  --acc:#f07556;--acc-soft:#3b231c;--shadow:0 6px 20px rgba(0,0,0,.35);
-}}
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0}
-body{background:var(--bg);color:var(--ink);font:16px/1.6 "Gowun Dodum",-apple-system,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;-webkit-text-size-adjust:100%}
-img{display:block;max-width:100%}
-a{color:var(--acc)}
-.wrap{max-width:720px;margin:0 auto}
-
-/* HERO */
-.hero{position:relative;height:360px;overflow:hidden;color:#fff;background:#3a2a20}
-.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.05) 30%,rgba(0,0,0,.72))}
-.hero .in{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:20px 16px 18px;max-width:720px;margin:0 auto}
-.hero .kick{font-size:13px;opacity:.9;letter-spacing:.04em}
-.hero h1{font-family:"Black Han Sans",sans-serif;font-weight:400;font-size:34px;line-height:1.15;margin:4px 0 10px}
-.hero h1 span{color:#ffd166}
-.dday{display:inline-flex;gap:10px;align-items:center;background:rgba(255,255,255,.16);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:6px 14px;font-size:14px}
-.dday b{font-family:"Black Han Sans",sans-serif;font-weight:400;font-size:20px;color:#ffd166}
-
-/* TABS */
-nav.tabs{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line)}
-nav.tabs .wrap{display:flex;gap:5px;padding:10px 16px}
-@media (max-width:420px){nav.tabs button{font-size:13px}}
-nav.tabs button{flex:1;min-width:0;padding:9px 0;white-space:nowrap;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;font:inherit;font-size:14px;cursor:pointer}
-nav.tabs button.on{background:var(--acc);border-color:var(--acc);color:#fff;font-weight:700}
-main{padding:0 16px 90px}
-section.tab{display:none}section.tab.on{display:block}
-
-/* ROUTE */
-.route{display:flex;align-items:center;gap:4px;margin:16px 0 6px}
-.route .c{flex:1;border-radius:12px;padding:8px 4px;text-align:center;color:#fff;font-size:12px;line-height:1.3}
-.route .c b{display:block;font-size:15px}
-.route .ar{color:var(--sub);font-size:13px}
-
-/* DAY STRIP */
-.days{display:flex;gap:8px;overflow-x:auto;padding:10px 2px 12px;scrollbar-width:none;scroll-snap-type:x proximity}
-.days::-webkit-scrollbar{display:none}
-.days button{flex:0 0 auto;scroll-snap-align:center;width:64px;padding:8px 4px 7px;border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:14px;font:inherit;font-size:12px;line-height:1.25;cursor:pointer;position:relative}
-.days button b{display:block;font-size:17px;font-family:"Black Han Sans",sans-serif;font-weight:400}
-.days button i{display:block;height:4px;border-radius:2px;margin:5px 8px 0}
-.days button.on{border-color:var(--acc);background:var(--acc-soft);transform:translateY(-2px)}
-.days button .star{position:absolute;top:-6px;right:-4px;font-size:13px}
-
-/* DAY HEADER */
-.dayhead{border-radius:18px;overflow:hidden;position:relative;color:#fff;margin-bottom:14px;box-shadow:var(--shadow);background:#333}
-.dayhead img{width:100%;height:190px;object-fit:cover}
-.dayhead::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 35%,rgba(0,0,0,.75))}
-.dayhead .tx{position:absolute;left:14px;right:14px;bottom:12px;z-index:2}
-.dayhead .no{display:inline-block;font-size:12px;padding:2px 10px;border-radius:999px;margin-bottom:4px}
-.dayhead h2{margin:0;font-family:"Black Han Sans",sans-serif;font-weight:400;font-size:24px;line-height:1.2}
-.dayhead p{margin:2px 0 0;font-size:13px;opacity:.92}
-
-.phrase{display:flex;gap:12px;align-items:center;background:var(--card);border:1px dashed var(--gold);border-radius:14px;padding:10px 14px;margin-bottom:14px}
-.phrase .l{font-size:11px;color:var(--sub);white-space:nowrap}
-.phrase b{font-size:17px}
-.phrase small{display:block;color:var(--sub);font-size:13px}
-
-/* TIMELINE */
-.tl{position:relative;padding-left:22px}
-.tl::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:var(--line)}
-.ev{position:relative;margin-bottom:14px}
-.ev::before{content:"";position:absolute;left:-20px;top:10px;width:12px;height:12px;border-radius:50%;background:var(--card);border:3px solid var(--acc)}
-.ev.meal::before{border-color:var(--gold)}
-.ev.move::before{border-color:var(--mv)}
-.time{font-size:12px;font-weight:700;color:var(--acc);letter-spacing:.03em;margin-bottom:4px}
-.ev.meal .time{color:#b47d0b}
-.ev.move .time{color:var(--sub)}
-.card{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
-.card .ph{position:relative;background:var(--line)}
-.card .ph img{width:100%;height:200px;object-fit:cover;cursor:zoom-in}
-.card .ph .tag{position:absolute;left:10px;top:10px;background:rgba(0,0,0,.55);color:#fff;font-size:11px;padding:3px 9px;border-radius:999px}
-.card .bd{padding:13px 14px 14px}
-.card h3{margin:0;font-size:18px;line-height:1.3}
-.card .es{color:var(--sub);font-size:12px;margin:1px 0 8px}
-.card p{margin:0 0 8px;font-size:14.5px}
-.fact{background:var(--acc-soft);border-radius:12px;padding:9px 12px;font-size:13.5px;margin:10px 0 8px}
-.fact b{color:var(--acc)}
-.row{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
-.chip{display:inline-flex;align-items:center;gap:4px;font-size:12.5px;padding:5px 10px;border-radius:999px;border:1px solid var(--line);background:var(--bg);color:var(--ink);text-decoration:none}
-.chip.warn{border-color:#e3b04b;background:rgba(231,168,36,.12)}
-.mission{margin-top:10px;border:2px dashed var(--line);border-radius:12px;padding:10px 12px}
-.mission .mt{font-size:12px;font-weight:700;color:#7a4cc2;margin-bottom:2px}
-.mission .mq{font-size:14px;margin-bottom:8px}
-.stamps{display:flex;gap:8px}
-.stamp{flex:1;padding:8px 6px;border-radius:10px;border:1.5px solid var(--line);background:var(--card);color:var(--sub);font:inherit;font-size:13px;cursor:pointer;transition:.15s}
-.stamp.on{border-color:#7a4cc2;background:#7a4cc2;color:#fff;font-weight:700}
-.moveline{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:11px 14px;font-size:14px}
-.moveline small{display:block;color:var(--sub);font-size:12.5px}
-
-/* MEAL */
-.meal .card{border-color:rgba(231,168,36,.5)}
-.dishes{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:8px 0 4px}
-.dishes::-webkit-scrollbar{display:none}
-.dish{flex:0 0 118px}
-.dish img{width:118px;height:84px;object-fit:cover;border-radius:10px;background:var(--line);cursor:zoom-in}
-.dish div{font-size:12.5px;line-height:1.35;margin-top:4px}
-.dish small{color:var(--sub);font-size:11.5px}
-.alt{font-size:13px;color:var(--sub);border-top:1px solid var(--line);margin-top:10px;padding-top:8px}
-
-.tip{background:var(--card);border-left:4px solid var(--gold);border-radius:8px;padding:10px 12px;font-size:13.5px;margin:6px 0 12px}
-.pn{display:flex;gap:8px;margin-top:10px}
-.pn button{flex:1;padding:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;font:inherit;font-size:14px;cursor:pointer}
-.pn button:disabled{opacity:.35}
-
-/* FOOD TAB */
-h2.sec{font-family:"Black Han Sans",sans-serif;font-weight:400;font-size:22px;margin:22px 0 4px}
-.lead{color:var(--sub);font-size:14px;margin:0 0 12px}
-.citybar{display:flex;gap:6px;margin:14px 0 4px;overflow-x:auto;scrollbar-width:none}
-.citybar button{flex:0 0 auto;padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-size:13px;cursor:pointer}
-.citybar button.on{color:#fff;border-color:transparent}
-.rgrid{display:grid;gap:12px}
-.eat101{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:6px}
-.eat101 div{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px;font-size:13px}
-.eat101 b{display:block;font-size:14px;margin-bottom:2px}
-
-/* MISSION TAB */
-.board{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0}
-.board .p{border-radius:16px;padding:14px;color:#fff;text-align:center}
-.board .p b{display:block;font-family:"Black Han Sans",sans-serif;font-weight:400;font-size:34px;line-height:1.1}
-.board .p span{font-size:13px;opacity:.95}
-.mlist .it{display:flex;gap:10px;align-items:center;padding:10px 0;border-top:1px solid var(--line);font-size:14px}
-.mlist .it:first-child{border-top:0}
-.mlist .it .d{flex:0 0 42px;font-size:12px;color:var(--sub)}
-.mlist .it .q{flex:1}
-.mlist .it .s{flex:0 0 auto;font-size:12px;white-space:nowrap}
-.quiz .q{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:10px}
-.quiz .q p{margin:0 0 8px;font-size:15px}
-.quiz .opts{display:grid;gap:6px}
-.quiz .opts button{text-align:left;padding:9px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;font-size:14px;cursor:pointer}
-.quiz .opts button.ok{background:#2f9e5b;border-color:#2f9e5b;color:#fff}
-.quiz .opts button.no{background:#c8442b;border-color:#c8442b;color:#fff;opacity:.8}
-.quiz .ex{display:none;font-size:13px;color:var(--sub);margin-top:8px}
-.quiz .q.done .ex{display:block}
-.words{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.words div{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:9px 11px}
-.words b{display:block;font-size:15px}
-.words small{color:var(--sub);font-size:12px}
-
-/* PREP TAB */
-.chk{display:flex;gap:10px;align-items:flex-start;padding:11px 0;border-top:1px solid var(--line);font-size:14.5px}
-.chk:first-child{border-top:0}
-.chk input{width:22px;height:22px;flex:0 0 auto;margin-top:1px;accent-color:var(--acc)}
-.chk input:checked+span{text-decoration:line-through;color:var(--sub)}
-.prog{height:9px;border-radius:5px;background:var(--line);overflow:hidden;margin:6px 0 12px}
-.prog i{display:block;height:100%;background:var(--acc);width:0;transition:width .3s}
-.box{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px;margin-bottom:12px;box-shadow:var(--shadow)}
-.box h3{margin:0 0 6px;font-size:17px}
-.box ol{padding-left:20px;margin:6px 0}.box li{margin-bottom:6px;font-size:14px}
-table.cmp{width:100%;border-collapse:collapse;font-size:13px}
-table.cmp td,table.cmp th{padding:7px 5px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
-table.cmp th{color:var(--sub);font-weight:600}
-.note{color:var(--sub);font-size:12px;margin-top:6px}
-footer{color:var(--sub);font-size:11.5px;text-align:center;padding:10px 16px 30px}
-
-/* FLIGHT TAB */
-.fsum{display:flex;flex-wrap:wrap;gap:6px;margin:16px 0 4px}
-.fgrp{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px;margin:24px 0 10px}
-.fgrp h2{font-family:"Black Han Sans",sans-serif;font-weight:400;font-size:22px;margin:0}
-.fgrp span{color:var(--sub);font-size:13px}
-.fcmp{overflow-x:auto}
-table.cmp.fl td,table.cmp.fl th{white-space:nowrap}
-table.cmp.fl td.grp{color:var(--sub);font-size:12px;padding-top:10px}
-table.cmp.fl tr[data-o]{cursor:pointer}
-table.cmp.fl tr[data-o]:hover td{background:var(--bg)}
-table.cmp.fl tr.sel td{background:var(--acc-soft)}
-.fo{scroll-margin-top:76px}
-.fo.sel{border-color:var(--acc);box-shadow:0 0 0 2px var(--acc),var(--shadow)}
-.fo{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);margin-bottom:12px;overflow:hidden}
-.fo .fh{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding:12px 14px 10px;border-bottom:1px solid var(--line)}
-.fo .fh .no{display:inline-block;font-size:11.5px;color:#fff;background:var(--acc);border-radius:999px;padding:1px 9px;margin-bottom:3px}
-.fo .fh h3{margin:0;font-size:17px;line-height:1.3}
-.fo .fh .fare{font-size:12px;color:var(--sub)}
-.fo .pr{text-align:right;white-space:nowrap}
-.fo .pr b{display:block;font-family:"Black Han Sans",sans-serif;font-weight:400;font-size:21px;line-height:1.15;color:var(--acc)}
-.fo .pr small{display:block;font-size:12px;color:var(--sub)}
-.leg{padding:10px 14px}
-.leg+.leg{border-top:1px dashed var(--line)}
-.leg .lh{font-size:12px;font-weight:700;color:var(--sub);margin-bottom:4px}
-.lt{display:flex;align-items:center;gap:8px}
-.lt .pt{flex:0 0 auto;text-align:center;line-height:1.2}
-.lt .pt b{display:block;font-size:19px}
-.lt .pt span{font-size:12px;color:var(--sub)}
-.lt .mid{flex:1;min-width:0;text-align:center;font-size:11.5px;color:var(--sub);line-height:1.35}
-.lt .mid i{display:block;height:2px;background:var(--line);margin:5px 0;position:relative}
-.lt .mid i::after{content:"✈";position:absolute;right:-2px;top:-9px;font-style:normal;font-size:12px;color:var(--acc)}
-.lt .mid b{color:var(--ink);font-weight:600}
-.fo .ft{display:flex;flex-wrap:wrap;gap:6px;padding:0 14px 12px}
-
-/* LIGHTBOX */
-#lb{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;padding:16px;flex-direction:column}
-#lb.on{display:flex}
-#lb img{max-height:80vh;border-radius:8px}
-#lb div{color:#ddd;font-size:13px;margin-top:10px;text-align:center}
-</style>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Serif+JP:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="stylesheet" href="style.css?v=4">
 </head>
 <body>
+<canvas id="snow" aria-hidden="true"></canvas>
 
-<div class="hero">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Plaza_de_Espa%C3%B1a_%28Sevilla%29_-_01.jpg/960px-Plaza_de_Espa%C3%B1a_%28Sevilla%29_-_01.jpg" alt="세비야 스페인 광장">
-  <div class="in">
-    <div class="kick">2027.9.10 – 9.18 · 두 가족 6명 · 마드리드 → 세비야 → 바르셀로나</div>
-    <h1><span>윤하 & 서윤</span>의<br>스페인 대모험</h1>
-    <div class="dday" id="dday"></div>
-  </div>
-</div>
+<main id="app">
+  <!-- ============ ?쇱젙 ============ -->
+  <section class="view active" id="view-plan" aria-label="?쇱젙">
+    <header class="hero" id="hero">
+      <div class="hero-bg" id="heroBg"></div>
+      <div class="hero-inner">
+        <p class="hero-kicker"><span class="star">??/span> SAPPORO 쨌 2027 WINTER <span class="jp">??/span></p>
+        <h1 class="hero-title">?욱룷濡?<br>寃⑥슱 ?숉솕</h1>
+        <p class="hero-sub">??媛議???紐낆씠 ?④퍡 嫄룸뒗 4諛?5?쇱쓽 ?덇만</p>
+        <div class="hero-dates">
+          <span>1.8 <small>湲?/small></span><i></i><span>1.12 <small>??/small></span>
+        </div>
+        <div class="countdown" id="countdown"></div>
+        <div class="crew">
+          <span class="crew-chip">?뫅?랅윉??대Ⅸ 6</span>
+          <span class="crew-chip">?? 以? ??3</span>
+          <span class="crew-chip">?렜 珥? ?꾨뱾 1</span>
+        </div>
+        <button class="share-btn" id="shareBtn" type="button">
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M18 16a3 3 0 0 0-2.4 1.2l-6.7-3.4a3 3 0 0 0 0-1.6l6.7-3.4A3 3 0 1 0 15 7l-6.7 3.4a3 3 0 1 0 0 3.2L15 17a3 3 0 1 0 3-1Z"/></svg>
+          媛議깆뿉寃?怨듭쑀
+        </button>
+      </div>
+      <div class="hero-scroll" aria-hidden="true">??/div>
+    </header>
 
-<nav class="tabs"><div class="wrap">
-  <button data-t="plan" class="on">일정</button>
-  <button data-t="food">맛집</button>
-  <button data-t="mission">미션·퀴즈</button>
-  <button data-t="prep">준비</button>
-  <button data-t="air">항공</button>
-</div></nav>
+    <div class="overview" id="overview"></div>
 
-<main class="wrap">
+    <div class="daybar-wrap" id="daybarWrap">
+      <div class="daybar" id="daybar" role="tablist"></div>
+    </div>
+    <div id="dayPanel"></div>
+  </section>
 
-<section class="tab on" id="plan">
-  <div class="route">
-    <div class="c" style="background:var(--mad)"><b>마드리드</b>3박</div><span class="ar">›</span>
-    <div class="c" style="background:var(--sev)"><b>세비야</b>2박</div><span class="ar">›</span>
-    <div class="c" style="background:var(--bcn)"><b>바르셀로나</b>3박</div>
-  </div>
-  <div class="days" id="days"></div>
-  <div id="day"></div>
-  <div class="pn"><button id="prev">← 이전 날</button><button id="next">다음 날 →</button></div>
-</section>
+  <!-- ============ 吏??============ -->
+  <section class="view" id="view-map" aria-label="吏??>
+    <header class="page-head">
+      <p class="page-kicker">MAP 쨌 ?겼쎋</p>
+      <h2>?곕━ ?숈꽑 ?쒕늿??/h2>
+      <p class="page-desc">????꾨Ⅴ硫??μ냼 ?뺣낫媛 ?대젮?? ?ㅽ?猷㉱룹“?붿??는룰났??? ?꾨옒 踰꾪듉?쇰줈 ?대룞.</p>
+    </header>
+    <div class="map-filters" id="mapFilters"></div>
+    <div class="map-box"><div id="map"></div></div>
+    <div class="jump-row" id="jumpRow"><button data-fly="city">🇪🇸 스페인 전역</button><button data-fly="all">📍 핀 전체보기</button></div>
+    <div class="stay-note">
+      <b>?룧 ?숈냼: Snow Light Hotel Sapporo (?먯뼱鍮꾩븻鍮? 쨌 ???↑?11訝곭쎅1291-13</b> 援ш?留?醫뚰몴 湲곗? ?꾩튂?덉슂. ?욱룷濡??꾨┛?ㅽ샇??怨듯빆踰꾩뒪 ?섏감 吏???먯꽌 ?꾨낫 ??5遺?嫄곕━?덉슂.
+    </div>
+  </section>
 
-<section class="tab" id="food">
-  <h2 class="sec">스페인에서 밥 먹는 법</h2>
-  <p class="lead">한국과 시간표가 완전히 달라요. 이것만 알면 식당에서 헤매지 않아요.</p>
-  <div class="eat101">
-    <div><b>점심 14시 전후</b>하루 중 제일 든든한 식사. 평일엔 '메뉴 델 디아(오늘의 코스)'가 싸고 푸짐해요.</div>
-    <div><b>저녁 21시 이후</b>현지 식당은 20시 반쯤 열어요. 배고프면 19시쯤 타파스로 간식을.</div>
-    <div><b>타파스</b>작은 접시 요리. 6명이면 여러 개 시켜서 나눠 먹는 게 제일 재밌어요.</div>
-    <div><b>팁은 자유</b>의무 아님. 만족하면 잔돈이나 5~10% 정도.</div>
-  </div>
-  <div class="citybar" id="citybar"></div>
-  <div class="rgrid" id="rlist"></div>
-  <p class="note">영업시간·가격·예약 방식은 바뀔 수 있어요. 여행 1~2개월 전에 공식 사이트나 구글 지도로 다시 확인하세요.</p>
-</section>
+  <!-- ============ 留쏆쭛 ============ -->
+  <section class="view" id="view-food" aria-label="留쏆쭛">
+    <header class="page-head">
+      <p class="page-kicker">EAT 쨌 繇?/p>
+      <h2>?곕━ 媛議?留욎땄 硫붾돱??/h2>
+      <p class="page-desc">?앸떦留덈떎 <b class="tag-a">?대Ⅸ 6</b>怨?<b class="tag-t">?꾩씠 4 (以? ??3 쨌 珥? ?꾨뱾 1)</b>???꾪븳 異붿쿇 硫붾돱瑜?怨⑤씪??댁슂.</p>
+    </header>
+    <div class="chips" id="foodFilters"></div>
+    <div class="food-list" id="foodList"></div>
+  </section>
 
-<section class="tab" id="mission">
-  <h2 class="sec">미션 스탬프 대결</h2>
-  <p class="lead">명소마다 숨은 미션이 있어요. 성공하면 자기 이름 스탬프를 꾹! (스탬프는 이 폰에만 저장돼요)</p>
-  <div class="board">
-    <div class="p" style="background:linear-gradient(135deg,#c8442b,#e0703f)"><span>윤하</span><b id="scY">0</b><span id="scYt">개</span></div>
-    <div class="p" style="background:linear-gradient(135deg,#2563a8,#4d8fd6)"><span>서윤</span><b id="scS">0</b><span id="scSt">개</span></div>
-  </div>
-  <div class="box mlist" id="mlist"></div>
+  <!-- ============ ?쇳븨 ============ -->
+  <section class="view" id="view-shop" aria-label="?쇳븨">
+    <header class="page-head">
+      <p class="page-kicker">SHOP 쨌 縕?/p>
+      <h2>?덊궎?명뀒 ?쇳븨 誘몄뀡</h2>
+      <p class="page-desc">1李??먯깋??1?쇱감 諛? ??2李?蹂멸쾶??3?쇱감 諛?. 泥댄겕??嫄????곗뿉 ??λ뤌??</p>
+    </header>
+    <div class="donki-progress" id="donkiProgress"></div>
+    <div id="donkiList"></div>
 
-  <h2 class="sec">출발 전 스페인 퀴즈</h2>
-  <p class="lead">비행기 안에서 풀어봐요. 답을 누르면 해설이 나와요.</p>
-  <div class="quiz" id="quiz"></div>
+    <div class="card soft">
+      <h3>?㎨ 硫댁꽭 轅??/h3>
+      <ul class="dots">
+        <li>??媛寃뚯뿉???섎（ <b>5,000???몄쟾) ?댁긽</b> 援щℓ ??硫댁꽭 ?????<b>?ш텒 ?ㅻЪ</b> ?꾩닔.</li>
+        <li>?쇰낯 硫댁꽭?쒕룄媛 <b>2026??11?붾????섑솚湲됲삎??/b>?쇰줈 諛붾뚯뼱?? 援щℓ ???멸툑 ?ы븿 寃곗젣 ??異쒓뎅 ??怨듯빆 ?멸? ?뺤씤 ???섍툒. 異쒕컻 ??理쒖떊 ?덉감瑜?瑗??뺤씤!</li>
+        <li>?섍툒 ???臾쇨굔? <b>異쒓뎅 ?ъ궗 ?꾧퉴吏 媛쒕큺쨌?ъ슜 湲덉?</b>?????덉쑝???곕줈 紐⑥븘?먭린.</li>
+        <li>媛議깅퀎濡?怨꾩궛?섎㈃ ?뺤궛???명빐?? ??span class="jp">?γ끹겓?뺛걚?얇걲</span>(踰좎툩踰좎툩???섎씪?대쭏????/li>
+      </ul>
+    </div>
 
-  <h2 class="sec">이것만 알면 통한다</h2>
-  <p class="lead">바르셀로나에선 카탈루냐어도 써요. 한 마디만 해도 반응이 달라요.</p>
-  <div class="words" id="words"></div>
-</section>
+    <div class="card soft">
+      <h3>?렜 ?꾨뱾 ?쇳븨 吏??/h3>
+      <ul class="dots">
+        <li><b>?ъ폆紐ъ꽱???욱룷濡?/b> (?ㅼ씠留덈（ 諛깊솕?? ???뗭뭅?대룄 ?쒖젙 援우쫰</li>
+        <li><b>?붾룄諛붿떆 移대찓??/b> ??寃뚯엫쨌嫄댄봽?셋룹뭅?쑣룸젅怨?/li>
+        <li><b>?ㅻ늻?ㅼ퐫吏</b> ??媛梨좎닄, ?명삎戮묎린 ?ㅻ씫??/li>
+        <li><b>?좎튂?좎꽭 怨듯빆</b> ???ъ폆紐??ㅽ넗??& ?꾨씪?먮そ ??(留덉?留?李ъ뒪)</li>
+      </ul>
+    </div>
 
-<section class="tab" id="prep">
-  <div class="box" style="margin-top:16px">
-    <h3>예약·준비 체크리스트</h3>
-    <div class="note" id="cnt" style="margin:0"></div>
-    <div class="prog"><i id="bar"></i></div>
-    <div id="chks"></div>
-    <div class="note">체크 표시는 이 기기에만 저장돼요.</div>
-  </div>
-  <div class="box">
-    <h3>세 번째 도시: 왜 세비야?</h3>
-    <table class="cmp">
-      <tr><th></th><th>세비야 (선택)</th><th>그라나다 (대안)</th></tr>
-      <tr><td>대표 명소</td><td>알카사르, 대성당, 스페인 광장</td><td>알함브라 궁전</td></tr>
-      <tr><td>마드리드에서</td><td>AVE 약 2시간 30분</td><td>약 3~4시간</td></tr>
-      <tr><td>바르셀로나로</td><td>항공 약 1시간 40분</td><td>항공 약 1시간 30분</td></tr>
-      <tr><td>주의</td><td>9월에도 낮 30℃ 안팎</td><td>알함브라 표 조기 매진</td></tr>
-    </table>
-    <div class="note">이동시간·기온은 대략적인 값이에요.</div>
-  </div>
-  <div class="box">
-    <h3>아직 정할 것</h3>
-    <ol>
-      <li><b>항공 시간</b> — 9/10 밤 도착 가정. 도착 시간에 따라 첫날 일정 조정.</li>
-      <li><b>박수</b> — 현재 8박(마드리드 3·세비야 2·바르셀로나 3). 7박이면 마드리드를 2박으로.</li>
-      <li><b>세비야→바르셀로나</b> — 항공(약 2시간) vs 기차(약 5시간 30분).</li>
-      <li><b>9/17 선택</b> — 몬세라트(산) vs 구엘 공원+몬주익(도시). 윤하·서윤 투표로!</li>
-    </ol>
-  </div>
-  <div class="box">
-    <h3>우리 여행의 원칙</h3>
-    <p style="margin:0;font-size:14px">하루 핵심 2곳, 이동일엔 1곳. 한 곳에서 오래 머물며 사진 찍고, 미션하고, 맛있는 걸 먹기. 더운 오후엔 숙소에서 시에스타. 많이 보기보다 오래 기억하기.</p>
-  </div>
-</section>
+    <div class="card soft">
+      <h3>?럞 ?뗭뭅?대룄 湲곕뀗??踰좎뒪??/h3>
+      <div class="souv">
+        <span>?뜪 濡쒖씠???섎쭏珥덉퐳由?/span><span>?뜧 ?쒕줈??肄붿씠鍮꾪넗</span><span>?쭏 濡?뭅?뚯씠 踰꾪꽣?뚮뱶</span>
+        <span>?쪛 ?먭??ъ퓼猷?/span><span>?뜲 瑜댄????붾툝 ?꾨줈留덉?</span><span>?뙺 ?μ닔??珥덉퐳由?/span>
+        <span>?뜄 ?좊컮由?硫쒕줎 ?ㅻ━</span><span>?렧 ?ㅽ?猷??ㅻⅤ怨?/span><span>?쪉 ?덉뭅 ?꾩뒪??(?대Ⅸ)</span>
+      </div>
+    </div>
+  </section>
 
-<section class="tab" id="air">
-  <div class="fsum">
-    <span class="chip">🛬 마드리드 IN</span><span class="chip">🛫 바르셀로나 OUT</span><span class="chip">👨‍👩‍👧 3인 합산 금액</span><span class="chip">🧳 위탁 1인 1개</span>
-  </div>
+  <!-- ============ 以鍮?============ -->
+  <section class="view" id="view-info" aria-label="?ы뻾 以鍮?>
+    <header class="page-head">
+      <p class="page-kicker">READY 쨌 繹뽩굺</p>
+      <h2>異쒕컻 ??泥댄겕</h2>
+      <p class="page-desc">1???욱룷濡쒕뒗 ?섏쭊吏?寃⑥슱?숈씠?먯슂. ?곕쑜?섍쾶, 誘몃걚?쎌? ?딄쾶!</p>
+    </header>
 
-  <h2 class="sec">한눈에 비교</h2>
-  <div class="box fcmp">
-    <table class="cmp fl">
-      <tr><th>옵션</th><th>3인 금액</th><th>가는편 출발 · 소요</th><th>귀국 경유</th></tr>
-      <tr><td colspan="4" class="grp">8박 · 싱가포르항공</td></tr>
-      <tr data-o="a1" tabindex="0" title="누르면 아래 상세로 이동"><td><b>옵션 1</b></td><td>$3,969.30</td><td>9/10 16:45 · 23h 20m</td><td>뮌헨</td></tr>
-      <tr data-o="a2" tabindex="0" title="누르면 아래 상세로 이동"><td><b>옵션 2</b></td><td>$3,969.30</td><td>9/10 11:05 · 29h 00m</td><td>뮌헨</td></tr>
-      <tr data-o="a3" tabindex="0" title="누르면 아래 상세로 이동"><td><b>옵션 3</b></td><td>$3,992.70</td><td>9/10 16:45 · 23h 20m</td><td>프랑크푸르트</td></tr>
-      <tr data-o="a4" tabindex="0" title="누르면 아래 상세로 이동"><td><b>옵션 4</b></td><td>$3,992.70</td><td>9/10 11:05 · 29h 00m</td><td>프랑크푸르트</td></tr>
-      <tr><td colspan="4" class="grp">7박 · 에티하드항공</td></tr>
-      <tr data-o="b1" tabindex="0" title="누르면 아래 상세로 이동"><td><b>옵션 1</b></td><td>$3,834.60</td><td>9/11 01:35 · 25h 05m</td><td>아부다비</td></tr>
-    </table>
-    <div class="note">옵션 줄을 누르면 아래 상세 카드로 이동해요. 카드를 누르면 표에서도 표시돼요.</div>
-  </div>
+    <div class="weather">
+      <div class="w-main">
+        <div class="w-temp">-1째<small>/ -7째</small></div>
+        <div class="w-label">1???됯퇏 理쒓퀬 / 理쒖?</div>
+      </div>
+      <div class="w-grid">
+        <div><b>07:05</b><span>????/span></div>
+        <div><b>16:25</b><span>??吏?/span></div>
+        <div><b>嫄곗쓽 留ㅼ씪</b><span>??/span></div>
+        <div><b>+0h</b><span>?쒖감 ?놁쓬</span></div>
+      </div>
+    </div>
 
-  <div class="fgrp"><h2>8박 일정</h2><span>9/10 In → 9/18 Out · 싱가포르항공</span></div>
+    <details class="acc" open>
+      <summary>?㎡ 以鍮꾨Ъ 泥댄겕由ъ뒪??<span class="acc-count" id="packCount"></span></summary>
+      <div id="packList"></div>
+    </details>
 
-  <div class="fo" id="o-a1">
-    <div class="fh"><div><span class="no">옵션 1</span><h3>싱가포르항공</h3><div class="fare">Economy Standard · 변경/환불 가능(수수료)</div></div>
-      <div class="pr"><b>$3,969.30</b><small>약 539만원 · 3인</small><small>1인 약 180만원</small></div></div>
-    <div class="leg"><div class="lh">가는편 · 9/10(금)</div>
-      <div class="lt"><div class="pt"><b>16:45</b><span>ICN</span></div><div class="mid">싱가포르 환승 1h 35m<i></i>총 <b>23h 20m</b></div><div class="pt"><b>09:05</b><span>MAD · 9/11(토)</span></div></div></div>
-    <div class="leg"><div class="lh">오는편 · 9/18(토)</div>
-      <div class="lt"><div class="pt"><b>07:55</b><span>BCN</span></div><div class="mid">뮌헨·싱가포르 2회 환승<i></i>총 <b>24h 35m</b></div><div class="pt"><b>15:30</b><span>ICN · 9/19(일)</span></div></div></div>
-    <div class="ft"><span class="chip">⏱ 출국 소요시간 최단</span><span class="chip">귀국 뮌헨 경유</span></div>
-  </div>
+    <details class="acc">
+      <summary>?맕 ?덇만 嫄룸뒗 踰?(??톬 嫄몄쓬)</summary>
+      <ul class="dots">
+        <li>蹂댄룺? ?묎쾶, 諛쒕컮???꾩껜濡??섍씁???붾뵒湲? 臾닿쾶以묒떖? ?쎄컙 ?욎쑝濡?</li>
+        <li>二쇰㉧?덉뿉 ???ｊ퀬 嫄룹? ?딄린 ???섏뼱吏????먯쑝濡?吏싳뼱???댁슂.</li>
+        <li>?〓떒蹂대룄 ???? 嫄대Ъ ?낃뎄 留ㅽ듃 二쇰?, 吏?섏쿋 異쒓뎄 怨꾨떒???쒖씪 誘몃걚?ъ썙??</li>
+        <li>?좊컻???꾩씠?졖룸??꾨읆諛⑹? 諛대뱶???몄쓽?먃룸룉?ㅽ샇?뚯뿉?쒕룄 ?붿븘??</li>
+        <li>?욱룷濡쒖뿭~?ㅻ룄由??ㅼ뒪?ㅻ끂??<b>吏?섎룄(移섏뭅?맞룻뤃???</b>濡??곌껐 ??異붿슫 ?좎? 吏?섎줈!</li>
+      </ul>
+    </details>
 
-  <div class="fo" id="o-a2">
-    <div class="fh"><div><span class="no">옵션 2</span><h3>싱가포르항공</h3><div class="fare">Economy Standard · 변경/환불 가능(수수료)</div></div>
-      <div class="pr"><b>$3,969.30</b><small>약 539만원 · 3인</small><small>1인 약 180만원</small></div></div>
-    <div class="leg"><div class="lh">가는편 · 9/10(금)</div>
-      <div class="lt"><div class="pt"><b>11:05</b><span>ICN</span></div><div class="mid">싱가포르 환승 7h 00m<i></i>총 <b>29h 00m</b></div><div class="pt"><b>09:05</b><span>MAD · 9/11(토)</span></div></div></div>
-    <div class="leg"><div class="lh">오는편 · 9/18(토)</div>
-      <div class="lt"><div class="pt"><b>07:55</b><span>BCN</span></div><div class="mid">뮌헨·싱가포르 2회 환승<i></i>총 <b>24h 35m</b></div><div class="pt"><b>15:30</b><span>ICN · 9/19(일)</span></div></div></div>
-    <div class="ft"><span class="chip warn">싱가포르 7시간 낮 대기</span><span class="chip">귀국 뮌헨 경유</span></div>
-  </div>
+    <details class="acc">
+      <summary>?쉮 援먰넻 쨌 ?앹떆 ?붾졊</summary>
+      <ul class="dots">
+        <li>?쇰낯? <b>以묓븰?앸????대Ⅸ ?붽툑</b> ??以? ?몃뱾? ?대Ⅸ ?붽툑, <b>珥? ?꾨뱾? ?대┛???붽툑(蹂댄넻 諛섍컪)</b>?댁뿉??(JR쨌吏?섏쿋쨌濡쒗봽?⑥씠 ??.</li>
+        <li>援먰넻移대뱶: ?꾩씠?곗? 吏媛??깆뿉 <b>Suica</b> 異붽? 媛?? ?ㅻЪ 移대뱶??JR ??뿉??<b>Kitaca</b> 援щℓ.</li>
+        <li>10紐낆? ?앹떆 <b>3?</b>(4쨌3쨌3). ?깆? <b>GO</b> ?먮뒗 <b>DiDi</b> ???몄텧 ??媛議??⑦넚?????몄감/2?몄감/3?몄감???뺥븯湲?</li>
+        <li>?앹떆 臾몄? ?먮룞! 吏곸젒 ?닿퀬 ?レ? 留덉꽭??</li>
+        <li>?숈냼 ???ㅻ늻?ㅼ퐫吏쨌?덊궎?명뀒 ?꾨낫 ??16遺?/ 吏?섏쿋 ?꾩옄?댁꽑 ?덉떆11珥덈찓???꾨낫 ??7遺?</li>
+        <li><b>?꾩갑??1/8 湲?</b>: 怨듯빆 ???숈냼??JR 苡뚯냽 ?먯뼱?ы듃(??37遺? + ?앹떆 3?瑜?湲곕낯?쇰줈 ?댁슂. 怨듯빆踰꾩뒪???욱룷濡??꾨┛?ㅽ샇?붿뿉???대━硫??꾨낫 ??5遺꾩씠吏留? ?덉빟??????10紐낆씠 ?????紐??????덇퀬 湲덉슂???닿렐 ?뺤껜쨌?덉씠硫?90~120遺?嫄몃┫ ???덉뼱??</li>
+      </ul>
+    </details>
 
-  <div class="fo" id="o-a3">
-    <div class="fh"><div><span class="no">옵션 3</span><h3>싱가포르항공</h3><div class="fare">Economy Standard · 변경/환불 가능(수수료)</div></div>
-      <div class="pr"><b>$3,992.70</b><small>약 542만원 · 3인</small><small>1인 약 181만원</small></div></div>
-    <div class="leg"><div class="lh">가는편 · 9/10(금)</div>
-      <div class="lt"><div class="pt"><b>16:45</b><span>ICN</span></div><div class="mid">싱가포르 환승 1h 35m<i></i>총 <b>23h 20m</b></div><div class="pt"><b>09:05</b><span>MAD · 9/11(토)</span></div></div></div>
-    <div class="leg"><div class="lh">오는편 · 9/18(토)</div>
-      <div class="lt"><div class="pt"><b>08:00</b><span>BCN</span></div><div class="mid">프랑크푸르트·싱가포르 2회 환승<i></i>총 <b>24h 30m</b></div><div class="pt"><b>15:30</b><span>ICN · 9/19(일)</span></div></div></div>
-    <div class="ft"><span class="chip">⏱ 환승 1h 35m 적정</span><span class="chip">귀국 프랑크푸르트 경유</span></div>
-  </div>
+    <details class="acc">
+      <summary>?⑨툘 ?⑥쿇 ?먰떚耳?(?꾩씠??泥??⑥쿇?대씪硫?</summary>
+      <ul class="dots">
+        <li>?뺤뿉 ?ㅼ뼱媛湲???<b>紐몄쓣 癒쇱? ?산린</b> (?됱븘???ㅼ썙).</li>
+        <li>?묒? ?섍굔? <b>???덉뿉 ?ｌ? ?딄린</b> ??癒몃━ ?꾩뿉 ?щ젮?먭린.</li>
+        <li>湲?癒몃━??臾띠뼱??臾쇱뿉 ?우? ?딄쾶.</li>
+        <li>?덉쓽?ㅒ룻깢 ?덉뿉?쒕뒗 <b>?ъ쭊 珥ъ쁺 ?덈? 湲덉?</b>, ?대??곗? ?щЪ?⑥뿉.</li>
+        <li>?섏쁺蹂?NO, 議곗슜????? ?ㅻ옒 ?덉쑝硫??댁??ъ슦??臾??먯＜ 留덉떆湲?</li>
+        <li>?몄쿇?뺤뿉??癒몃━????留욎쑝硫??쒖븘~???섎뒗 寃??뺤꽍 ?꾬툘</li>
+      </ul>
+    </details>
 
-  <div class="fo" id="o-a4">
-    <div class="fh"><div><span class="no">옵션 4</span><h3>싱가포르항공</h3><div class="fare">Economy Standard · 변경/환불 가능(수수료)</div></div>
-      <div class="pr"><b>$3,992.70</b><small>약 542만원 · 3인</small><small>1인 약 181만원</small></div></div>
-    <div class="leg"><div class="lh">가는편 · 9/10(금)</div>
-      <div class="lt"><div class="pt"><b>11:05</b><span>ICN</span></div><div class="mid">싱가포르 환승 7h 00m<i></i>총 <b>29h 00m</b></div><div class="pt"><b>09:05</b><span>MAD · 9/11(토)</span></div></div></div>
-    <div class="leg"><div class="lh">오는편 · 9/18(토)</div>
-      <div class="lt"><div class="pt"><b>08:00</b><span>BCN</span></div><div class="mid">프랑크푸르트·싱가포르 2회 환승<i></i>총 <b>24h 30m</b></div><div class="pt"><b>15:30</b><span>ICN · 9/19(일)</span></div></div></div>
-    <div class="ft"><span class="chip warn">싱가포르 7시간 낮 대기</span><span class="chip">귀국 프랑크푸르트 경유</span></div>
-  </div>
+    <details class="acc">
+      <summary>?뿣截??쇰낯???쒕쭏??<small>(??븯硫?諛쒖쓬 ?ъ깮)</small></summary>
+      <div class="phrases" id="phrases"></div>
+    </details>
 
-  <div class="fgrp"><h2>7박 일정</h2><span>9/11 In → 9/18 Out · 에티하드항공</span></div>
+    <div class="card soft">
+      <h3>?뮪 ?섏쑉 怨꾩궛湲?/h3>
+      <div class="fx">
+        <label><span>??(짜)</span><input id="fxJpy" type="number" inputmode="decimal" value="1000"></label>
+        <span class="fx-eq">=</span>
+        <label><span>??(??</span><input id="fxKrw" type="number" inputmode="decimal"></label>
+      </div>
+      <label class="fx-rate">100??= <input id="fxRate" type="number" inputmode="decimal" step="1" value="930"> ??<small>(異쒕컻 ???ㅼ젣 ?섏쑉濡??섏젙)</small></label>
+      <div class="fx-quick" id="fxQuick"></div>
+    </div>
 
-  <div class="fo" id="o-b1">
-    <div class="fh"><div><span class="no" style="background:var(--bcn)">옵션 1</span><h3>에티하드항공</h3><div class="fare">Economy Value · 변경/환불 가능 표시</div></div>
-      <div class="pr"><b>$3,834.60</b><small>약 520만원 · 3인</small><small>1인 약 173만원</small></div></div>
-    <div class="leg"><div class="lh">가는편 · 9/11(토) 새벽</div>
-      <div class="lt"><div class="pt"><b>01:35</b><span>ICN</span></div><div class="mid">아부다비 환승 7h 45m<i></i>총 <b>25h 05m</b></div><div class="pt"><b>19:40</b><span>MAD · 9/11(토)</span></div></div></div>
-    <div class="leg"><div class="lh">오는편 · 9/18(토)</div>
-      <div class="lt"><div class="pt"><b>10:45</b><span>BCN</span></div><div class="mid">아부다비 환승 1h 50m<i></i>총 <b>17h 05m</b></div><div class="pt"><b>10:50</b><span>ICN · 9/19(일)</span></div></div></div>
-    <div class="ft"><span class="chip">💰 가장 저렴</span><span class="chip">왕복 모두 1회 경유</span><span class="chip">귀국 연결 우수</span><span class="chip warn">토요일 새벽 출발</span></div>
-  </div>
+    <div class="card emergency">
+      <h3>?슚 湲닿툒 ?곕씫泥?/h3>
+      <a href="tel:110">?슀 寃쎌같 <b>110</b></a>
+      <a href="tel:119">?쉻 援ш툒쨌?붿옱 <b>119</b></a>
+      <a href="tel:+81112180288">?눖?눟 二쇱궭?щ줈 ??쒕?援?珥앹쁺?ш? <b>+81-11-218-0288</b></a>
+      <a href="tel:+82232100404">?뱸 ?멸탳遺 ?곸궗肄쒖꽱??(24?쒓컙) <b>+82-2-3210-0404</b></a>
+      <p class="small">踰덊샇??異쒕컻 ????踰????뺤씤?섏꽭?? ?꾩씠???곗뿉?????</p>
+    </div>
 
-  <p class="note">금액·스케줄은 조회 시점 기준이라 바뀔 수 있어요. 예약 전에 다시 확인하세요. 원화는 대략적인 환산이고, 1인 금액은 3인 합산을 3으로 나눈 값이에요.</p>
-</section>
+    <details class="acc">
+      <summary>?벜 ?ъ쭊 異쒖쿂</summary>
+      <p class="small">紐⑤뱺 ?ъ쭊? Wikimedia Commons???먯쑀 ?쇱씠?좎뒪 ?대?吏?낅땲?? ?쇰? ?앸떦? ????붾━ ?ъ쭊(李멸퀬 ?대?吏)???ъ슜?덉뼱?? ??묒옄쨌?쇱씠?좎뒪??媛?留곹겕?먯꽌 ?뺤씤?????덉뒿?덈떎.</p>
+      <ul class="credits" id="credits"></ul>
+    </details>
 
+    <div class="card soft">
+      <h3>?븩 異쒕컻 ??瑗??뺤씤</h3>
+      <p>?곸뾽?쒓컙怨??대Т?쇱? 異쒕컻 吏곸쟾??援ш?留듭쑝濡?瑗??ㅼ떆 ?뺤씤?섏꽭?? ?뱁엳 1/10(??, 1/11(?붋룰났?댁씪)? ?밸퀎 ?곸뾽?쇱씪 ???덉뼱?? 10紐낆? 4쨌3쨌3紐??먮뒗 5쨌5紐낆쑝濡??섎닠 ?낆옣?섎뒗 寃껋쓣 湲곕낯?쇰줈 ?섏꽭??</p>
+    </div>
+
+    <footer class="foot">
+      <p>?꾬툘 ??媛議깆쓽 ?욱룷濡?寃⑥슱 ?숉솕 쨌 2027</p>
+      <p class="small">?곸뾽?쒓컙쨌?붽툑쨌?뷀? ?쒓컙? 蹂?숇맆 ???덉쑝??諛⑸Ц ???뺤씤?섏꽭??</p>
+    </footer>
+  </section>
 </main>
-<footer>V1.2 · 2026.9.29 (KST) 작성 · 사진: Wikimedia Commons 기여자 (CC BY-SA 등, 사진을 누르면 원본 페이지로 연결)</footer>
 
-<div id="lb"><img alt=""><div></div></div>
+<!-- ?섎떒 ??컮 -->
+<nav class="tabbar" id="tabbar" aria-label="硫붾돱">
+  <button class="tab active" data-view="plan"><svg viewBox="0 0 24 24"><path d="M7 3v2M17 3v2M4 8h16M5 5h14a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z"/><path d="M8 12h3M8 16h6"/></svg><span>?쇱젙</span></button>
+  <button class="tab" data-view="map"><svg viewBox="0 0 24 24"><path d="M12 21s-6-5.3-6-11a6 6 0 1 1 12 0c0 5.7-6 11-6 11Z"/><circle cx="12" cy="10" r="2.3"/></svg><span>吏??/span></button>
+  <button class="tab" data-view="food"><svg viewBox="0 0 24 24"><path d="M5 11h14a7 7 0 0 1-14 0ZM4 21h16M9 3c0 2 1.5 2 1.5 4M13 3c0 2 1.5 2 1.5 4"/></svg><span>留쏆쭛</span></button>
+  <button class="tab" data-view="shop"><svg viewBox="0 0 24 24"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span>?쇳븨</span></button>
+  <button class="tab" data-view="info"><svg viewBox="0 0 24 24"><path d="M12 3v18M4.5 7.5l15 9M19.5 7.5l-15 9"/><path d="M10 4.5 12 6l2-1.5M10 19.5 12 18l2 1.5"/></svg><span>以鍮?/span></button>
+</nav>
 
-<script>
-/* ---------- helpers ---------- */
-const W=p=>{const f=p.split('/').pop();return `https://upload.wikimedia.org/wikipedia/commons/thumb/${p}/960px-${f}`};
-const W5=p=>{const f=p.split('/').pop();return `https://upload.wikimedia.org/wikipedia/commons/thumb/${p}/500px-${f}`};
-const SRC=p=>'https://commons.wikimedia.org/wiki/File:'+p.split('/').pop();
-const MAP=q=>'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(q);
-const img=(p,alt,cls='')=>p?`<img loading="lazy" class="${cls}" src="${W(p)}" data-p="${p}" alt="${alt}" onerror="imgErr(this)">`:'';
-function imgErr(el){if(!el.dataset.f){el.dataset.f=1;el.src=W5(el.dataset.p)}else{el.style.display='none'}}
-const $=s=>document.querySelector(s);
-const $$=s=>[...document.querySelectorAll(s)];
-const ls={g(k,d){try{const v=localStorage.getItem(k);return v===null?d:JSON.parse(v)}catch(e){return d}},s(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
-const CITY={mad:['마드리드','var(--mad)'],tol:['톨레도','var(--tol)'],sev:['세비야','var(--sev)'],bcn:['바르셀로나','var(--bcn)'],mv:['이동','var(--mv)']};
+<!-- ?μ냼 ?곸꽭 諛뷀??쒗듃 -->
+<div class="sheet-backdrop" id="sheetBackdrop" hidden></div>
+<article class="sheet" id="sheet" aria-modal="true" role="dialog" aria-hidden="true">
+  <div class="sheet-grip" id="sheetGrip"><i></i></div>
+  <button class="sheet-close" id="sheetClose" aria-label="?リ린">??/button>
+  <div class="sheet-body" id="sheetBody"></div>
+</article>
 
-/* ---------- images ---------- */
-const I={
- palace:'9/9b/Palacio_Real_de_Madrid_Julio_2016_%28cropped%29.jpg',
- mayor:'d/d2/Madrid_Plaza_Mayor_%2848733706273%29.jpg',
- debod:'c/cc/2026-09-03_-_Temple_of_Debod_in_Madrid_Spain_01.jpg',
- madrid:'1/14/Madrid_-_Sky_Bar_360%C2%BA_%28Hotel_Riu_Plaza_Espa%C3%B1a%29%2C_vistas_19.jpg',
- sol:'f/fb/2026-09-03_-_Puerta_del_Sol_in_Madrid_Spain.jpg',
- toledo:'6/65/Toledo_%2837737041515%29.jpg',
- tolcat:'0/08/FP_Toledo_Cathedral_2025_-_West_fa%C3%A7ade.jpg',
- orgaz:'f/ff/El_Greco_-_The_Burial_of_the_Count_of_Orgaz.JPG',
- prado:'6/68/Museo_del_Prado_2016_%2825185969599%29.jpg',
- meninas:'3/31/Las_Meninas%2C_by_Diego_Vel%C3%A1zquez%2C_from_Prado_in_Google_Earth.jpg',
- garden:'9/96/The_Garden_of_earthly_delights.jpg',
- atocha:'b/b5/Atocha_railway_station_5.JPG',
- ave:'e/ed/Trenes.jpg',
- pesp:'b/b6/Plaza_de_Espa%C3%B1a_%28Sevilla%29_-_01.jpg',
- alcazar:'c/c9/Sevilla-2-2_%2848040287512%29-edit.jpg',
- secat:'2/2b/Sevilla_Cathedral_-_Southeast.jpg',
- giralda:'4/47/Sevilla_Cathedral_-_Giralda.jpg',
- flamenco:'8/8d/Belen_maya.jpg',
- oro:'b/b2/Torre_del_Oro_flag_Seville_Spain.jpg',
- triana:'7/7a/Sevilla-3-12_%2848040411218%29.jpg',
- setas:'e/e4/Metropolparasolnov2011001.jpg',
- bcn:'a/a6/Evening_light_over_Barcelona.jpg',
- bcnair:'a/a0/BCN_AIRPORT_FROM_FLIGHT_BCN-ORY_A320_EC-MLE_%2843952944862%29.jpg',
- gotic:'6/6d/Barcelona_-_Carrer_del_Bisbe.jpg',
- boq:'9/96/Barcelona_-_Mercat_de_Sant_Josep_%28la_Boqueria%29_-_Entrance.jpg',
- sagrada:'e/ef/SF_maig_2_cropped.jpg',
- batllo:'b/bf/Casa_Batllo_Overview_Barcelona_Spain_cut.jpg',
- guell:'3/33/Parc_guell_-_panoramio.jpg',
- montse:'d/d5/Abbey_of_Montserrat_02.jpg',
- montsem:'c/cd/Montserrat_des_de_Manresa.JPG',
- rack:'c/c4/FGC_A_GTW_01.jpg',
- montjuic:'d/d7/Fale_-_Spain_-_Barcelona_-_8.jpg',
- fountain:'d/de/Barcelona_-_Font_M%C3%A0gica_-_2016.jpg',
- /* food */
- cochi:'0/07/Cochinillo_asado-Madrid.jpg',botin:'f/ff/Casa_Bot%C3%ADn_2.JPG',
- sanmiguel:'b/b3/Mercado_de_San_Miguel_2025.jpg',jamon:'3/35/Jamon_iberico_de_bellota_2_%28cinco_jotas%29.jpg',
- croq:'b/b4/Croquetas_Caseras_%287068664101%29.jpg',churros:'c/c6/Chocolate_con_churros_%2827343655726%29.jpg',
- gines:'a/ae/Chocolater%C3%ADa_%22San_Gines%22-Madrid-2009.jpg',huevos:'4/42/Detalle-Huevos_Rotos.JPG',
- calam:'9/99/BocadilloCalamaresAtocha.JPG',gambas:'0/0d/Gambas_al_ajillo_en_madrid.jpg',
- tortilla:'4/49/Tortilla_de_patata_-_San_Sebasti%C3%A1n.jpg',carca:'c/c0/CARCAMUSAS.JPG',
- mazapan:'6/6c/Rolling_out_the_marzipan_%2811029638025%29.jpg',salmo:'e/ea/Salmorejo_cordouan.JPG',
- pringa:'b/b4/Pringa_pan.JPG',serranito:'e/ea/Serranito_de_cerdo.JPG',tapas:'4/46/TapasenBarcelona.JPG',
- bravas:'1/16/Patatas_bravas_madrid.jpg',paella:'e/ed/01_Paella_Valenciana_original.jpg',
- negro:'1/15/14-08-04-barcelona-RalfR-41.jpg',fideua:'a/a4/Fideua_-_xurde.jpg',
- pan:'8/8a/Pa_amb_tomaquet.jpg',crema:'b/bb/Creme_catalane.jpg',padron:'5/54/Pementos_de_Padron.jpg'
-};
+<div class="toast" id="toast" role="status"></div>
 
-/* ---------- restaurants ---------- */
-const R={
- botin:{c:'mad',n:'보틴 (Restaurante Botín)',since:'1725년 창업',img:I.botin,
-  why:'기네스북에 오른 "세계에서 가장 오래된 레스토랑". 300년 된 장작 화덕에서 굽는 새끼돼지 통구이가 간판 메뉴예요. 여행 첫 저녁을 특별하게 시작하기 좋아요.',
-  d:[[I.cochi,'코치니요 아사도','새끼돼지 통구이 (대표)'],[I.gambas,'감바스 알 아히요','마늘 새우'],[I.croq,'크로케타','크림 크로켓']],
-  info:['예약 필수 (공식 사이트)','€€€','1층 화덕 앞 자리 요청해보기'],q:'Restaurante Botín Madrid'},
- sanmiguel:{c:'mad',n:'산 미겔 시장 (Mercado de San Miguel)',since:'1916년 철골 건물',img:I.sanmiguel,
-  why:'유리와 철골로 된 예쁜 실내 시장. 가게마다 한두 입짜리 타파스를 팔아서, 각자 먹고 싶은 걸 골라 모아 먹는 "스페인 푸드코트" 같아요.',
-  d:[[I.jamon,'하몽 이베리코','도토리 먹고 자란 돼지 햄'],[I.croq,'크로케타','종류별로 골라먹기'],[I.tortilla,'토르티야','감자 오믈렛']],
-  info:['예약 없음','서서 먹는 곳 많음','€€'],q:'Mercado de San Miguel'},
- gines:{c:'mad',n:'초콜라테리아 산 히네스',since:'1894년 창업',img:I.gines,
-  why:'마드리드에서 가장 유명한 추로스 가게. 찍어 먹는 게 아니라 거의 "마시는" 진한 초콜릿에 추로스를 푹 담가 먹어요. 목~일은 24시간 영업.',
-  d:[[I.churros,'추로스 콘 초콜라테','가장 기본'],[I.churros,'포라스','두꺼운 추로스']],
-  info:['예약 없음','줄 서도 회전 빠름','€'],q:'Chocolatería San Ginés'},
- lucio:{c:'mad',n:'카사 루시오 (Casa Lucio)',since:'라 라티나 카바 바하 거리',img:I.huevos,
-  why:'감자튀김 위에 반숙 계란을 올려 즉석에서 깨뜨려 섞어주는 "우에보스 에스트레야도스"로 유명한 집. 아이들이 가장 좋아하는 스페인 요리 1순위예요.',
-  d:[[I.huevos,'우에보스 에스트레야도스','감자튀김+반숙계란'],[I.jamon,'하몽 곁들임','추가 토핑'],[I.croq,'크로케타','']],
-  info:['예약 권장','€€','같은 거리에 타파스 바가 줄지어 있음'],q:'Casa Lucio Madrid'},
- brillante:{c:'mad',n:'엘 브리얀테 (El Brillante)',since:'아토차역 앞',img:I.calam,
-  why:'마드리드 명물 "오징어튀김 샌드위치(보카디요 데 칼라마레스)"로 유명한 바. 세비야행 기차 타기 전 간단한 점심으로 딱이에요.',
-  d:[[I.calam,'보카디요 데 칼라마레스','오징어튀김 바게트'],[I.churros,'추로스','디저트로']],
-  info:['예약 없음','빠르게 먹기 좋음','€'],q:'El Brillante Atocha Madrid'},
- lonuestro:{c:'tol',n:'로 누에스트로 (Lo Nuestro Tapería)',since:'알카사르 근처',img:I.carca,
-  why:'가족이 운영하는 작은 타파스 식당. 톨레도 전통 요리 "카르카무사스"(토마토 소스 돼지고기 스튜)와 라만차 지방의 만체고 치즈를 맛볼 수 있어요.',
-  d:[[I.carca,'카르카무사스','톨레도 명물 돼지고기 스튜'],[I.tortilla,'토르티야',''],[I.jamon,'만체고 치즈·하몽','']],
-  info:['1인 약 €20~25','6명이면 예약 권장','대안: 라 아바디아(옛 지하 저장고 식당)'],q:'Lo Nuestro Tapería Toledo'},
- santotome:{c:'tol',n:'산토 토메 마사판 가게',since:'1856년부터',img:I.mazapan,
-  why:'톨레도는 아몬드와 설탕으로 만든 과자 "마사판"의 도시예요. 수녀원에서 시작된 전통으로, 동물·과일 모양 마사판이 귀여워서 선물용으로도 좋아요.',
-  d:[[I.mazapan,'마사판','아몬드 과자']],
-  info:['간식·기념품','€'],q:'Mazapán Santo Tomé Toledo'},
- lonja:{c:'sev',n:'로냐 델 바랑코 (Mercado Lonja del Barranco)',since:'강변 푸드마켓',img:I.oro,
-  why:'과달키비르 강변, 에펠 사무소가 설계에 참여한 것으로 알려진 철골 건물 안의 푸드마켓. 20여 개 가게에서 각자 원하는 걸 골라 한 테이블에 모여 먹을 수 있어 6명에게 편해요.',
-  d:[[I.salmo,'살모레호','차가운 토마토 수프'],[I.tapas,'해산물 타파스',''],[I.jamon,'하몽','']],
-  info:['예약 없음','앉을 자리 많음','€€'],q:'Mercado Lonja del Barranco Sevilla'},
- rincon:{c:'sev',n:'엘 린콘시요 (El Rinconcillo)',since:'1670년 창업 · 세비야 최古 바',img:I.salmo,
-  why:'세비야에서 가장 오래된 바로 알려진 곳. 계산을 나무 카운터에 분필로 적어주는 옛날 방식이 그대로예요. 안쪽·위층 식당은 앉아서 먹을 수 있어요.',
-  d:[[I.salmo,'살모레호','걸쭉한 차가운 토마토 수프'],[I.jamon,'하몽 이베리코',''],[I.croq,'크로케타','']],
-  info:['식당 좌석 예약 권장','€€','대표 타파스: 시금치 병아리콩 볶음'],q:'El Rinconcillo Sevilla'},
- columnas:{c:'sev',n:'보데가 산타크루스 (Las Columnas)',since:'산타크루스 지구',img:I.pringa,
-  why:'대성당 바로 옆 골목, 현지인들이 서서 먹는 활기찬 바. 작은 빵 샌드위치 "몬타디토"를 몇 개씩 맛보기 좋아요. 저녁 전 간식으로 추천.',
-  d:[[I.pringa,'프링가 몬타디토','고기 스튜 미니버거'],[I.serranito,'세라니토','세비야식 샌드위치']],
-  info:['서서 먹는 곳','€'],q:'Bodega Santa Cruz Las Columnas Sevilla'},
- comercio:{c:'sev',n:'바 엘 코메르시오 (El Comercio)',since:'100년 넘은 바',img:I.churros,
-  why:'옛날 타일과 나무 카운터가 예쁜 오래된 바. 아침에 추로스와 초콜라테를 먹는 세비야 사람들 틈에 섞여보세요.',
-  d:[[I.churros,'추로스+초콜라테','아침 식사']],
-  info:['아침 추천','€'],q:'Bar El Comercio Sevilla'},
- seoul:{c:'bcn',n:'추석 저녁: 바르셀로나 한식당',since:'사그라다 파밀리아 근처 등',img:null,
-  why:'9/15은 추석! 두 가족이 멀리서 맞는 명절이니, 이날 저녁은 한식당에서 떡국이나 전 같은 명절 음식을 먹어보는 것도 좋은 추억이에요. 사그라다 파밀리아 근처 "서울정(Restaurante Seoul)" 등 한인 식당이 여러 곳 있어요.',
-  d:[],info:['여행 직전 최신 후기로 결정','6명 예약'],q:'Korean restaurant Barcelona'},
- catalana:{c:'bcn',n:'세르베세리아 카탈라나',since:'에이샴플레 지구',img:I.bravas,
-  why:'현지인과 여행자 모두 줄 서는 타파스 명소. 예약을 받지 않지만 가게가 커서 회전이 빨라요. 카사 바트요에서 걸어서 갈 수 있어요.',
-  d:[[I.bravas,'파타타스 브라바스','매콤 소스 감자'],[I.padron,'피미엔토스 데 파드론','구운 꽈리고추'],[I.pan,'판 콘 토마테','토마토 빵']],
-  info:['예약 불가 · 이른 시간 추천','€€','주소: Carrer de Mallorca 236'],q:'Cervecería Catalana Barcelona'},
- portes:{c:'bcn',n:'세츠 포르테스 (7 Portes)',since:'1836년 창업',img:I.paella,
-  why:'문이 7개라서 이름이 "7개의 문". 190년 가까이 된 파에야 명가로, 넓어서 단체 예약도 받아요. 여행 마지막 밤 "가족 파에야 만찬"에 딱이에요.',
-  d:[[I.paella,'파레야다 파에야','껍질 다 발라준 해산물 파에야'],[I.negro,'아로스 네그레','오징어 먹물 밥'],[I.fideua,'피데우아','국수로 만든 파에야'],[I.crema,'크레마 카탈라나','디저트']],
-  info:['예약 필수 (단체 가능)','€€€','포트 벨(항구) 옆'],q:'7 Portes Barcelona'},
- cansole:{c:'bcn',n:'칸 솔레 (Can Solé)',since:'1903년 창업 · 바르셀로네타',img:I.negro,
-  why:'바닷가 마을 바르셀로네타의 100년 넘은 해산물 밥집. 해변 산책과 묶기 좋아요. 7 Portes 대안으로.',
-  d:[[I.paella,'해산물 파에야',''],[I.negro,'먹물 밥','']],
-  info:['예약 권장','€€€'],q:'Can Solé Barcelona'},
- boqueria:{c:'bcn',n:'라 보케리아 시장',since:'람블라스 거리',img:I.boq,
-  why:'형형색색 과일주스 컵과 과일 가게가 늘어선 바르셀로나 대표 시장. 사진 찍기 최고의 장소예요. 시장 안 바 카운터에서 간단히 먹을 수도 있어요.',
-  d:[[I.pan,'판 콘 토마테',''],[I.jamon,'하몽 콘',''],[I.crema,'크레마 카탈라나','']],
-  info:['일요일 휴무','소매치기 주의','€'],q:'Mercat de la Boqueria'}
-};
-
-/* ---------- days ---------- */
-const D=[
-{d:'9/10',w:'금',c:'mv',img:I.madrid,t:'출발! 올라, 마드리드',s:'인천 → 마드리드 · 밤 도착 (가정)',
- ph:['¡Hola!','올라','안녕하세요'],
- ev:[
-  {k:'move',t:'출발',n:'인천 → 마드리드',x:'오픈조 항공권. 직항 또는 1회 경유로 약 14~20시간. 비행기에서 이 페이지의 퀴즈를 풀어보세요!'},
-  {k:'move',t:'밤',n:'마드리드 도착 → 숙소',x:'공항에서 바로 숙소로. 오늘은 씻고 푹 자는 게 미션이에요.'}],
- tip:'스페인은 한국보다 7시간 늦어요. 도착한 날은 되도록 현지 밤 시간에 맞춰 자야 다음 날이 편해요.'},
-
-{d:'9/11',w:'토',c:'mad',img:I.palace,t:'왕궁과 해 지는 신전',s:'마드리드 1일차 · 도시와 친해지기',
- ph:['¡Gracias!','그라시아스','고맙습니다'],
- ev:[
-  {k:'meal',t:'아침',r:'gines',n:'산 히네스에서 추로스',x:'스페인 첫 아침은 추로스로! 솔 광장 근처.'},
-  {k:'spot',t:'오전',n:'마드리드 왕궁',es:'Palacio Real de Madrid',img:I.palace,q:'Palacio Real de Madrid',
-   x:'스페인 국왕의 공식 궁전. 실제로는 행사 때만 쓰고 왕실 가족은 다른 곳에 살아요. 금빛 왕좌의 방, 도자기로 뒤덮인 방, 옛날 무기고가 볼거리예요.',
-   f:'방이 3,000개가 넘어서 서유럽에서 가장 큰 왕궁 중 하나예요.',
-   m:'왕좌의 방에서 사자 조각상 찾아 사진 찍기',need:'입장권 예매'},
-  {k:'meal',t:'점심',r:'sanmiguel',n:'산 미겔 시장에서 타파스 투어',x:'왕궁에서 걸어서 10분. 각자 하나씩 골라와서 나눠 먹기!'},
-  {k:'spot',t:'오후',n:'마요르 광장 → 숙소 시에스타',es:'Plaza Mayor',img:I.mayor,q:'Plaza Mayor Madrid',
-   x:'400년 전 만들어진 네모난 광장. 옛날엔 투우, 축제, 왕실 행사가 열렸던 마드리드의 중심이에요. 한 바퀴 둘러보고 숙소에서 쉬어요.',
-   f:'광장을 둘러싼 건물에 발코니가 200개 넘게 있어요. 옛날엔 여기서 구경했대요.'},
-  {k:'spot',t:'해질녘',n:'데보드 신전에서 일몰',es:'Templo de Debod',img:I.debod,q:'Templo de Debod',
-   x:'마드리드 한가운데 서 있는 진짜 고대 이집트 신전! 해 질 때 물에 비친 신전과 붉은 하늘이 정말 예뻐요. (9월 일몰 약 20시 반)',
-   f:'약 2,200년 전 이집트에서 지어졌어요. 댐 건설로 물에 잠길 뻔한 유적을 스페인이 도와준 보답으로 1968년 선물 받았어요.',
-   m:'물에 비친 신전이 나오게 "데칼코마니" 사진 찍기'},
-  {k:'meal',t:'저녁',r:'botin',n:'보틴에서 첫 만찬',x:'세계에서 가장 오래된 식당에서 새끼돼지 통구이! 마요르 광장 바로 옆.'}],
- tip:'첫날이라 무리하지 않아요. 오후엔 꼭 숙소에서 쉬기.'},
-
-{d:'9/12',w:'일',c:'tol',img:I.toledo,t:'중세로 시간여행, 톨레도',s:'당일치기 · 기차 약 30분',
- ph:['¿Cuánto cuesta?','콴토 쿠에스타?','얼마예요?'],
- ev:[
-  {k:'move',t:'오전',n:'아토차역 → 톨레도 (고속열차)',img:I.atocha,x:'아토차역 안에는 열대 식물원이 있어요. 기차 기다리며 구경하기.'},
-  {k:'spot',t:'오전',n:'톨레도 대성당',es:'Catedral Primada de Toledo',img:I.tolcat,q:'Catedral de Toledo',
-   x:'스페인 가톨릭의 중심 성당. 천장에 구멍을 뚫어 햇빛이 조각 위로 쏟아지게 만든 "트란스파렌테"가 신비로워요.',
-   f:'톨레도는 옛날 기독교·이슬람·유대교 세 문화가 함께 살던 도시라서 도시 전체가 유네스코 세계유산이에요.',
-   m:'천장에서 빛이 쏟아지는 "트란스파렌테" 찾기',need:'입장권'},
-  {k:'meal',t:'점심',r:'lonuestro',n:'톨레도 전통 요리',x:'카르카무사스 도전! 디저트는 마사판.'},
-  {k:'spot',t:'오후',n:'산토 토메 교회 · 엘 그레코의 그림',es:'Iglesia de Santo Tomé',img:I.orgaz,q:'Iglesia de Santo Tomé Toledo',
-   x:'이 작은 교회에는 딱 그림 한 점을 보러 가요. 엘 그레코의 「오르가스 백작의 매장」. 아래는 땅의 세계, 위는 하늘의 세계로 나뉘어 있어요.',
-   f:'그림 왼쪽 아래에서 관객을 보며 손가락질하는 소년은 화가의 아들이에요.',
-   m:'소년의 주머니 손수건에 적힌 숫자(아들의 출생연도) 찾기'},
-  {k:'meal',t:'간식',r:'santotome',n:'마사판 사기',x:'동물 모양 마사판을 하나씩 골라 기념품으로.'},
-  {k:'move',t:'저녁',n:'마드리드 복귀 · 가벼운 저녁',x:'피곤하면 숙소 근처에서 간단히. 여유 있으면 카사 루시오의 계란 감자튀김!',r2:'lucio'}],
- tip:'톨레도는 언덕 도시예요. 편한 운동화 필수! 오르막이 힘들면 구시가지 에스컬레이터나 꼬마기차(Zocotren)를 이용하세요. 일요일 개방시간은 미리 확인.'},
-
-{d:'9/13',w:'월',c:'mv',img:I.prado,t:'명화 속 숨은그림찾기 → 남쪽으로',s:'프라도 미술관 + 고속열차 이동',
- ph:['¡Qué bonito!','케 보니토!','너무 예쁘다!'],
- ev:[
-  {k:'spot',t:'오전',n:'프라도 미술관',es:'Museo del Prado',img:I.meninas,q:'Museo del Prado',
-   x:'세계 3대 미술관으로 꼽히는 곳. 다 보려면 며칠 걸리니, 딱 세 작품만 제대로 봐요: 벨라스케스 「시녀들」, 고야 「1808년 5월 3일」, 보스 「쾌락의 정원」.',
-   f:'「시녀들」 속에는 그림을 그리는 화가 벨라스케스 자신이 들어가 있어요. 그럼 그는 지금 누구를 그리고 있는 걸까요?',
-   m:'「쾌락의 정원」에서 가장 이상한 생물 찾아서 서로 설명하기',need:'입장권 예매 · 내부 촬영 금지'},
-  {k:'meal',t:'점심',r:'brillante',n:'오징어튀김 샌드위치',x:'아토차역 앞에서 먹고 바로 기차 타기.'},
-  {k:'move',t:'오후',n:'마드리드 → 세비야 (AVE 약 2시간 30분)',img:I.ave,x:'창밖으로 올리브 밭이 끝없이 펼쳐져요. 체크인 후 잠깐 휴식.'},
-  {k:'spot',t:'저녁',n:'세비야 스페인 광장 야경',es:'Plaza de España',img:I.pesp,q:'Plaza de España Sevilla',
-   x:'반원형 건물과 운하, 다리가 어우러진 세비야에서 가장 아름다운 광장. 벽을 따라 스페인 각 지방을 그린 타일 벤치가 이어져요.',
-   f:'영화 「스타워즈 에피소드 2」에서 나부 행성으로 등장한 곳이에요!',
-   m:'타일 벤치 중 "마드리드", "톨레도", "바르셀로나" 벤치 찾아 인증샷',need:'무료'},
-  {k:'meal',t:'저녁',r:'lonja',n:'강변 푸드마켓',x:'각자 먹고 싶은 걸 골라 한 테이블에서.'}],
- tip:'프라도는 짐 보관소가 있지만 큰 캐리어는 안 돼요. 짐은 숙소에 맡기고 가거나 역 보관함 이용.'},
-
-{d:'9/14',w:'화',c:'sev',img:I.alcazar,t:'궁전 정원과 플라멩코의 밤',s:'세비야 하루 종일',
- ph:['¡Olé!','올레!','멋지다! (플라멩코 응원)'],
- ev:[
-  {k:'meal',t:'아침',r:'comercio',n:'엘 코메르시오 추로스',x:'세비야 사람들 틈에서 아침 먹기.'},
-  {k:'spot',t:'오전',n:'세비야 알카사르',es:'Real Alcázar de Sevilla',img:I.alcazar,q:'Real Alcázar de Sevilla',
-   x:'이슬람 양식과 스페인 양식이 섞인 궁전. 섬세한 아치, 타일, 분수, 오렌지 나무 정원이 끝없이 이어져요. 지금도 왕실이 세비야에 올 때 위층을 사용해요.',
-   f:'드라마 「왕좌의 게임」에서 도른 왕국의 "물의 정원"으로 촬영됐어요.',
-   m:'정원에서 공작새 찾기 (진짜 살아 있어요!)',need:'입장권 예매 필수 · 오전 일찍'},
-  {k:'spot',t:'오후',n:'대성당 & 히랄다 탑',es:'Catedral de Sevilla · La Giralda',img:I.giralda,q:'Catedral de Sevilla',
-   x:'세계에서 가장 큰 고딕 성당. 안에는 콜럼버스의 무덤이 있어요. 옆의 히랄다 탑에 오르면 세비야가 한눈에!',
-   f:'히랄다 탑은 계단 대신 경사로 35개로 올라가요. 옛날에 말을 타고 꼭대기까지 오르기 위해서래요.',
-   m:'올라가며 경사로 번호 표지판 세기 → 몇 번까지 있는지 확인',need:'입장권 예매'},
-  {k:'move',t:'15~18시',n:'숙소에서 시에스타',x:'가장 더운 시간. 수영장 있는 숙소면 물놀이도 좋아요.'},
-  {k:'spot',t:'저녁',n:'플라멩코 공연',es:'Flamenco',img:I.flamenco,q:'flamenco show Sevilla',
-   x:'세비야는 플라멩코의 본고장. 작은 공연장에서 가까이 보면 발 구르는 소리와 기타 소리가 온몸으로 느껴져요. 약 1시간.',
-   f:'플라멩코는 춤·노래·기타·손뼉(팔마스)이 한 팀이에요. 2010년 유네스코 인류무형유산이 됐어요.',
-   m:'공연이 끝나면 "올레!" 크게 외치기',need:'예약 권장'},
-  {k:'meal',t:'늦은 저녁',r:'rincon',n:'엘 린콘시요',x:'350년 넘은 바에서 세비야 마지막 밤. 먹기 전 보데가 산타크루스에서 몬타디토 간식도 추천.',r2:'columnas'}],
- tip:'9월 세비야는 낮에 30℃ 안팎까지 오를 수 있어요. 모자, 선크림, 물병 필수. 관광은 오전과 저녁에!'},
-
-{d:'9/15',w:'수',c:'mv',img:I.gotic,t:'추석, 바르셀로나에 도착',s:'세비야 → 바르셀로나 · 항공 약 1시간 40분',star:'🌕',
- ph:['Bon dia!','본 디아','좋은 아침 (카탈루냐어)'],
- ev:[
-  {k:'move',t:'오전',n:'세비야 → 바르셀로나 (항공)',img:I.bcnair,x:'이른 비행기 추천. 숙소에 짐 맡기고 바로 출발.'},
-  {k:'spot',t:'오후',n:'고딕 지구 골목 산책',es:'Barri Gòtic',img:I.gotic,q:'Barri Gòtic Barcelona',
-   x:'2,000년 전 로마 시대부터 이어진 바르셀로나의 구시가지. 미로 같은 골목, 대성당, 다리 위 아치(비스베 거리)가 유명한 포토 스팟이에요.',
-   f:'비스베 거리의 아치형 다리 아래 해골 조각을 보면 저주받는다는 전설이 있어요. 찾아보되 너무 오래 보진 말기!',
-   m:'비스베 거리 다리 아래에서 둘이 나란히 사진 찍기'},
-  {k:'meal',t:'간식',r:'boqueria',n:'보케리아 시장 과일주스',x:'무지개색 과일주스 중 하나씩 골라 마시기.'},
-  {k:'meal',t:'추석 저녁',r:'seoul',n:'한식당에서 추석 만찬',x:'멀리서 맞는 명절. 두 가족이 함께 한국 음식으로 추석 기분 내기. 보름달도 찾아봐요!'}],
- tip:'오늘은 2027년 추석이에요. 한국에 있는 할머니·할아버지께 영상통화 드리기 좋은 시간: 스페인 오전 10~11시 = 한국 오후 5~6시.'},
-
-{d:'9/16',w:'목',c:'bcn',img:I.sagrada,t:'가우디의 상상력 속으로',s:'바르셀로나 · 가우디 데이',
- ph:['Gràcies!','그라시에스','고맙습니다 (카탈루냐어)'],
- ev:[
-  {k:'spot',t:'오전',n:'사그라다 파밀리아',es:'Basílica de la Sagrada Família',img:I.sagrada,q:'Sagrada Família',
-   x:'1882년에 짓기 시작해 140년 넘게 공사 중인 성당. 안에 들어가면 나무 기둥 숲 사이로 스테인드글라스 빛이 무지개처럼 쏟아져요. 오전엔 동쪽 창의 파랑·초록, 오후엔 서쪽 창의 빨강·주황 빛이 들어와요.',
-   f:'가운데 예수의 탑은 172.5m로 설계됐어요. 근처 몬주익 언덕(약 177m)보다 살짝 낮게 한 건 "신의 작품보다 높아선 안 된다"는 가우디의 생각이래요.',
-   m:'성당 외벽에서 거북이 조각 찾기 (기둥을 받치고 있어요)',need:'시간 지정 예매 필수 · 탑 입장 옵션'},
-  {k:'meal',t:'점심',r:'catalana',n:'세르베세리아 카탈라나',x:'브라바스·꽈리고추·토마토 빵은 꼭!'},
-  {k:'spot',t:'오후',n:'카사 바트요',es:'Casa Batlló',img:I.batllo,q:'Casa Batlló',
-   x:'가우디가 리모델링한 집. 지붕은 용의 등, 발코니는 해골, 기둥은 뼈처럼 생겨서 "뼈의 집"이라고도 불려요. 직선이 거의 없는 신기한 집이에요.',
-   f:'지붕 위 십자가 탑은 용을 물리친 기사 성 조르디(산트 조르디)의 창을 뜻한다는 해석이 있어요.',
-   m:'지붕에서 "용의 비늘" 타일 배경으로 사진',need:'예매 권장'},
-  {k:'move',t:'저녁',n:'자유 시간',x:'숙소에서 쉬거나, 몬주익 매직 분수쇼(운영 요일·시간 확인 필요)를 보러 가도 좋아요.'}],
- tip:'사그라다 파밀리아는 오전 이른 시간 예약이 빛도 예쁘고 덜 붐벼요.'},
-
-{d:'9/17',w:'금',c:'bcn',img:I.montse,t:'산 위의 수도원 & 마지막 만찬',s:'바르셀로나 마무리 · 선택 일정',
- ph:['¡Delicioso!','델리시오소!','맛있어요!'],
- ev:[
-  {k:'spot',t:'옵션 A',n:'몬세라트 (반나절)',es:'Montserrat',img:I.montsem,q:'Montserrat Monastery',
-   x:'바르셀로나에서 기차로 약 1시간. 톱니처럼 뾰족뾰족한 바위산 중턱에 수도원이 매달려 있어요. 톱니바퀴 열차나 케이블카를 타고 올라가는 길부터 신나요.',
-   f:'"몬세라트"는 카탈루냐어로 "톱니 모양의 산"이라는 뜻이에요. 수도원에는 세계에서 가장 오래된 소년 합창단 중 하나가 있어요.',
-   m:'톱니바퀴 열차 vs 케이블카, 둘 중 하나 골라 타고 올라가기',need:'열차+케이블카 통합권'},
-  {k:'spot',t:'옵션 B',n:'구엘 공원',es:'Park Güell',img:I.guell,q:'Park Güell',
-   x:'몬세라트 대신 도시에 머물고 싶다면. 동화 속 과자집 같은 건물과 모자이크 타일 벤치, 도마뱀 분수가 있는 가우디의 공원.',
-   f:'입구 계단의 알록달록 모자이크 도마뱀(엘 드락)은 바르셀로나의 마스코트 같은 존재예요.',
-   m:'모자이크 도마뱀과 사진 찍기',need:'시간 지정 예매'},
-  {k:'spot',t:'해질녘',n:'바르셀로네타 해변 산책',es:'Platja de la Barceloneta',img:I.bcn,q:'Platja de la Barceloneta',
-   x:'지중해에 발 담그기! 여행의 마지막 석양을 바다에서 봐요.',
-   m:'지중해 바닷물에 발 담그고 발 사진 찍기'},
-  {k:'meal',t:'저녁',r:'portes',n:'7 Portes에서 가족 파에야 만찬',x:'여행을 마무리하는 마지막 만찬. 대안: 바르셀로네타의 칸 솔레.',r2:'cansole'}],
- tip:'몬세라트 vs 구엘 공원은 윤하와 서윤이 투표로 정해보세요!'},
-
-{d:'9/18',w:'토',c:'mv',img:I.bcnair,t:'¡Hasta luego, España!',s:'바르셀로나 → 인천 · 9/19 도착',
- ph:['¡Hasta luego!','아스타 루에고','또 만나요!'],
- ev:[
-  {k:'move',t:'출국',n:'공항으로',x:'항공편 시간에 맞춰 이동. 오후 출발이면 오전에 보케리아 시장에서 마지막 과일주스 한 잔.'},
-  {k:'move',t:'기내',n:'여행 돌아보기',x:'미션 스탬프 최종 점수 확인! 각자 "가장 기억에 남는 한 장면" 1개씩 뽑아서 이야기하기.'}],
- tip:'귀국 후 추천: 각자 사진 10장만 골라 "우리 가족 스페인 베스트 10" 앨범 만들기.'}
-];
-
-/* ---------- missions ---------- */
-const M=[];D.forEach((x,di)=>x.ev.forEach((e,ei)=>{if(e.m)M.push({id:di+'-'+ei,d:x.d,q:e.m,n:e.n})}));
-let ST=ls.g('stamps',{});
-function stampHTML(id){const s=ST[id]||{};return `<div class="stamps"><button class="stamp ${s.y?'on':''}" data-id="${id}" data-w="y">${s.y?'윤하 성공!':'윤하 스탬프'}</button><button class="stamp ${s.s?'on':''}" data-id="${id}" data-w="s">${s.s?'서윤 성공!':'서윤 스탬프'}</button></div>`}
-document.addEventListener('click',e=>{
-  const b=e.target.closest('.stamp');if(!b)return;
-  const {id,w}=b.dataset;ST[id]=ST[id]||{};ST[id][w]=!ST[id][w];ls.s('stamps',ST);
-  $$(`.stamp[data-id="${id}"]`).forEach(x=>{const on=!!ST[id][x.dataset.w];x.classList.toggle('on',on);x.textContent=(x.dataset.w=='y'?'윤하':'서윤')+(on?' 성공!':' 스탬프')});
-  renderBoard();
-});
-function renderBoard(){
-  let y=0,s=0;M.forEach(m=>{const v=ST[m.id]||{};if(v.y)y++;if(v.s)s++});
-  $('#scY').textContent=y;$('#scS').textContent=s;$('#scYt').textContent=`/ ${M.length}개`;$('#scSt').textContent=`/ ${M.length}개`;
-  $('#mlist').innerHTML=M.map(m=>{const v=ST[m.id]||{};return `<div class="it"><div class="d">${m.d}</div><div class="q">${m.q}<br><small style="color:var(--sub)">${m.n}</small></div><div class="s">${v.y?'윤하 ✓':''}${v.y&&v.s?'<br>':''}${v.s?'서윤 ✓':''}</div></div>`}).join('');
-}
-
-/* ---------- render day ---------- */
-function mealCard(e){
-  const r=R[e.r];
-  const alt=e.r2?`<div class="alt">대안/추가: <b>${R[e.r2].n}</b> — ${R[e.r2].why.split('.')[0]}.</div>`:'';
-  return `<div class="card"><div class="bd">
-   <h3>${r.n}</h3><div class="es">${r.since}</div>
-   <p>${e.x}</p>
-   ${r.d.length?`<div class="dishes">${r.d.map(([p,a,b])=>`<div class="dish">${img(p,a)}<div>${a}<br><small>${b}</small></div></div>`).join('')}</div>`:''}
-   <div class="row">${r.info.map(t=>`<span class="chip ${/예약 필수|예매 필수/.test(t)?'warn':''}">${t}</span>`).join('')}<a class="chip" target="_blank" rel="noopener" href="${MAP(r.q)}">지도</a></div>
-   ${alt}</div></div>`;
-}
-function spotCard(e){
-  return `<div class="card">${e.img?`<div class="ph">${img(e.img,e.n)}</div>`:''}<div class="bd">
-   <h3>${e.n}</h3><div class="es">${e.es||''}</div>
-   <p>${e.x}</p>
-   ${e.f?`<div class="fact"><b>알고 보면 재밌는 TMI</b><br>${e.f}</div>`:''}
-   <div class="row">${e.need?`<span class="chip warn">${e.need}</span>`:''}${e.q?`<a class="chip" target="_blank" rel="noopener" href="${MAP(e.q)}">지도</a>`:''}</div>
-   ${e.m?`<div class="mission"><div class="mt">MISSION</div><div class="mq">${e.m}</div>${stampHTML(e.mid)}</div>`:''}
-  </div></div>`;
-}
-function moveCard(e){
-  return `<div class="card">${e.img?`<div class="ph">${img(e.img,e.n)}</div>`:''}<div class="bd"><h3 style="font-size:16px">${e.n}</h3><p style="margin:4px 0 0">${e.x}</p>${e.r2?`<div class="alt">추천: <b>${R[e.r2].n}</b></div>`:''}</div></div>`;
-}
-let cur=ls.g('day',0);if(!(cur>=0&&cur<D.length))cur=0;
-/* 날짜 밑 색 = 그날 밤 묵는 도시(상단 도시 박스 색과 동일) */
-const STAY=['mad','mad','mad','sev','sev','bcn','bcn','bcn','bcn'];
-$('#days').innerHTML=D.map((x,i)=>`<button data-i="${i}">${x.star?`<span class="star">${x.star}</span>`:''}<b>${x.d}</b>${x.w}<i style="background:${CITY[STAY[i]][1]}"></i></button>`).join('');
-function show(i,scroll){
-  cur=i;ls.s('day',i);const x=D[i];
-  $$('#days button').forEach((b,j)=>b.classList.toggle('on',j==i));
-  const btn=$$('#days button')[i];
-  const strip=$('#days');strip.scrollTo({left:btn.offsetLeft-strip.clientWidth/2+btn.clientWidth/2,behavior:'smooth'});
-  $('#day').innerHTML=`
-   <div class="dayhead">${img(x.img,x.t)}<div class="tx"><span class="no" style="background:${CITY[x.c][1]}">DAY ${i+1} · ${x.d}(${x.w}) · ${CITY[x.c][0]}</span><h2>${x.t}</h2><p>${x.s}</p></div></div>
-   <div class="phrase"><div class="l">오늘의<br>한마디</div><div><b>${x.ph[0]}</b><small>[${x.ph[1]}] ${x.ph[2]}</small></div></div>
-   <div class="tl">${x.ev.map((e,ei)=>{e.mid=i+'-'+ei;return `<div class="ev ${e.k}"><div class="time">${e.t}${e.k=='meal'?' · 식사':''}</div>${e.k=='spot'?spotCard(e):e.k=='meal'?mealCard(e):moveCard(e)}</div>`}).join('')}</div>
-   ${x.tip?`<div class="tip"><b>오늘의 팁</b><br>${x.tip}</div>`:''}`;
-  $('#prev').disabled=i==0;$('#next').disabled=i==D.length-1;
-  if(scroll){const top=$('#plan').offsetTop-60;window.scrollTo({top,behavior:'smooth'})}
-}
-$('#days').onclick=e=>{const b=e.target.closest('button');if(b)show(+b.dataset.i)};
-$('#prev').onclick=()=>show(cur-1,1);$('#next').onclick=()=>show(cur+1,1);
-
-/* ---------- food tab ---------- */
-let fc='all';
-function renderFood(){
-  const cities=[['all','전체','var(--acc)'],['mad','마드리드','var(--mad)'],['tol','톨레도','var(--tol)'],['sev','세비야','var(--sev)'],['bcn','바르셀로나','var(--bcn)']];
-  $('#citybar').innerHTML=cities.map(([k,n,c])=>`<button data-c="${k}" class="${fc==k?'on':''}" style="${fc==k?`background:${c}`:''}">${n}</button>`).join('');
-  $('#rlist').innerHTML=Object.entries(R).filter(([k,r])=>fc=='all'||r.c==fc).map(([k,r])=>{
-    const days=D.filter(x=>x.ev.some(e=>e.r==k||e.r2==k)).map(x=>x.d).join(', ');
-    return `<div class="card">${r.img?`<div class="ph">${img(r.img,r.n)}<span class="tag">${CITY[r.c][0]}${days?' · '+days:''}</span></div>`:''}<div class="bd">
-     <h3>${r.n}</h3><div class="es">${r.since}</div><p>${r.why}</p>
-     ${r.d.length?`<div class="dishes">${r.d.map(([p,a,b])=>`<div class="dish">${img(p,a)}<div>${a}<br><small>${b}</small></div></div>`).join('')}</div>`:''}
-     <div class="row">${r.info.map(t=>`<span class="chip ${/예약 필수|예매 필수/.test(t)?'warn':''}">${t}</span>`).join('')}<a class="chip" target="_blank" rel="noopener" href="${MAP(r.q)}">지도</a></div></div></div>`}).join('');
-}
-$('#citybar').onclick=e=>{const b=e.target.closest('button');if(b){fc=b.dataset.c;renderFood()}};
-
-/* ---------- quiz ---------- */
-const Q=[
- ['스페인은 한국보다 몇 시간 늦을까요? (9월 기준)',['5시간','7시간','9시간'],1,'9월엔 서머타임이라 7시간 차이. 한국이 저녁 7시면 스페인은 낮 12시예요.'],
- ['스페인 사람들이 보통 저녁을 먹는 시간은?',['18시','19시','21시 이후'],2,'점심이 14시쯤이라 저녁은 21시가 넘어서 먹는 경우가 많아요.'],
- ['「스타워즈」 촬영지로 쓰인 세비야의 장소는?',['알카사르','스페인 광장','대성당'],1,'스페인 광장이 에피소드 2의 나부 행성으로 나와요. 알카사르는 「왕좌의 게임」 촬영지!'],
- ['사그라다 파밀리아를 설계한 건축가는?',['피카소','가우디','달리'],1,'안토니 가우디. 1926년 세상을 떠났지만 성당은 지금도 그의 설계대로 지어지고 있어요.'],
- ['마드리드 한가운데 있는 이집트 신전은 몇 년 전 것일까요?',['약 200년','약 800년','약 2,200년'],2,'약 2,200년 전 누비아(지금의 이집트 남부)에 지어진 신전이에요.'],
- ['바르셀로나에서 스페인어와 함께 쓰는 언어는?',['카탈루냐어','포르투갈어','바스크어'],0,'"고마워요"는 스페인어로 그라시아스, 카탈루냐어로 그라시에스!'],
- ['히랄다 탑에 계단 대신 경사로가 있는 이유는?',['휠체어용','말을 타고 오르려고','비가 많이 와서'],1,'옛날 종지기(무에진)가 말을 타고 꼭대기까지 올라갔다고 전해져요.'],
- ['7 Portes 식당 이름의 뜻은?',['7명의 주인','문 7개','7시에 여는 집'],1,'카탈루냐어로 "7개의 문". 실제로 문이 7개예요. 가서 세어보기!']
-];
-$('#quiz').innerHTML=Q.map((q,i)=>`<div class="q" data-q="${i}"><p><b>Q${i+1}.</b> ${q[0]}</p><div class="opts">${q[1].map((o,j)=>`<button data-j="${j}">${o}</button>`).join('')}</div><div class="ex">${q[3]}</div></div>`).join('');
-$('#quiz').onclick=e=>{const b=e.target.closest('button');if(!b)return;const box=b.closest('.q');if(box.classList.contains('done'))return;
-  const q=Q[+box.dataset.q];box.classList.add('done');[...box.querySelectorAll('button')].forEach((x,j)=>{if(j==q[2])x.classList.add('ok');else if(x==b)x.classList.add('no')})};
-
-const WORDS=[['¡Hola!','올라 · 안녕'],['Gracias','그라시아스 · 고마워요'],['Por favor','포르 파보르 · 부탁해요'],['Perdón','페르돈 · 실례해요'],['La cuenta, por favor','라 쿠엔타 · 계산서 주세요'],['¿Dónde está el baño?','돈데 에스타 엘 바뇨 · 화장실 어디예요?'],['Agua','아구아 · 물'],['Helado','엘라도 · 아이스크림'],['Bon dia (카탈루냐어)','본 디아 · 좋은 아침'],['Gràcies (카탈루냐어)','그라시에스 · 고마워요']];
-$('#words').innerHTML=WORDS.map(([a,b])=>`<div><b>${a}</b><small>${b}</small></div>`).join('');
-
-/* ---------- checklist ---------- */
-const K=[
- '오픈조 항공권 (인천→마드리드 / 바르셀로나→인천) 6명',
- '숙소: 마드리드 3박 · 세비야 2박 · 바르셀로나 3박 (무료 취소 옵션)',
- '사그라다 파밀리아 시간 지정 입장권',
- '세비야 알카사르 입장권',
- '마드리드 왕궁 · 프라도 미술관 입장권',
- '톨레도 대성당 입장권',
- '마드리드→톨레도 왕복 열차, 마드리드→세비야 AVE',
- '세비야→바르셀로나 항공 (수하물 규정 확인)',
- '카사 바트요 입장권',
- '몬세라트 열차·케이블카 또는 구엘 공원 (투표 후)',
- '플라멩코 공연 예약',
- '보틴 · 7 Portes · 엘 린콘시요 식당 예약',
- '추석 저녁 한식당 예약',
- '여행자 보험 · eSIM',
- '윤하·서윤 여권 유효기간 확인',
- '소매치기 대비: 가방은 앞으로, 폰 스트랩'
-];
-let done=ls.g('chk',[]);
-function renderChk(){
-  $('#chks').innerHTML=K.map((t,i)=>`<label class="chk"><input type="checkbox" data-i="${i}" ${done.includes(i)?'checked':''}><span>${t}</span></label>`).join('');
-  $('#cnt').textContent=`${done.length} / ${K.length} 완료`;$('#bar').style.width=(done.length/K.length*100)+'%';
-}
-$('#chks').onchange=e=>{const i=+e.target.dataset.i;done=e.target.checked?[...done,i]:done.filter(x=>x!=i);ls.s('chk',done);renderChk()};
-
-/* ---------- tabs ---------- */
-$$('nav.tabs button').forEach(b=>b.onclick=()=>{
-  $$('nav.tabs button').forEach(x=>x.classList.toggle('on',x==b));
-  $$('section.tab').forEach(s=>s.classList.toggle('on',s.id==b.dataset.t));
-  ls.s('tab',b.dataset.t);
-  window.scrollTo({top:$('.hero').offsetHeight,behavior:'smooth'});
-});
-const lastTab=ls.g('tab','plan');const tb=$(`nav.tabs button[data-t="${lastTab}"]`);
-if(tb&&lastTab!='plan'){$$('nav.tabs button').forEach(x=>x.classList.toggle('on',x==tb));$$('section.tab').forEach(s=>s.classList.toggle('on',s.id==lastTab))}
-
-/* ---------- D-day ---------- */
-(function(){
-  const dep=new Date('2027-09-10T00:00:00+09:00'),end=new Date('2027-09-19T00:00:00+09:00'),now=new Date();
-  const days=Math.ceil((dep-now)/864e5);
-  let t;if(now<dep)t=`출발까지 <b>D-${days}</b>`;else if(now<end)t=`<b>여행 ${Math.floor((now-dep)/864e5)+1}일차</b> 즐기는 중!`;else t='<b>추억 저장 완료</b>';
-  $('#dday').innerHTML=t;
-  if(now>=dep&&now<end){const k=Math.min(8,Math.floor((now-dep)/864e5));cur=k}
-})();
-
-/* ---------- lightbox ---------- */
-document.addEventListener('click',e=>{
-  const im=e.target.closest('.card .ph img,.dish img,.dayhead img');
-  if(im){const lb=$('#lb');lb.querySelector('img').src=im.src;lb.querySelector('div').innerHTML=`${im.alt}<br><a href="${SRC(im.dataset.p)}" target="_blank" rel="noopener" style="color:#ffd166">사진 출처 · 라이선스 보기</a>`;lb.classList.add('on');return}
-  if(e.target.closest('#lb')&&!e.target.closest('a'))$('#lb').classList.remove('on');
-});
-
-/* ---------- flight select ---------- */
-(function(){
-  function pick(id,go){
-    $$('table.cmp.fl tr[data-o]').forEach(r=>r.classList.toggle('sel',r.dataset.o==id));
-    $$('.fo').forEach(c=>c.classList.toggle('sel',c.id=='o-'+id));
-    if(go)$('#o-'+id).scrollIntoView({behavior:'smooth',block:'start'});
-  }
-  $$('table.cmp.fl tr[data-o]').forEach(r=>{r.onclick=()=>pick(r.dataset.o,true);r.onkeydown=e=>{if(e.key=='Enter'||e.key==' '){e.preventDefault();pick(r.dataset.o,true)}}});
-  $$('.fo').forEach(c=>c.onclick=()=>pick(c.id.slice(2),false));
-})();
-
-renderFood();renderChk();renderBoard();show(cur);
-</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" defer></script>
+<script src="data.js?v=4" defer></script>
+<script src="app.js?v=4" defer></script>
 </body>
 </html>
+
