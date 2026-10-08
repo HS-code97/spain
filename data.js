@@ -12,9 +12,9 @@ const TRIP = {
   stay: "마드리드, 그라나다, 바르셀로나 에어비앤비 (6인 가족형 숙소)",
   members: { adult: 4, girlsMiddle3: 1, boys: 1 }, // 2가족 6인
   heroes: [
-    { src: W + "3/3a/Sagrada_Familia_01.jpg/960px-Sagrada_Familia_01.jpg", file: "Sagrada_Familia_01.jpg", pos: "center" },
-    { src: W + "4/47/Plaza_Mayor_de_Madrid_06.jpg/960px-Plaza_Mayor_de_Madrid_06.jpg", file: "Plaza_Mayor_de_Madrid_06.jpg", pos: "center" },
-    { src: W + "d/de/Alhambra_view.jpg/960px-Alhambra_view.jpg", file: "Alhambra_view.jpg", pos: "center" },
+    { src: "https://commons.wikimedia.org/wiki/Special:FilePath/Sagrada_Familia_01.jpg?width=960", file: "Sagrada_Familia_01.jpg", pos: "center" },
+    { src: "https://commons.wikimedia.org/wiki/Special:FilePath/Plaza_Mayor_de_Madrid_06.jpg?width=960", file: "Plaza_Mayor_de_Madrid_06.jpg", pos: "center" },
+    { src: "https://commons.wikimedia.org/wiki/Special:FilePath/Alhambra_view.jpg?width=960", file: "Alhambra_view.jpg", pos: "center" },
   ],
 };
 
@@ -47,31 +47,31 @@ const PLACES = {
     type: "food", emoji: "🥩", name: "소브리노 데 보틴 (Botín)", jp: "Sobrino de Botín",
     lat: 40.4128, lng: -3.7073, area: "마드리드",
     desc: "기네스북에 등재된 세계 최장수 식당입니다. 헤밍웨이의 단골집으로도 유명합니다.\n\n👨‍👩‍👧‍👦 **가족 추천 메뉴**:\n- 꼬치니요 아사도(Cochinillo Asado): 새끼 돼지 통구이, 겉은 바삭하고 속은 부드러워 아이들도 잘 먹습니다.\n- 마늘 수프 (Sopa de Ajo): 따뜻하게 속을 달래기 좋습니다.\n- 샹그리아 피처 (어른용)",
-    img: "https://upload.wikimedia.org/wikipedia/commons/e/ea/Sobrino_de_Botin_2.jpg"
+    img: "https://commons.wikimedia.org/wiki/Special:FilePath/Sobrino_de_Botin_2.jpg?width=960"
   },
   chocolateria_san_gines: {
     type: "food", emoji: "☕", name: "산 히네스 (San Ginés)", jp: "San Ginés",
     lat: 40.4167, lng: -3.7067, area: "마드리드",
     desc: "130년이 넘은 마드리드 전통 츄로스 전문점입니다.\n\n👨‍👩‍👧‍👦 **가족 추천 메뉴**:\n- 기본 츄로스(Churros) 6개 & 진한 핫초콜릿 2~3잔 세트\n- 뽀라스(Porras, 조금 더 두꺼운 츄로스)\n핫초콜릿에 츄로스를 푹 찍어 먹으면 중학생 아이들도 아주 좋아합니다.",
-    img: "https://upload.wikimedia.org/wikipedia/commons/4/4b/Chocolater%C3%ADa_San_Gin%C3%A9s%2C_Madrid_-_05.jpg"
+    img: "https://commons.wikimedia.org/wiki/Special:FilePath/Chocolater%C3%ADa_San_Gin%C3%A9s%2C_Madrid_-_05.jpg?width=960"
   },
   prado: {
     type: "spot", emoji: "🎨", name: "프라도 미술관", jp: "Museo del Prado",
     lat: 40.4137, lng: -3.6921, area: "마드리드",
     desc: "고야, 벨라스케스, 엘 그레코 등 스페인 거장들의 작품이 모인 세계 3대 미술관.\n가이드 투어를 신청하면 아이들도 지루하지 않게 명작의 비하인드 스토리를 들을 수 있습니다.\n\n🚌 **다음 목적지(레티로 공원) 이동**:\n도보 약 5~10분. 미술관 관람 후 가볍게 걸어서 공원으로 갈 수 있습니다.",
-    img: "https://upload.wikimedia.org/wikipedia/commons/6/68/Museo_del_Prado_2016_%2825185969599%29.jpg"
+    img: "https://commons.wikimedia.org/wiki/Special:FilePath/Museo_del_Prado_2016_%2825185969599%29.jpg?width=960"
   },
   retiro: {
     type: "spot", emoji: "🌳", name: "레티로 공원", jp: "Parque del Retiro",
     lat: 40.4173, lng: -3.6827, area: "마드리드",
     desc: "마드리드 시민들의 휴식처. 호수에서 가족끼리 나룻배를 타보거나 수정궁(Palacio de Cristal) 앞에서 가족 사진을 찍기 좋습니다.",
-    img: "https://upload.wikimedia.org/wikipedia/commons/b/bd/Parque_del_Retiro_-_Palacio_de_Cristal_03.jpg"
+    img: "https://commons.wikimedia.org/wiki/Special:FilePath/Parque_del_Retiro_-_Palacio_de_Cristal_03.jpg?width=960"
   },
   royal_palace: {
     type: "spot", emoji: "👑", name: "마드리드 왕궁", jp: "Palacio Real de Madrid",
     lat: 40.4179, lng: -3.7143, area: "마드리드",
     desc: "서유럽에서 가장 큰 규모를 자랑하는 화려한 왕궁입니다.\n방마다 다른 테마로 화려하게 장식되어 있어 볼거리가 풍부합니다.\n\n🚕 **다음 목적지(산 미겔 시장) 이동**:\n가족이 다함께 마드리드 골목을 구경하며 도보 약 7~10분 이동.",
-    img: "https://upload.wikimedia.org/wikipedia/commons/2/2c/Palacio_Real_de_Madrid.jpg"
+    img: "https://commons.wikimedia.org/wiki/Special:FilePath/Palacio_Real_de_Madrid.jpg?width=960"
   },
   san_miguel: {
     type: "food", emoji: "🦐", name: "산 미겔 시장", jp: "Mercado de San Miguel",
@@ -84,13 +84,13 @@ const PLACES = {
     type: "spot", emoji: "🚄", name: "렌페(Renfe) 고속열차", jp: "AVE",
     lat: 40.4065, lng: -3.6896, area: "마드리드 아토차 역",
     desc: "마드리드 아토차 역 출발 → 그라나다 역 도착.\n소요 시간: 약 3시간 30분.\n\n💡 **이동 팁**:\n두 가족 6인이 함께 가므로 서로 마주보는 'Mesa' 좌석 4인석 1개와 인접 2인석을 예약하여 편하게 간식(뚜론 등)을 먹으며 담소를 나누며 이동하는 것을 추천합니다.",
-    img: "https://upload.wikimedia.org/wikipedia/commons/2/25/Estaci%C3%B3n_de_Atocha_-_01.jpg"
+    img: "https://commons.wikimedia.org/wiki/Special:FilePath/Estaci%C3%B3n_de_Atocha_-_01.jpg?width=960"
   },
   trans_vueling: {
     type: "spot", emoji: "✈️", name: "국내선 항공 (부엘링)", jp: "Vueling",
     lat: 37.1895, lng: -3.7773, area: "그라나다 공항",
     desc: "그라나다 공항 출발 → 바르셀로나 엘 프라트 공항 도착.\n소요 시간: 약 1시간 30분.\n\n💡 **이동 팁**:\n그라나다 시내에서 공항버스를 타거나 대형 택시를 타고 공항으로 이동합니다. 기차로 바르셀로나까지 가면 6시간 이상 소요되므로 항공편 이용이 피로도를 훨씬 줄여줍니다.",
-    img: "https://upload.wikimedia.org/wikipedia/commons/8/87/Aeropuerto_Federico_Garc%C3%ADa_Lorca_Granada-Ja%C3%A9n.jpg"
+    img: "https://commons.wikimedia.org/wiki/Special:FilePath/Aeropuerto_Federico_Garc%C3%ADa_Lorca_Granada-Ja%C3%A9n.jpg?width=960"
   },
 
   // --- 2. 그라나다 명소 및 식당 ---
@@ -98,7 +98,7 @@ const PLACES = {
     type: "spot", emoji: "🏰", name: "알함브라 궁전", jp: "Alhambra",
     lat: 37.1760, lng: -3.5881, area: "그라나다",
     desc: "이슬람 건축의 최고봉. 정교한 조각이 있는 나스르 궁전, 알카사바, 그리고 아름다운 헤네랄리페 정원.\n하루 반나절 이상을 투자해 천천히 거닐기 좋습니다. (예약 필수!)\n\n🚌 **이동 팁**:\n그라나다 시내에서 C30번 등 미니버스를 타면 궁전 입구까지 쉽게 올라갑니다.",
-    img: "https://upload.wikimedia.org/wikipedia/commons/d/de/Alhambra_view.jpg"
+    img: "https://commons.wikimedia.org/wiki/Special:FilePath/Alhambra_view.jpg?width=960"
   },
   san_nicolas: {
     type: "spot", emoji: "🌇", name: "산 니콜라스 전망대", jp: "Mirador de San Nicolás",
@@ -109,7 +109,7 @@ const PLACES = {
     type: "food", emoji: "🍷", name: "보데가스 카스타녜다", jp: "Bodegas Castañeda",
     lat: 37.1765, lng: -3.5962, area: "그라나다",
     desc: "그라나다 특유의 타파스 문화(음료를 시키면 무료 타파스가 나옴)를 경험할 수 있는 활기찬 전통 바.\n\n👨‍👩‍👧‍👦 **가족 추천 메뉴**:\n- 타블라 카스타녜다(Tabla Castañeda): 다양한 햄과 치즈 모듬, 여럿이 나눠 먹기 좋습니다.\n- 스페인식 오믈렛(Tortilla de patatas): 아이들도 부드럽게 잘 먹는 감자 계란말이.",
-    img: "https://upload.wikimedia.org/wikipedia/commons/a/a3/Tapas_in_Granada.jpg"
+    img: "https://commons.wikimedia.org/wiki/Special:FilePath/Tapas_in_Granada.jpg?width=960"
   },
   carmela: {
     type: "food", emoji: "🥘", name: "라 카르멜라 (La Carmela)", jp: "La Carmela",
@@ -127,13 +127,13 @@ const PLACES = {
     type: "spot", emoji: "⛪", name: "사그라다 파밀리아", jp: "Sagrada Família",
     lat: 41.4036, lng: 2.1743, area: "바르셀로나",
     desc: "가우디의 미완성 대작. 빛이 쏟아지는 스테인드글라스 내부는 아이부터 어른까지 압도적인 감동을 느낄 수 있습니다.\n\n🚇 **이동 팁**:\n숙소에서 지하철 L2/L5 탑승 후 'Sagrada Família' 역 하차. 출구로 나오면 성당이 바로 눈앞에 보입니다.",
-    img: "https://upload.wikimedia.org/wikipedia/commons/3/3a/Sagrada_Familia_01.jpg"
+    img: "https://commons.wikimedia.org/wiki/Special:FilePath/Sagrada_Familia_01.jpg?width=960"
   },
   park_guell: {
     type: "spot", emoji: "🦎", name: "구엘 공원", jp: "Park Güell",
     lat: 41.4145, lng: 2.1527, area: "바르셀로나",
     desc: "가우디의 동화 같은 상상력이 발휘된 타일 장식 공원입니다. 다채로운 모자이크 도마뱀 상 앞에서 가족 사진 찰칵!\n\n🚕 **이동 팁**:\n공원은 언덕에 있으므로, 지하철 하차 후 오르막을 피하려면 버스(24번 등)를 타거나 택시 2대로 이동하는 것을 적극 권장합니다.",
-    img: "https://upload.wikimedia.org/wikipedia/commons/f/fb/Park_G%C3%BCell_01.jpg"
+    img: "https://commons.wikimedia.org/wiki/Special:FilePath/Park_G%C3%BCell_01.jpg?width=960"
   },
   gothic_quarter: {
     type: "spot", emoji: "🕍", name: "고딕 지구", jp: "Barri Gòtic",
@@ -144,7 +144,7 @@ const PLACES = {
     type: "food", emoji: "🍤", name: "비니투스 (Vinitus)", jp: "Vinitus",
     lat: 41.3916, lng: 2.1627, area: "바르셀로나",
     desc: "한국인 여행객에게 특히 인기가 높고, 음식 맛이 깔끔한 바르셀로나 최고 인기 타파스 레스토랑.\n\n👨‍👩‍👧‍👦 **가족 추천 메뉴**:\n- 꿀대구 (Bacalao al alioli de miel): 달콤하고 부드러운 생선 요리 (필수 메뉴)\n- 맛조개 구이 (Navajas)\n- 소고기 안심 타파스 (Solomillo de ternera)",
-    img: "https://upload.wikimedia.org/wikipedia/commons/5/52/Tapas_assortment.jpg"
+    img: "https://commons.wikimedia.org/wiki/Special:FilePath/Tapas_assortment.jpg?width=960"
   },
   xurreria: {
     type: "food", emoji: "🍩", name: "츄레리아 (Xurreria)", jp: "Xurreria",
