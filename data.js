@@ -1690,9 +1690,9 @@ const PLANS = (() => {
     days: DAYS,
   });
 
-  /* ---------- 현지 7박 · 찾은 항공편 (EY823·EY101 / EY112·EY822) — 기본 일정 ---------- */
+  /* ---------- 현지 7박 · 추천 마드리드 IN (EY823·EY101 / EY112·EY822) — 기본 일정 ---------- */
   const p7a = mkPlan("2027-09-10", {
-    name: "현지 7박", sub: "찾은 항공편 · 마드리드 아침 도착", pill: "✅ 찾은 항공편", range: "9.10–9.19", chip: ["7박", "찾은 항공편"], flight: "n7-3",
+    name: "현지 7박", sub: "추천 · 마드리드 IN · 아침 도착", pill: "⭐ 추천 마드리드 IN", range: "9.10–9.19", chip: ["7박", "추천 MAD"], flight: "n7-3",
     from: ["9.10", "금"], to: ["9.19", "일"],
     start: "2027-09-10T17:50:00+09:00", end: "2027-09-19T10:50:00+09:00",
     route: "마드리드 IN · 바르셀로나 OUT",
@@ -1788,7 +1788,7 @@ const PLANS = (() => {
 
   /* ---------- 7박8일 · 마드리드 IN (항공 후보 현지 7박 1번) ---------- */
   const p7m = mkPlan("2027-09-11", {
-    name: "현지 7박", sub: "마드리드 IN · 저녁 도착", pill: "마드리드 IN", range: "9.11–9.19", chip: ["7박", "MAD 저녁"], flight: "n7-1",
+    name: "현지 7박", sub: "마드리드 IN · 저녁 도착", pill: "마드리드 IN · 저녁", range: "9.11–9.19", chip: ["7박", "MAD 저녁"], flight: "n7-1",
     from: ["9.11", "토"], to: ["9.19", "일"],
     start: "2027-09-11T01:35:00+09:00", end: "2027-09-19T10:50:00+09:00",
     route: "마드리드 IN · 바르셀로나 OUT",
@@ -2125,7 +2125,7 @@ const FLIGHTS = [
     out:  { date: "9/10(금)", dep: "17:50", from: "ICN", arr: "08:10", to: "MAD", arrDate: "9/11(토)", via: "아부다비 대기 3h 50m", total: "21h 20m", fl: "EY0823 · EY0101" },
     back: { date: "9/18(토)", dep: "10:45", from: "BCN", arr: "10:50", to: "ICN", arrDate: "9/19(일)", via: "아부다비 대기 1h 50m", total: "17h 05m", fl: "EY0112 · EY0822" },
     stay: "9/11(토) 08:10 도착 ~ 9/18(토) 10:45 출발", nights: 7,
-    tags: [["✅ 찾은 항공편", "good"], ["☀️ 아침 08:10 도착", "good"], ["금요일 저녁 출발", "good"], ["귀국 환승 1h 50m", "good"], ["EY112 공동운항 (Avianca 표기)", ""]] },
+    tags: [["⭐ 추천 일정", "good"], ["☀️ 아침 08:10 도착", "good"], ["금요일 저녁 출발", "good"], ["귀국 환승 1h 50m", "good"], ["EY112 공동운항 (Avianca 표기)", ""]] },
   { id: "n6-1", group: "현지 6박", no: 1, usd: "3,603.30", krw: "4,834,584", pp: "161", air: "에티하드항공", fare: "Economy Value", cities: "마드리드 IN → 바르셀로나 OUT", rules: FARE_EY,
     out:  { date: "9/11(토)", dep: "01:35", from: "ICN", arr: "19:40", to: "MAD", arrDate: "9/11(토)", via: "아부다비 대기 7h 45m", total: "25h 05m", fl: "EY0827 · EY0103" },
     back: { date: "9/17(금)", dep: "10:45", from: "BCN", arr: "10:50", to: "ICN", arrDate: "9/18(토)", via: "아부다비 대기 1h 50m", total: "17h 05m", fl: "EY0112 · EY0822" },

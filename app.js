@@ -620,7 +620,7 @@
   };
 
   /* ---------- 일정안 선택 (9박10일 · 8박9일 · 7박) ---------- */
-  // 박수 세그먼트 3개, 7박은 항공편(찾은 항공편 · 마드리드 IN · 바르셀로나 IN)을 한 번 더 선택
+  // 박수 세그먼트 3개, 7박은 항공편(추천 마드리드 IN · 마드리드 IN 저녁 · 바르셀로나 IN)을 한 번 더 선택
   const PLAN_GROUPS = [["p10"], ["p9"], ["p7a", "p7m", "p7b"]];
   const DEFAULT_PLAN = "p7a";
   const AIRPORT = { ICN: "인천", MAD: "마드리드", BCN: "바르셀로나" };
@@ -730,7 +730,7 @@
       slides[i].classList.remove("on"); i = (i + 1) % slides.length; slides[i].classList.add("on");
     }, 8000);
   })();
-  // 기본은 찾은 항공편(현지 7박), ?plan=p10 / p9 / p7m / p7b 링크로 열면 해당 일정안
+  // 기본은 7박 추천 마드리드 IN, ?plan=p10 / p9 / p7m / p7b 링크로 열면 해당 일정안
   planSwitch();
   applyPlan(new URLSearchParams(location.search).get("plan") || DEFAULT_PLAN);
   snow(); countdown();

@@ -482,7 +482,7 @@ table.fcmp tr.sel td { background: #ffe6e7; }
   transition: max-height .32s ease, opacity .25s ease, margin-top .32s ease, visibility 0s .32s; }
 .plan-switch.sub .ps-sub { max-height: 72px; opacity: 1; margin-top: 8px; visibility: visible; transition: max-height .32s ease, opacity .25s ease .05s, margin-top .32s ease; }
 .ps-pill { border: 1px solid rgba(255,255,255,.2); background: transparent; color: #cfe0f5; border-radius: 14px; padding: 7px 4px;
-  font-family: inherit; font-size: 12.5px; font-weight: 700; cursor: pointer; transition: .25s; white-space: nowrap; }
+  font-family: inherit; font-size: 12.5px; font-weight: 700; line-height: 1.25; cursor: pointer; transition: .25s; word-break: keep-all; }
 .ps-pill small { display: block; font-size: 10.5px; font-weight: 500; opacity: .75; }
 .ps-pill.active { background: var(--lamp); border-color: var(--lamp); color: var(--night); }
 
