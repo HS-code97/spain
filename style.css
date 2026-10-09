@@ -474,17 +474,14 @@ table.fcmp tr.sel td { background: #ffe6e7; }
 .ps-head em { font-style: normal; letter-spacing: 0; font-size: 11px; color: var(--lamp); background: rgba(255,180,92,.14); padding: 2px 9px; border-radius: 999px; }
 .ps-segs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; padding: 4px; border-radius: 16px; background: rgba(255,255,255,.08); }
 .ps-seg { border: 0; background: transparent; color: #cfe0f5; padding: 9px 4px 8px; border-radius: 12px; font-family: inherit; cursor: pointer; transition: background .25s, color .25s, box-shadow .25s; }
-.ps-seg b { display: block; font-family: var(--serif); font-size: 16px; line-height: 1.2; }
-.ps-seg small { display: block; margin-top: 2px; font-size: 11px; opacity: .75; font-variant-numeric: tabular-nums; }
+.ps-seg b { display: block; font-family: var(--serif); font-size: 14.5px; line-height: 1.2; white-space: nowrap; }
+.ps-seg small { display: block; margin-top: 2px; font-size: 11px; opacity: .75; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ps-seg small + small { margin-top: 0; }
+.ps-seg small em { font-style: normal; font-weight: 700; color: var(--lamp); }
+.ps-seg.active small em { color: #d97706; }
+.ps-seg.active small { opacity: .85; }
 .ps-seg.active { background: #fff; color: var(--ink); box-shadow: 0 4px 14px rgba(0,0,0,.2); }
-.ps-seg:focus-visible, .ps-pill:focus-visible, .plan-chip:focus-visible { outline: 2px solid var(--lamp); outline-offset: 2px; }
-.ps-sub { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; max-height: 0; opacity: 0; overflow: hidden; visibility: hidden;
-  transition: max-height .32s ease, opacity .25s ease, margin-top .32s ease, visibility 0s .32s; }
-.plan-switch.sub .ps-sub { max-height: 72px; opacity: 1; margin-top: 8px; visibility: visible; transition: max-height .32s ease, opacity .25s ease .05s, margin-top .32s ease; }
-.ps-pill { border: 1px solid rgba(255,255,255,.2); background: transparent; color: #cfe0f5; border-radius: 14px; padding: 7px 4px;
-  font-family: inherit; font-size: 12.5px; font-weight: 700; line-height: 1.25; cursor: pointer; transition: .25s; word-break: keep-all; }
-.ps-pill small { display: block; font-size: 10.5px; font-weight: 500; opacity: .75; }
-.ps-pill.active { background: var(--lamp); border-color: var(--lamp); color: var(--night); }
+.ps-seg:focus-visible, .plan-chip:focus-visible { outline: 2px solid var(--lamp); outline-offset: 2px; }
 
 .daybar-wrap { display: flex; align-items: center; }
 .daybar { flex: 1; min-width: 0; padding-left: 8px; }
@@ -500,16 +497,7 @@ table.fcmp tr.sel td { background: #ffe6e7; }
 
 .plan-fade { animation: planIn .45s ease both; }
 @keyframes planIn { from { opacity: 0; transform: translateY(6px); } }
-@media (prefers-reduced-motion: reduce) { .plan-fade { animation: none; } .ps-sub { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .plan-fade { animation: none; } }
 .city-dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin: 0 6px 1px 0; vertical-align: middle; box-shadow: 0 0 0 2px rgba(255,255,255,.12); }
 
-/* 일정안별 실제 비행 시각 */
 .ps-head em.real { color: #8ef0c6; background: rgba(52,211,153,.16); }
-.ps-fly { margin-top: 10px; padding: 10px 8px 2px; border-top: 1px dashed rgba(255,255,255,.18); }
-.pf-row { display: grid; grid-template-columns: 62px 1fr; gap: 6px; align-items: start; margin-bottom: 8px; font-size: 12.5px; line-height: 1.45; color: #e3edf9; }
-.pf-k { font-size: 11.5px; font-weight: 700; color: var(--ice); white-space: nowrap; padding-top: 1px; }
-.pf-row b { color: #fff; font-weight: 700; font-variant-numeric: tabular-nums; }
-.pf-row small { display: block; font-size: 11px; color: var(--frost); }
-.ps-fly.assume .pf-row { color: #b7c6da; }
-.ps-fly.assume .pf-row span:last-child { font-style: italic; }
-.pf-note { margin: 0 0 8px; font-size: 11.5px; font-weight: 600; color: var(--lamp); }

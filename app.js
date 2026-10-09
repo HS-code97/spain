@@ -619,69 +619,30 @@
     } catch {}
   };
 
-  /* ---------- 일정안 선택 (9박10일 · 8박9일 · 7박) ---------- */
-  // 박수 세그먼트 3개, 7박은 항공편(추천 마드리드 IN · 마드리드 IN 저녁 · 바르셀로나 IN)을 한 번 더 선택
-  const PLAN_GROUPS = [["p10"], ["p9"], ["p7a", "p7m", "p7b"]];
+  /* ---------- 일정안 선택 (실제 항공권이 있는 현지 7박 3가지) ---------- */
   const DEFAULT_PLAN = "p7a";
-  const AIRPORT = { ICN: "인천", MAD: "마드리드", BCN: "바르셀로나" };
   const planTitle = (p = plan) => p.name + (p.sub ? " · " + p.sub : "");
   const planOfFlight = id => Object.keys(PLANS).find(k => PLANS[k].flight === id);
-  const flightOf = p => p.flight && FLIGHTS.find(f => f.id === p.flight);
-  let lastSub = DEFAULT_PLAN;
+  const nightsOf = p => p.stays.reduce((a, s) => a + s.n, 0);
   function planSwitch() {
     $("#planSwitch").innerHTML = `
-      <div class="ps-head"><span>일정안 선택</span><em id="psBadge"></em></div>
+      <div class="ps-head"><span>일정안 선택</span><em class="real">✈️ 실제 항공권</em></div>
       <div class="ps-segs" role="radiogroup" aria-label="일정안">
-        ${PLAN_GROUPS.map(g => {
-          const p = PLANS[g[0]], n = g.filter(k => PLANS[k].flight).length;
-          return `
-          <button class="ps-seg" type="button" role="radio" data-g="${g.join(" ")}"><b>${g.length > 1 ? "7박" : p.name}</b><small>${n ? `항공편 ${n}개` : "가정"}</small></button>`;
-        }).join("")}
-      </div>
-      <div class="ps-sub" role="radiogroup" aria-label="항공편">
-        ${PLAN_GROUPS.find(g => g.length > 1).map(k => {
-          const f = flightOf(PLANS[k]);
-          return `<button class="ps-pill" type="button" role="radio" data-p="${k}">${esc(PLANS[k].pill)}<small>${f.out.date} ${f.out.dep} 출발</small></button>`;
-        }).join("")}
-      </div>
-      <div id="psFly"></div>`;
-    $$("#planSwitch .ps-seg").forEach(b => b.onclick = () => {
-      const g = b.dataset.g.split(" ");
-      if (g.includes(plan.key)) return;
-      applyPlan(g.length > 1 ? lastSub : g[0], true);
-    });
-    $$("#planSwitch .ps-pill").forEach(b => b.onclick = () => { if (b.dataset.p !== plan.key) applyPlan(b.dataset.p, true); });
-    $("#planChip").onclick = () => scrollTo({ top: 0, behavior: "smooth" });
-  }
-  // 선택한 일정안의 실제 비행 시각 (항공편이 없으면 가정 시간)
-  function flyHTML() {
-    const f = flightOf(plan);
-    if (!f) return `
-      <div class="ps-fly assume">
-        <p class="pf-note">🕐 항공편 미정 · 아래 시간은 가정이에요</p>
-        <div class="pf-row"><span class="pf-k">🛫 가는 편</span><span>${esc(plan.assume.out)}</span></div>
-        <div class="pf-row"><span class="pf-k">🛬 오는 편</span><span>${esc(plan.assume.back)}</span></div>
+        ${Object.entries(PLANS).map(([k, p]) => `
+          <button class="ps-seg" type="button" role="radio" data-p="${k}">
+            <b>${esc(p.route.split(" · ")[0])}</b>
+            <small>${p.badge ? `<em>${esc(p.badge)}</em> · ` : ""}현지 ${nightsOf(p)}박</small>
+            <small>${p.range}</small>
+          </button>`).join("")}
       </div>`;
-    const leg = (k, l) => `
-      <div class="pf-row"><span class="pf-k">${k}</span><span>
-        <b>${l.date} ${l.dep}</b> ${AIRPORT[l.from]} → <b>${l.arrDate} ${l.arr}</b> ${AIRPORT[l.to]}
-        <small>${l.fl} · ${esc(l.via.replace(" 대기 ", " "))} 환승 · 총 ${l.total}</small>
-      </span></div>`;
-    return `<div class="ps-fly">${leg("🛫 가는 편", f.out)}${leg("🛬 오는 편", f.back)}</div>`;
+    $$("#planSwitch .ps-seg").forEach(b => b.onclick = () => { if (b.dataset.p !== plan.key) applyPlan(b.dataset.p, true); });
+    $("#planChip").onclick = () => scrollTo({ top: 0, behavior: "smooth" });
   }
   function syncPlanUI() {
     $$("#planSwitch .ps-seg").forEach(b => {
-      const on = b.dataset.g.split(" ").includes(plan.key);
-      b.classList.toggle("active", on); b.setAttribute("aria-checked", on);
-    });
-    $$("#planSwitch .ps-pill").forEach(b => {
       const on = b.dataset.p === plan.key;
       b.classList.toggle("active", on); b.setAttribute("aria-checked", on);
     });
-    $("#planSwitch").classList.toggle("sub", !!plan.sub);
-    $("#psBadge").textContent = plan.flight ? "✈️ 실제 항공편" : "🕐 가정 시간";
-    $("#psBadge").classList.toggle("real", !!plan.flight);
-    $("#psFly").innerHTML = flyHTML();
     $("#planChip").innerHTML = `${esc(plan.chip[0])}<small>${esc(plan.chip[1])}</small>`;
     $("#heroDates").innerHTML = `<span>${plan.from[0]} <small>${plan.from[1]}</small></span><i></i><span>${plan.to[0]} <small>${plan.to[1]}</small></span>`;
     $("#stayNote").innerHTML = `<b>🏠 6인 가족 도시별 숙소 베이스캠프</b> <small>(${esc(planTitle())})</small><br>` +
@@ -690,7 +651,6 @@
   function applyPlan(key, user) {
     if (!PLANS[key]) key = DEFAULT_PLAN;
     plan = PLANS[key]; plan.key = key;
-    if (plan.sub) lastSub = key;
     DAYS = plan.days;
     indexPlaces();
     syncPlanUI();
@@ -707,7 +667,7 @@
       history.replaceState(history.state, "", u);
     } catch {}
     if (user) {
-      ["#heroDates", "#countdown", "#overview", "#dayPanel", "#psFly"].forEach(s => {
+      ["#heroDates", "#countdown", "#overview", "#dayPanel"].forEach(s => {
         const el = $(s); el.classList.remove("plan-fade"); void el.offsetWidth; el.classList.add("plan-fade");
       });
       toast(`${planTitle()} 일정으로 바꿨어요`);
@@ -730,7 +690,7 @@
       slides[i].classList.remove("on"); i = (i + 1) % slides.length; slides[i].classList.add("on");
     }, 8000);
   })();
-  // 기본은 7박 추천 마드리드 IN, ?plan=p10 / p9 / p7m / p7b 링크로 열면 해당 일정안
+  // 기본은 추천 마드리드 IN, ?plan=p7m / p7b 링크로 열면 해당 일정안
   planSwitch();
   applyPlan(new URLSearchParams(location.search).get("plan") || DEFAULT_PLAN);
   snow(); countdown();
