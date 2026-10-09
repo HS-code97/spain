@@ -17,7 +17,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Serif+JP:wght@500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
-<link rel="stylesheet" href="style.css?v=11">
+<link rel="stylesheet" href="style.css?v=12">
 </head>
 <body>
 <canvas id="snow" aria-hidden="true"></canvas>
@@ -27,13 +27,12 @@
   <section class="view active" id="view-plan" aria-label="일정">
     <header class="hero" id="hero">
       <div class="hero-bg" id="heroBg"></div>
+      <div class="plan-switch" id="planSwitch"></div>
       <div class="hero-inner">
         <p class="hero-kicker"><span class="star">★</span> SPAIN · 2027 AUTUMN <span class="jp">¡Hola!</span></p>
         <h1 class="hero-title">태양의 나라,<br>스페인 여행</h1>
         <p class="hero-sub">두 가족 여섯 명이 여유롭고 깊숙이 걷는 마드리드 · 그라나다 · 바르셀로나</p>
-        <div class="hero-dates">
-          <span>9.10 <small>금</small></span><i></i><span>9.19 <small>일</small></span>
-        </div>
+        <div class="hero-dates" id="heroDates"></div>
         <div class="countdown" id="countdown"></div>
         <div class="crew">
           <span class="crew-chip">👨‍👩‍👧 어른 4</span>
@@ -54,6 +53,7 @@
     <div class="overview" id="overview"></div>
 
     <div class="daybar-wrap" id="daybarWrap">
+      <button class="plan-chip" id="planChip" type="button" aria-label="일정안 바꾸기"></button>
       <div class="daybar" id="daybar" role="tablist"></div>
     </div>
     <div id="dayPanel"></div>
@@ -94,12 +94,7 @@
       <button data-fly="barcelona">⛪ 바르셀로나</button>
       <button data-fly="all">🇪🇸 스페인 전체</button>
     </div>
-    <div class="stay-note">
-      <b>🏠 6인 가족 도시별 숙소 베이스캠프</b><br>
-      · <b>마드리드 (1~3박)</b>: 솔 광장 · 마요르 광장 인근 6인용 아파트<br>
-      · <b>그라나다 (4~5박)</b>: 이사벨 라 카톨리카 광장 인근 숙소<br>
-      · <b>바르셀로나 (6~7박)</b>: 카탈루냐 광장 · 에이샴플라 중심가 숙소
-    </div>
+    <div class="stay-note" id="stayNote"></div>
   </section>
 
   <!-- ============ 맛집 ============ -->
@@ -272,7 +267,7 @@
 <div class="toast" id="toast" role="status"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" defer></script>
-<script src="data.js?v=11" defer></script>
-<script src="app.js?v=12" defer></script>
+<script src="data.js?v=12" defer></script>
+<script src="app.js?v=13" defer></script>
 </body>
 </html>

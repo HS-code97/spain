@@ -56,9 +56,10 @@ button { font: inherit; color: inherit; cursor: pointer; }
 
 /* ---------- HERO ---------- */
 .hero {
-  position: relative; min-height: 88svh; display: flex; align-items: flex-end;
-  padding: 0 20px 44px; color: #fff; overflow: hidden;
+  position: relative; min-height: 88svh; display: flex; flex-direction: column; justify-content: space-between;
+  padding: calc(env(safe-area-inset-top, 0px) + 14px) 20px 44px; color: #fff; overflow: hidden;
 }
+.hero-inner { margin-top: auto; }
 .hero-bg {
   position: absolute; inset: 0; background-size: cover; background-position: center 60%;
   transform: scale(1.08); animation: slowzoom 24s ease-in-out infinite alternate;
@@ -461,3 +462,42 @@ table.fcmp tr.sel td { background: #ffe6e7; }
 .fo .rules { display: grid; gap: 2px; padding: 10px 16px 14px; font-size: 12px; color: var(--ink3); }
 .fo .rules span::before { content: "· "; }
 .air-note { margin: 16px 20px 0; color: #b7cbe4; }
+
+/* ---------- 일정안 선택 (PLAN SWITCH) ---------- */
+.plan-switch {
+  position: relative; z-index: 2; width: 100%; max-width: 460px; margin: 0 auto 28px; padding: 10px 10px 10px;
+  border-radius: 22px; background: rgba(10,22,40,.45); border: 1px solid rgba(255,255,255,.16);
+  backdrop-filter: blur(14px) saturate(140%); -webkit-backdrop-filter: blur(14px) saturate(140%);
+  box-shadow: 0 14px 34px rgba(0,0,0,.28);
+}
+.ps-head { display: flex; justify-content: space-between; align-items: center; padding: 0 6px 8px; font-size: 11px; letter-spacing: .16em; font-weight: 600; color: var(--ice); }
+.ps-head em { font-style: normal; letter-spacing: 0; font-size: 11px; color: var(--lamp); background: rgba(255,180,92,.14); padding: 2px 9px; border-radius: 999px; }
+.ps-segs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; padding: 4px; border-radius: 16px; background: rgba(255,255,255,.08); }
+.ps-seg { border: 0; background: transparent; color: #cfe0f5; padding: 9px 4px 8px; border-radius: 12px; font-family: inherit; cursor: pointer; transition: background .25s, color .25s, box-shadow .25s; }
+.ps-seg b { display: block; font-family: var(--serif); font-size: 16px; line-height: 1.2; }
+.ps-seg small { display: block; margin-top: 2px; font-size: 11px; opacity: .75; font-variant-numeric: tabular-nums; }
+.ps-seg.active { background: #fff; color: var(--ink); box-shadow: 0 4px 14px rgba(0,0,0,.2); }
+.ps-seg:focus-visible, .ps-pill:focus-visible, .plan-chip:focus-visible { outline: 2px solid var(--lamp); outline-offset: 2px; }
+.ps-sub { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; max-height: 0; opacity: 0; overflow: hidden; visibility: hidden;
+  transition: max-height .32s ease, opacity .25s ease, margin-top .32s ease, visibility 0s .32s; }
+.plan-switch.sub .ps-sub { max-height: 64px; opacity: 1; margin-top: 8px; visibility: visible; transition: max-height .32s ease, opacity .25s ease .05s, margin-top .32s ease; }
+.ps-pill { border: 1px solid rgba(255,255,255,.2); background: transparent; color: #cfe0f5; border-radius: 999px; padding: 8px 6px;
+  font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer; transition: .25s; white-space: nowrap; }
+.ps-pill small { display: block; font-size: 10.5px; font-weight: 500; opacity: .75; }
+.ps-pill.active { background: var(--lamp); border-color: var(--lamp); color: var(--night); }
+
+.daybar-wrap { display: flex; align-items: center; }
+.daybar { flex: 1; min-width: 0; padding-left: 8px; }
+.plan-chip {
+  flex: none; margin-left: 12px; border: 1px solid rgba(255,180,92,.55); background: rgba(255,180,92,.14); color: var(--lamp);
+  border-radius: 12px; padding: 7px 9px; font-family: inherit; font-size: 12.5px; font-weight: 800; line-height: 1.15; text-align: center; cursor: pointer;
+}
+.plan-chip small { display: block; margin-top: 2px; font-size: 10px; font-weight: 600; opacity: .85; }
+
+.ov-title small { display: block; margin-top: 3px; font-family: var(--sans); font-size: 12px; font-weight: 600; color: var(--frost); letter-spacing: .02em; }
+.stay-note small { color: var(--ink3); font-weight: 500; }
+.fo .fo-plan { display: flex; width: calc(100% - 32px); margin: 0 16px 14px; }
+
+.plan-fade { animation: planIn .45s ease both; }
+@keyframes planIn { from { opacity: 0; transform: translateY(6px); } }
+@media (prefers-reduced-motion: reduce) { .plan-fade { animation: none; } .ps-sub { transition: none; } }

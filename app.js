@@ -19,12 +19,22 @@
   // 일정 카드의 선택지: options가 있으면 1·2번 식당, 없으면 카드 자체가 하나의 선택지
   const optsOf = it => it.options || [{ title: it.title, text: it.text || it.desc || "", place: it.place }];
 
-  // 장소가 등장하는 날짜 매핑
-  const placeDays = {};
-  DAYS.forEach((d, i) => d.items.forEach(it => optsOf(it).forEach(o => {
-    if (!o.place) return;
-    (placeDays[o.place] ||= new Set()).add(i);
-  })));
+  // 현재 일정안(플랜)과 그 날짜들 — 전역 DAYS 대신 플랜별 days를 사용
+  let plan, DAYS;
+  // 장소가 등장하는 날짜 매핑 (플랜이 바뀌면 다시 계산)
+  let placeDays = {};
+  function indexPlaces() {
+    placeDays = {};
+    DAYS.forEach((d, i) => d.items.forEach(it => optsOf(it).forEach(o => {
+      if (!o.place) return;
+      (placeDays[o.place] ||= new Set()).add(i);
+    })));
+  }
+  // 도시별 숙박 구간 (예: 1~3박)
+  function stayRanges() {
+    let n = 0;
+    return plan.stays.map(s => { const a = n + 1; n += s.n; return { ...s, range: `${a}~${n}박` }; });
+  }
 
   /* ---------- 따뜻한 빛 입자 캔버스 ---------- */
   function snow() {
@@ -59,8 +69,11 @@
 
   /* ---------- 카운트다운 ---------- */
   function countdown() {
-    const el = $("#countdown"), start = new Date(TRIP.start), end = new Date(TRIP.end);
-    function draw() {
+    drawCountdown(); setInterval(drawCountdown, 30000);
+  }
+  function drawCountdown() {
+    const el = $("#countdown"), start = new Date(plan.start), end = new Date(plan.end);
+    {
       const now = new Date();
       if (now >= start && now <= end) {
         const dayIdx = todayIndex();
@@ -75,7 +88,6 @@
       el.innerHTML = [[`D-${d}`, "DAYS"], [String(h).padStart(2, "0"), "HOURS"], [String(m).padStart(2, "0"), "MIN"]]
         .map(([v, l]) => `<div class="cd-box"><b>${v}</b><span>${l}</span></div>`).join("");
     }
-    draw(); setInterval(draw, 30000);
   }
   function todayIndex() {
     const t = new Date().toLocaleDateString("sv-SE", { timeZone: "Europe/Madrid" });
@@ -100,7 +112,7 @@
   /* ---------- 개요 ---------- */
   function overview() {
     $("#overview").innerHTML = `
-      <h2 class="ov-title">한눈에 보는 10일 여정</h2>
+      <h2 class="ov-title">한눈에 보는 ${DAYS.length}일 여정 <small>${esc(plan.route)}</small></h2>
       <div class="ov-list">
         ${DAYS.map((d, i) => `
           <button class="ov-item" data-go="${i}">
@@ -109,7 +121,7 @@
             <i class="ov-dot" style="background:${d.hue};color:${d.hue}"></i>
           </button>`).join("")}
       </div>
-      <p class="ov-note">👑 <b>1~3박 마드리드</b>: 솔·마요르 광장 베이스캠프 (프라도 · 왕궁 · 레티로 · 톨레도/세고비아 대신 시내 심층 탐방)<br>🏰 <b>4~5박 그라나다</b>: 렌페(AVE) 이동 · 알함브라 궁전 · 알바이신 산 니콜라스 노을 · 무료 타파스 투어<br>⛪ <b>6~7박 바르셀로나</b>: 부엘링 항공 이동 · 가우디 투어(사그라다 파밀리아·구엘·바트요·밀라) · 고딕지구 & 바르셀로네타</p>`;
+      <p class="ov-note">${stayRanges().map(s => `${s.emoji} <b>${s.range} ${s.city}</b>: ${esc(s.note)}`).join("<br>")}</p>`;
     $$(".ov-item").forEach(b => b.onclick = () => { selectDay(+b.dataset.go); $("#daybarWrap").scrollIntoView({ behavior: "smooth" }); });
   }
 
@@ -131,7 +143,7 @@
     // 데이바만 가로로 스크롤 (scrollIntoView는 페이지 세로 스크롤까지 건드려 이전/다음 날 스크롤을 끊음)
     const chip = $(".day-chip.active"), bar = $("#daybar");
     if (chip) bar.scrollTo({ left: chip.offsetLeft - bar.offsetLeft - (bar.clientWidth - chip.offsetWidth) / 2, behavior: "smooth" });
-    store.set("day", i);
+    store.set("day:" + plan.key, i);
     renderDay();
   }
   function nowItemIndex(d, items) {
@@ -421,6 +433,17 @@
       maxZoom: 19,
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(map);
+    $$("#jumpRow button").forEach(b => b.onclick = () => {
+      const k = b.dataset.fly;
+      if (k === "all") map.flyToBounds(L.latLngBounds(Object.values(markers).map(x => x.m.getLatLng())).pad(.1), { duration: 1 });
+      else if (VIEWS[k]) map.flyToBounds(VIEWS[k], { duration: 1 });
+    });
+    buildMarkers();
+  }
+  // 핀 색·날짜 필터는 플랜의 날짜에 따라 달라지므로 플랜이 바뀌면 다시 생성
+  function buildMarkers() {
+    Object.values(markers).forEach(x => x.m.remove());
+    markers = {};
     Object.entries(PLACES).forEach(([id, p]) => {
       if (!p.lat) return;
       const di = [...(placeDays[id] || [])];
@@ -438,11 +461,6 @@
     $("#mapFilters").innerHTML = [["all", "전체", "#fff"], ...DAYS.map((d, i) => [String(i), `${d.label} · ${d.title}`, d.hue])]
       .map(([k, l, c]) => `<button class="chip" data-mf="${k}"><i style="background:${c}"></i>${esc(l)}</button>`).join("");
     $$("#mapFilters .chip").forEach(b => b.onclick = () => filterMap(b.dataset.mf));
-    $$("#jumpRow button").forEach(b => b.onclick = () => {
-      const k = b.dataset.fly;
-      if (k === "all") map.flyToBounds(L.latLngBounds(Object.values(markers).map(x => x.m.getLatLng())).pad(.1), { duration: 1 });
-      else if (VIEWS[k]) map.flyToBounds(VIEWS[k], { duration: 1 });
-    });
     filterMap("all");
   }
   function filterMap(k) {
@@ -559,7 +577,13 @@
         <div class="stay">🏨 현지 체류 <b>${f.nights}박</b> · ${f.stay}</div>
         <div class="ft">${f.tags.map(([t, c]) => `<span class="fchip ${c}">${esc(t)}</span>`).join("")}</div>
         <div class="rules">${f.rules.map(r => `<span>${esc(r)}</span>`).join("")}</div>
+        ${planOfFlight(f.id) ? `<button class="btn dark fo-plan" type="button" data-plan="${planOfFlight(f.id)}">📅 이 항공편 일정 보기 · ${esc(PLANS[planOfFlight(f.id)].name)} ${esc(PLANS[planOfFlight(f.id)].sub || "")}</button>` : ""}
       </article>`).join("")).join("");
+    $$("#airList .fo-plan").forEach(b => b.onclick = e => {
+      e.stopPropagation();
+      applyPlan(b.dataset.plan, true);
+      showView("plan");
+    });
     const pick = (id, go) => {
       $$("#airCmp tr[data-o]").forEach(r => r.classList.toggle("sel", r.dataset.o === id));
       $$("#airList .fo").forEach(c => c.classList.toggle("sel", c.id === "fo-" + id));
@@ -588,12 +612,78 @@
   let tt;
   function toast(msg) { const t = $("#toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(tt); tt = setTimeout(() => t.classList.remove("show"), 1600); }
   $("#shareBtn").onclick = async () => {
-    const data = { title: "🇪🇸 태양의 나라, 스페인 여행", text: "두 가족 6인의 스페인(마드리드·그라나다·바르셀로나) 여행 일정 (2027.9.10–9.19)", url: location.href };
+    const data = { title: "🇪🇸 태양의 나라, 스페인 여행", text: `두 가족 6인의 스페인(마드리드·그라나다·바르셀로나) 여행 일정 · ${planTitle()} (2027.${plan.range})`, url: location.href };
     try {
       if (navigator.share) await navigator.share(data);
       else { await navigator.clipboard.writeText(location.href); toast("링크를 복사했어요 📋"); }
     } catch {}
   };
+
+  /* ---------- 일정안 선택 (9박10일 · 8박9일 · 7박8일) ---------- */
+  // 박수 세그먼트 3개, 7박8일은 IN 도시를 한 번 더 선택
+  const PLAN_GROUPS = [["p10"], ["p9"], ["p7m", "p7b"]];
+  const planTitle = (p = plan) => p.name + (p.sub ? " · " + p.sub : "");
+  const planOfFlight = id => Object.keys(PLANS).find(k => PLANS[k].flight === id);
+  let lastSub = "p7m";
+  function planSwitch() {
+    $("#planSwitch").innerHTML = `
+      <div class="ps-head"><span>일정안 선택</span><em>✈️ 항공 미확정</em></div>
+      <div class="ps-segs" role="radiogroup" aria-label="일정안">
+        ${PLAN_GROUPS.map(g => { const p = PLANS[g[0]]; return `
+          <button class="ps-seg" type="button" role="radio" data-g="${g.join(" ")}"><b>${p.name}</b><small>${p.range}</small></button>`; }).join("")}
+      </div>
+      <div class="ps-sub" role="radiogroup" aria-label="입국 도시">
+        ${["p7m", "p7b"].map(k => `<button class="ps-pill" type="button" role="radio" data-p="${k}">✈️ ${PLANS[k].sub} <small>${PLANS[k].route.split(" · ")[1]}</small></button>`).join("")}
+      </div>`;
+    $$("#planSwitch .ps-seg").forEach(b => b.onclick = () => {
+      const g = b.dataset.g.split(" ");
+      if (g.includes(plan.key)) return;
+      applyPlan(g.length > 1 ? lastSub : g[0], true);
+    });
+    $$("#planSwitch .ps-pill").forEach(b => b.onclick = () => { if (b.dataset.p !== plan.key) applyPlan(b.dataset.p, true); });
+    $("#planChip").onclick = () => scrollTo({ top: 0, behavior: "smooth" });
+  }
+  function syncPlanUI() {
+    $$("#planSwitch .ps-seg").forEach(b => {
+      const on = b.dataset.g.split(" ").includes(plan.key);
+      b.classList.toggle("active", on); b.setAttribute("aria-checked", on);
+    });
+    $$("#planSwitch .ps-pill").forEach(b => {
+      const on = b.dataset.p === plan.key;
+      b.classList.toggle("active", on); b.setAttribute("aria-checked", on);
+    });
+    $("#planSwitch").classList.toggle("sub", !!plan.sub);
+    $("#planChip").innerHTML = `${esc(plan.chip.split(" · ")[0])}${plan.chip.includes(" · ") ? `<small>${esc(plan.chip.split(" · ")[1])} IN</small>` : "<small>일정안</small>"}`;
+    $("#heroDates").innerHTML = `<span>${plan.from[0]} <small>${plan.from[1]}</small></span><i></i><span>${plan.to[0]} <small>${plan.to[1]}</small></span>`;
+    $("#stayNote").innerHTML = `<b>🏠 6인 가족 도시별 숙소 베이스캠프</b> <small>(${esc(planTitle())})</small><br>` +
+      stayRanges().map(s => `· <b>${s.city} (${s.range})</b>: ${esc(s.home)}`).join("<br>");
+  }
+  function applyPlan(key, user) {
+    if (!PLANS[key]) key = "p10";
+    plan = PLANS[key]; plan.key = key;
+    if (plan.sub) lastSub = key;
+    DAYS = plan.days;
+    indexPlaces();
+    syncPlanUI();
+    drawCountdown();
+    overview(); daybar();
+    const ti = todayIndex();
+    selectDay(ti >= 0 ? ti : user ? 0 : store.get("day:" + key, 0));
+    if (map) buildMarkers();
+    renderFood();
+    // 링크 공유 시 같은 일정안이 열리도록 주소에 반영 (기본 9박10일은 생략)
+    try {
+      const u = new URL(location.href);
+      key === "p10" ? u.searchParams.delete("plan") : u.searchParams.set("plan", key);
+      history.replaceState(history.state, "", u);
+    } catch {}
+    if (user) {
+      ["#heroDates", "#countdown", "#overview", "#dayPanel"].forEach(s => {
+        const el = $(s); el.classList.remove("plan-fade"); void el.offsetWidth; el.classList.add("plan-fade");
+      });
+      toast(`${planTitle()} 일정으로 바꿨어요`);
+    }
+  }
 
   /* ---------- 시작 ---------- */
   (() => {
@@ -611,8 +701,9 @@
       slides[i].classList.remove("on"); i = (i + 1) % slides.length; slides[i].classList.add("on");
     }, 8000);
   })();
-  snow(); countdown(); overview(); daybar();
-  const ti = todayIndex();
-  selectDay(ti >= 0 ? ti : store.get("day", 0));
+  // 기본은 9박10일, ?plan=p9 / p7m / p7b 링크로 열면 해당 일정안
+  planSwitch();
+  applyPlan(new URLSearchParams(location.search).get("plan") || "p10");
+  snow(); countdown();
   foodView(); shopView(); infoView(); airView();
 })();
