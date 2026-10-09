@@ -263,9 +263,9 @@
     $("#prevDay").onclick = () => { selectDay(curDay - 1); scrollToDayStart(); };
     $("#nextDay").onclick = () => { selectDay(curDay + 1); scrollToDayStart(); };
   }
-  // 이전/다음 날: 그날 첫 일정(시간)이 데이바 바로 아래 오도록 스크롤
+  // 이전/다음 날: 그날 제목 카드가 데이바 바로 아래 오도록 스크롤
   function scrollToDayStart() {
-    const el = $("#dayPanel .tl-item") || $("#dayPanel .day-head");
+    const el = $("#dayPanel .day-head") || $("#dayPanel .tl-item");
     if (!el) return;
     const top = el.getBoundingClientRect().top + scrollY - $("#daybarWrap").offsetHeight - 8;
     scrollTo({ top, behavior: "smooth" });
