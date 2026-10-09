@@ -128,7 +128,9 @@
     if (i < 0 || i >= DAYS.length) i = 0;
     curDay = i;
     $$(".day-chip").forEach(b => b.classList.toggle("active", +b.dataset.i === i));
-    $(".day-chip.active")?.scrollIntoView({ inline: "center", block: "nearest", behavior: "smooth" });
+    // 데이바만 가로로 스크롤 (scrollIntoView는 페이지 세로 스크롤까지 건드려 이전/다음 날 스크롤을 끊음)
+    const chip = $(".day-chip.active"), bar = $("#daybar");
+    if (chip) bar.scrollTo({ left: chip.offsetLeft - bar.offsetLeft - (bar.clientWidth - chip.offsetWidth) / 2, behavior: "smooth" });
     store.set("day", i);
     renderDay();
   }
@@ -258,8 +260,15 @@
       store.set("mission:" + d.id, done);
       if (cb.checked) toast("미션 완료! ¡Olé! 🇪🇸");
     });
-    $("#prevDay").onclick = () => { selectDay(curDay - 1); $("#daybarWrap").scrollIntoView({ behavior: "smooth" }); };
-    $("#nextDay").onclick = () => { selectDay(curDay + 1); $("#daybarWrap").scrollIntoView({ behavior: "smooth" }); };
+    $("#prevDay").onclick = () => { selectDay(curDay - 1); scrollToDayStart(); };
+    $("#nextDay").onclick = () => { selectDay(curDay + 1); scrollToDayStart(); };
+  }
+  // 이전/다음 날: 그날 첫 일정(시간)이 데이바 바로 아래 오도록 스크롤
+  function scrollToDayStart() {
+    const el = $("#dayPanel .tl-item") || $("#dayPanel .day-head");
+    if (!el) return;
+    const top = el.getBoundingClientRect().top + scrollY - $("#daybarWrap").offsetHeight - 8;
+    scrollTo({ top, behavior: "smooth" });
   }
 
   /* ---------- 바텀시트 ---------- */
@@ -519,6 +528,52 @@
       `<li><a href="https://commons.wikimedia.org/wiki/File:${encodeURIComponent(f.replace(/ /g, "_"))}" target="_blank" rel="noopener">${esc(f)}</a>${line ? `<br><span class="photo-credit-line">${esc(line)}</span>` : ""}</li>`).join("");
   }
 
+  /* ---------- 항공일정 ---------- */
+  function airView() {
+    const legHTML = (lab, l) => `
+      <div class="leg"><div class="lh">${lab} · ${l.date}</div>
+        <div class="lt">
+          <div class="pt"><b>${l.dep}</b><span>${l.from}</span></div>
+          <div class="mid">${esc(l.via)}<i></i>총 <b>${l.total}</b></div>
+          <div class="pt"><b>${l.arr}</b><span>${l.to}${l.arrDate !== l.date ? " · " + l.arrDate : ""}</span></div>
+        </div>
+        <div class="fl-no">${l.fl}</div>
+      </div>`;
+    const groups = [...new Set(FLIGHTS.map(f => f.group))];
+    $("#airCmp").innerHTML = `
+      <table class="fcmp">
+        <tr><th>옵션</th><th>3인 금액</th><th>현지 체류</th><th>도시</th><th>항공사</th></tr>
+        ${groups.map(g => `<tr><td colspan="5" class="grp">${g}</td></tr>` + FLIGHTS.filter(f => f.group === g).map(f => `
+          <tr data-o="${f.id}" tabindex="0"><td><b>${f.no}번</b></td><td>$${f.usd}</td>
+            <td>${f.stay.replace(/\(.\) /g, " ").replace(" 도착 ~ ", " → ").replace(" 출발", "")}</td>
+            <td>${f.cities.includes("바르셀로나 IN") ? "BCN→MAD" : "MAD→BCN"}</td><td>${f.air.replace("항공", "")}</td></tr>`).join("")).join("")}
+      </table>`;
+    $("#airList").innerHTML = groups.map(g => `
+      <h3 class="fgrp">🌙 ${g} <span>${FLIGHTS.filter(f => f.group === g).length}개</span></h3>` + FLIGHTS.filter(f => f.group === g).map(f => `
+      <article class="fo" id="fo-${f.id}">
+        <div class="fh">
+          <div><span class="no">${g} ${f.no}번</span><h4>${f.air}</h4><div class="fare">${f.fare} · ${f.cities}</div></div>
+          <div class="pr"><b>$${f.usd}</b><small>약 ₩${f.krw} · 3인</small><small>1인 약 ${f.pp}만원</small></div>
+        </div>
+        ${legHTML("가는편", f.out)}${legHTML("오는편", f.back)}
+        <div class="stay">🏨 현지 체류 <b>${f.nights}박</b> · ${f.stay}</div>
+        <div class="ft">${f.tags.map(([t, c]) => `<span class="fchip ${c}">${esc(t)}</span>`).join("")}</div>
+        <div class="rules">${f.rules.map(r => `<span>${esc(r)}</span>`).join("")}</div>
+      </article>`).join("")).join("");
+    const pick = (id, go) => {
+      $$("#airCmp tr[data-o]").forEach(r => r.classList.toggle("sel", r.dataset.o === id));
+      $$("#airList .fo").forEach(c => c.classList.toggle("sel", c.id === "fo-" + id));
+      if (go) $("#fo-" + id).scrollIntoView({ behavior: "smooth", block: "start" });
+    };
+    $$("#airCmp tr[data-o]").forEach(r => {
+      r.onclick = () => pick(r.dataset.o, true);
+      r.onkeydown = e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pick(r.dataset.o, true); } };
+    });
+    $$("#airList .fo").forEach(c => c.onclick = () => pick(c.id.slice(3), false));
+    $("#airBtn").onclick = () => showView("air");
+    $("#airBack").onclick = () => showView("plan");
+  }
+
   /* ---------- 탭 전환 ---------- */
   function showView(v) {
     $$(".view").forEach(s => s.classList.toggle("active", s.id === "view-" + v));
@@ -559,5 +614,5 @@
   snow(); countdown(); overview(); daybar();
   const ti = todayIndex();
   selectDay(ti >= 0 ? ti : store.get("day", 0));
-  foodView(); shopView(); infoView();
+  foodView(); shopView(); infoView(); airView();
 })();

@@ -17,7 +17,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Serif+JP:wght@500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
-<link rel="stylesheet" href="style.css?v=10">
+<link rel="stylesheet" href="style.css?v=11">
 </head>
 <body>
 <canvas id="snow" aria-hidden="true"></canvas>
@@ -40,10 +40,13 @@
           <span class="crew-chip">🎀 중3 딸 2</span>
           <span class="crew-chip">🇪🇸 두 가족 6인</span>
         </div>
+        <div class="hero-actions">
         <button class="share-btn" id="shareBtn" type="button">
           <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M18 16a3 3 0 0 0-2.4 1.2l-6.7-3.4a3 3 0 0 0 0-1.6l6.7-3.4A3 3 0 1 0 15 7l-6.7 3.4a3 3 0 1 0 0 3.2L15 17a3 3 0 1 0 3-1Z"/></svg>
           가족에게 공유
         </button>
+        <button class="share-btn" id="airBtn" type="button">✈️ 항공일정</button>
+        </div>
       </div>
       <div class="hero-scroll" aria-hidden="true">▾</div>
     </header>
@@ -54,6 +57,26 @@
       <div class="daybar" id="daybar" role="tablist"></div>
     </div>
     <div id="dayPanel"></div>
+  </section>
+
+  <!-- ============ 항공일정 ============ -->
+  <section class="view" id="view-air" aria-label="항공일정">
+    <header class="page-head">
+      <button class="back-btn" id="airBack" type="button">‹ 일정으로</button>
+      <p class="page-kicker">FLIGHT · VUELOS</p>
+      <h2>항공일정 후보</h2>
+      <p class="page-desc">아직 확정 전이에요. 비교해 보고 가족 단톡방에서 골라 주세요!</p>
+    </header>
+    <div class="chips air-chips">
+      <span class="chip">💵 3인 합산 금액</span><span class="chip">🧳 위탁 1인 1개</span><span class="chip">🔁 왕복 모두 경유 1회</span>
+    </div>
+    <div class="card air-cmp">
+      <h3>📊 한눈에 비교</h3>
+      <div id="airCmp"></div>
+      <p class="small air-hint">줄을 누르면 아래 상세 카드로 이동해요.</p>
+    </div>
+    <div id="airList"></div>
+    <p class="small air-note">금액·스케줄은 조회 시점 기준이라 바뀔 수 있어요. 원화는 대략적인 환산이고, 1인 금액은 3인 합산을 3으로 나눈 값이에요.</p>
   </section>
 
   <!-- ============ 지도 ============ -->
@@ -249,7 +272,7 @@
 <div class="toast" id="toast" role="status"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" defer></script>
-<script src="data.js?v=10" defer></script>
-<script src="app.js?v=10" defer></script>
+<script src="data.js?v=11" defer></script>
+<script src="app.js?v=11" defer></script>
 </body>
 </html>

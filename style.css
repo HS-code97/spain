@@ -413,3 +413,51 @@ button { font: inherit; color: inherit; cursor: pointer; }
 @media (prefers-reduced-motion: reduce) {
   .opt-wrap, .opt-body, .opt-tab { transition: none; }
 }
+
+/* ---------- 항공일정 ---------- */
+.hero-actions { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 8px; }
+.hero-actions .share-btn { margin-top: 0; }
+.back-btn { border: 1px solid rgba(255,255,255,.2); background: rgba(255,255,255,.08); color: #fff; border-radius: 999px; padding: 7px 14px; font-size: 13px; font-weight: 600; margin-bottom: 14px; }
+.air-chips { flex-wrap: wrap; }
+.air-cmp { overflow-x: auto; padding: 8px 12px 12px; }
+.air-cmp h3 { margin: 6px 4px 6px; }
+table.fcmp { width: 100%; border-collapse: collapse; font-size: 13px; color: var(--ink); }
+table.fcmp th, table.fcmp td { padding: 8px 6px; border-bottom: 1px solid var(--line); text-align: left; white-space: nowrap; }
+table.fcmp th { color: var(--ink3); font-weight: 600; font-size: 12px; }
+table.fcmp td.grp { color: var(--ink3); font-size: 12px; font-weight: 700; padding-top: 12px; }
+table.fcmp tr[data-o] { cursor: pointer; }
+table.fcmp tr[data-o]:hover td { background: var(--snow); }
+table.fcmp tr.sel td { background: #ffe6e7; }
+.air-hint { margin: 8px 4px 0; }
+.fgrp { color: #fff; font-family: var(--serif); font-size: 21px; margin: 26px 20px 4px; }
+.fgrp span { font-family: var(--sans); font-size: 13px; color: var(--frost); font-weight: 500; margin-left: 4px; }
+.fo { margin: 12px 16px 0; background: var(--card); color: var(--ink); border-radius: var(--radius); box-shadow: 0 10px 30px rgba(0,0,0,.2); overflow: hidden; scroll-margin-top: 14px; transition: box-shadow .2s; }
+.fo.sel { box-shadow: 0 0 0 3px var(--star), 0 10px 30px rgba(0,0,0,.2); }
+.fo .fh { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; padding: 14px 16px 12px; border-bottom: 1px solid var(--line); }
+.fo .no { display: inline-block; font-size: 11.5px; font-weight: 700; color: #fff; background: var(--night3); border-radius: 999px; padding: 2px 9px; margin-bottom: 4px; }
+.fo h4 { margin: 0; font-size: 17px; }
+.fo .fare { font-size: 12px; color: var(--ink3); margin-top: 2px; }
+.fo .pr { text-align: right; white-space: nowrap; }
+.fo .pr b { display: block; font-family: var(--serif); font-size: 22px; line-height: 1.15; color: var(--star); }
+.fo .pr small { display: block; font-size: 12px; color: var(--ink3); }
+.leg { padding: 10px 16px; }
+.leg + .leg { border-top: 1px dashed var(--line); }
+.leg .lh { font-size: 12px; font-weight: 700; color: var(--ink3); margin-bottom: 4px; }
+.lt { display: flex; align-items: center; gap: 8px; }
+.lt .pt { flex: 0 0 auto; text-align: center; line-height: 1.2; }
+.lt .pt b { display: block; font-size: 20px; font-variant-numeric: tabular-nums; }
+.lt .pt span { font-size: 12px; color: var(--ink3); }
+.lt .mid { flex: 1; min-width: 0; text-align: center; font-size: 11.5px; color: var(--ink3); line-height: 1.35; }
+.lt .mid i { display: block; height: 2px; background: var(--line); margin: 5px 0; position: relative; }
+.lt .mid i::after { content: "✈"; position: absolute; right: -2px; top: -9px; font-style: normal; font-size: 12px; color: var(--star); }
+.lt .mid b { color: var(--ink); font-weight: 600; }
+.fl-no { font-size: 11px; color: var(--ink3); margin-top: 4px; letter-spacing: .03em; }
+.fo .stay { margin: 0 16px; padding: 9px 12px; border-radius: 12px; background: var(--snow); font-size: 13px; color: var(--ink2); }
+.fo .stay b { color: var(--ink); }
+.fo .ft { display: flex; flex-wrap: wrap; gap: 6px; padding: 10px 16px 0; }
+.fchip { font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 999px; background: var(--snow); color: var(--ink2); border: 1px solid var(--line); }
+.fchip.good { background: #dcf5ec; color: var(--boy); border-color: #bfe9d8; }
+.fchip.warn { background: #fff1dc; color: #a65f00; border-color: #ffd9a3; }
+.fo .rules { display: grid; gap: 2px; padding: 10px 16px 14px; font-size: 12px; color: var(--ink3); }
+.fo .rules span::before { content: "· "; }
+.air-note { margin: 16px 20px 0; color: #b7cbe4; }

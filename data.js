@@ -1647,3 +1647,39 @@ function creditList() {
   Object.values(PLACES).forEach(p => p.credit && seen.set(p.credit, p.photoCredit || ""));
   return [...seen];
 }
+
+/* ---------- 항공일정 후보 (미확정 · 금액은 3인 합산) ---------- */
+const FARE_EY = ["변경 가능 · 출발 72시간 전까지, 수수료 AED 600 + 차액", "환불 불가", "위탁수하물 1인 1개"];
+const FARE_EK = ["변경 가능 · 수수료 $600", "환불 가능 · 수수료 $900", "위탁수하물 1인 1개"];
+const FLIGHTS = [
+  { id: "n7-1", group: "현지 7박", no: 1, usd: "3,603.30", krw: "4,834,584", pp: "161", air: "에티하드항공", fare: "Economy Value", cities: "마드리드 IN → 바르셀로나 OUT", rules: FARE_EY,
+    out:  { date: "9/11(토)", dep: "01:35", from: "ICN", arr: "19:40", to: "MAD", arrDate: "9/11(토)", via: "아부다비 대기 7h 45m", total: "25h 05m", fl: "EY0827 · EY0103" },
+    back: { date: "9/18(토)", dep: "10:45", from: "BCN", arr: "10:50", to: "ICN", arrDate: "9/19(일)", via: "아부다비 대기 1h 50m", total: "17h 05m", fl: "EY0112 · EY0822" },
+    stay: "9/11(토) 19:40 도착 ~ 9/18(토) 10:45 출발", nights: 7,
+    tags: [["💰 최저가", "good"], ["기준가 $3,749.70 대비 -$146.40", "good"], ["귀국 환승 1h 50m", "good"], ["토요일 새벽 01:35 출발", "warn"]] },
+  { id: "n7-2", group: "현지 7박", no: 2, usd: "3,847.20", krw: "5,161,827", pp: "172", air: "에티하드항공", fare: "Economy Value", cities: "바르셀로나 IN → 마드리드 OUT", rules: FARE_EY,
+    out:  { date: "9/11(토)", dep: "01:35", from: "ICN", arr: "19:15", to: "BCN", arrDate: "9/11(토)", via: "아부다비 대기 7h 45m", total: "24h 40m", fl: "EY0827 · EY0113" },
+    back: { date: "9/18(토)", dep: "10:45", from: "MAD", arr: "10:50", to: "ICN", arrDate: "9/19(일)", via: "아부다비 대기 1h 30m", total: "17h 05m", fl: "EY0102 · EY0822" },
+    stay: "9/11(토) 19:15 도착 ~ 9/18(토) 10:45 출발", nights: 7,
+    tags: [["바르셀로나로 들어가요 (지금 일정과 반대 방향)", "warn"], ["토요일 새벽 01:35 출발", "warn"], ["이번 주 신규 기준가", ""]] },
+  { id: "n6-1", group: "현지 6박", no: 1, usd: "3,603.30", krw: "4,834,584", pp: "161", air: "에티하드항공", fare: "Economy Value", cities: "마드리드 IN → 바르셀로나 OUT", rules: FARE_EY,
+    out:  { date: "9/11(토)", dep: "01:35", from: "ICN", arr: "19:40", to: "MAD", arrDate: "9/11(토)", via: "아부다비 대기 7h 45m", total: "25h 05m", fl: "EY0827 · EY0103" },
+    back: { date: "9/17(금)", dep: "10:45", from: "BCN", arr: "10:50", to: "ICN", arrDate: "9/18(토)", via: "아부다비 대기 1h 50m", total: "17h 05m", fl: "EY0112 · EY0822" },
+    stay: "9/11(토) 19:40 도착 ~ 9/17(금) 10:45 출발", nights: 6,
+    tags: [["💰 6박 중 최저가", "good"], ["기준가 $3,491.70 대비 +$111.60", ""], ["토요일 새벽 01:35 출발", "warn"]] },
+  { id: "n6-2", group: "현지 6박", no: 2, usd: "4,074.30", krw: "5,466,529", pp: "182", air: "에티하드항공", fare: "Economy Value", cities: "마드리드 IN → 바르셀로나 OUT", rules: FARE_EY,
+    out:  { date: "9/10(금)", dep: "17:50", from: "ICN", arr: "08:10", to: "MAD", arrDate: "9/11(토)", via: "아부다비 대기 3h 50m", total: "21h 20m", fl: "EY0823 · EY0101" },
+    back: { date: "9/17(금)", dep: "10:45", from: "BCN", arr: "10:50", to: "ICN", arrDate: "9/18(토)", via: "아부다비 대기 1h 50m", total: "17h 05m", fl: "EY0112 · EY0822" },
+    stay: "9/11(토) 08:10 도착 ~ 9/17(금) 10:45 출발", nights: 6,
+    tags: [["☀️ 아침 08:10 도착", "good"], ["금요일 저녁 출발", "good"], ["기준가 $3,653.70 대비 +$420.60", "warn"]] },
+  { id: "n6-3", group: "현지 6박", no: 3, usd: "4,377.30", krw: "5,873,067", pp: "196", air: "에미레이트항공", fare: "Economy Flex", cities: "마드리드 IN → 바르셀로나 OUT", rules: FARE_EK,
+    out:  { date: "9/10(금)", dep: "23:55", from: "ICN", arr: "13:30", to: "MAD", arrDate: "9/11(토)", via: "두바이 대기 3h 20m", total: "20h 35m", fl: "EK0323 · EK0141" },
+    back: { date: "9/17(금)", dep: "15:40", from: "BCN", arr: "17:00", to: "ICN", arrDate: "9/18(토)", via: "두바이 대기 3h 25m", total: "18h 20m", fl: "EK0256 · EK0322" },
+    stay: "9/11(토) 13:30 도착 ~ 9/17(금) 15:40 출발", nights: 6,
+    tags: [["↩️ 환불 가능", "good"], ["가는편 최단 20h 35m", "good"], ["마지막 날 오후 출발", "good"]] },
+  { id: "n6-4", group: "현지 6박", no: 4, usd: "4,377.30", krw: "5,873,067", pp: "196", air: "에미레이트항공", fare: "Economy Flex", cities: "마드리드 IN → 바르셀로나 OUT", rules: FARE_EK,
+    out:  { date: "9/10(금)", dep: "23:55", from: "ICN", arr: "13:30", to: "MAD", arrDate: "9/11(토)", via: "두바이 대기 3h 20m", total: "20h 35m", fl: "EK0323 · EK0141" },
+    back: { date: "9/17(금)", dep: "16:15", from: "BCN", arr: "17:00", to: "ICN", arrDate: "9/18(토)", via: "두바이 대기 2h 40m", total: "17h 45m", fl: "EK0186 · EK0322" },
+    stay: "9/11(토) 13:30 도착 ~ 9/17(금) 16:15 출발", nights: 6,
+    tags: [["↩️ 환불 가능", "good"], ["가는편 최단 20h 35m", "good"], ["귀국 환승 2h 40m", "good"]] },
+];
