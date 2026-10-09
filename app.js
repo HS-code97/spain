@@ -562,7 +562,7 @@
       <table class="fcmp">
         <tr><th>옵션</th><th>3인 금액</th><th>현지 체류</th><th>도시</th><th>항공사</th></tr>
         ${groups.map(g => `<tr><td colspan="5" class="grp">${g}</td></tr>` + FLIGHTS.filter(f => f.group === g).map(f => `
-          <tr data-o="${f.id}" tabindex="0"><td><b>${f.no}번</b></td><td>$${f.usd}</td>
+          <tr data-o="${f.id}" tabindex="0"><td><b>${f.no}번</b></td><td>${f.usd ? "$" + f.usd : "₩" + f.krw}</td>
             <td>${f.stay.replace(/\(.\) /g, " ").replace(" 도착 ~ ", " → ").replace(" 출발", "")}</td>
             <td>${f.cities.includes("바르셀로나 IN") ? "BCN→MAD" : "MAD→BCN"}</td><td>${f.air.replace("항공", "")}</td></tr>`).join("")).join("")}
       </table>`;
@@ -571,7 +571,7 @@
       <article class="fo" id="fo-${f.id}">
         <div class="fh">
           <div><span class="no">${g} ${f.no}번</span><h4>${f.air}</h4><div class="fare">${f.fare} · ${f.cities}</div></div>
-          <div class="pr"><b>$${f.usd}</b><small>약 ₩${f.krw} · 3인</small><small>1인 약 ${f.pp}만원</small></div>
+          <div class="pr"><b>${f.usd ? "$" + f.usd : "₩" + f.krw}</b><small>${f.usd ? `약 ₩${f.krw} · 3인` : "3인 합산"}</small><small>1인 약 ${f.pp}만원</small></div>
         </div>
         ${legHTML("가는편", f.out)}${legHTML("오는편", f.back)}
         <div class="stay">🏨 현지 체류 <b>${f.nights}박</b> · ${f.stay}</div>
