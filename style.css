@@ -501,3 +501,4 @@ table.fcmp tr.sel td { background: #ffe6e7; }
 .plan-fade { animation: planIn .45s ease both; }
 @keyframes planIn { from { opacity: 0; transform: translateY(6px); } }
 @media (prefers-reduced-motion: reduce) { .plan-fade { animation: none; } .ps-sub { transition: none; } }
+.city-dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin: 0 6px 1px 0; vertical-align: middle; box-shadow: 0 0 0 2px rgba(255,255,255,.12); }

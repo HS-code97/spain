@@ -121,7 +121,7 @@
             <i class="ov-dot" style="background:${d.hue};color:${d.hue}"></i>
           </button>`).join("")}
       </div>
-      <p class="ov-note">${stayRanges().map(s => `${s.emoji} <b>${s.range} ${s.city}</b>: ${esc(s.note)}`).join("<br>")}</p>`;
+      <p class="ov-note">${stayRanges().map(s => `${s.emoji} <b><i class="city-dot" style="background:${s.hue}"></i>${s.range} ${s.city}</b>: ${esc(s.note)}`).join("<br>")}</p>`;
     $$(".ov-item").forEach(b => b.onclick = () => { selectDay(+b.dataset.go); $("#daybarWrap").scrollIntoView({ behavior: "smooth" }); });
   }
 
@@ -656,7 +656,7 @@
     $("#planChip").innerHTML = `${esc(plan.chip.split(" · ")[0])}${plan.chip.includes(" · ") ? `<small>${esc(plan.chip.split(" · ")[1])} IN</small>` : "<small>일정안</small>"}`;
     $("#heroDates").innerHTML = `<span>${plan.from[0]} <small>${plan.from[1]}</small></span><i></i><span>${plan.to[0]} <small>${plan.to[1]}</small></span>`;
     $("#stayNote").innerHTML = `<b>🏠 6인 가족 도시별 숙소 베이스캠프</b> <small>(${esc(planTitle())})</small><br>` +
-      stayRanges().map(s => `· <b>${s.city} (${s.range})</b>: ${esc(s.home)}`).join("<br>");
+      stayRanges().map(s => `<i class="city-dot" style="background:${s.hue}"></i><b>${s.city} (${s.range})</b>: ${esc(s.home)}`).join("<br>");
   }
   function applyPlan(key, user) {
     if (!PLANS[key]) key = "p10";

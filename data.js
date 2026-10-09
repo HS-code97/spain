@@ -1610,12 +1610,22 @@ const PLANS = (() => {
   // 기존 날의 아이템 1개 복제 (+ 필드 덮어쓰기)
   const I = (id, k, set) => Object.assign(copy(DAY[id].items[k]), set);
   const sub = (o, a, b) => { o.text = o.text.replace(a, b); return o; };
-  // 첫 날짜부터 하루씩 날짜·요일·DAY 번호 매기기
+  // 도시별 색: 그날 밤 머무는 도시 기준 (이동일은 도착 도시, 출국일은 출발 도시, 귀국일은 슬레이트)
+  const CITY_HUE = { 마드리드: "#fb7185", 그라나다: "#34d399", 바르셀로나: "#60a5fa" };
+  const HOME_HUE = "#94a3b8";
+  const cityHue = city => {
+    const [a, b] = city.split("→").map(s => s.trim());
+    const c = !b ? a : b === "출국" ? a : b;
+    const k = Object.keys(CITY_HUE).find(n => c.includes(n));
+    return k ? CITY_HUE[k] : HOME_HUE;
+  };
+  // 첫 날짜부터 하루씩 날짜·요일·DAY 번호·도시 색 매기기
   const mkPlan = (first, p) => {
     const t0 = Date.parse(first + "T12:00:00Z");
     p.days.forEach((d, i) => {
       const t = new Date(t0 + i * 864e5);
       d.date = t.toISOString().slice(0, 10); d.dow = DOW[t.getUTCDay()]; d.label = "DAY " + (i + 1);
+      d.hue = cityHue(d.city);
     });
     return p;
   };
@@ -1624,7 +1634,7 @@ const PLANS = (() => {
     granada: { emoji: "🏰", city: "그라나다", home: "이사벨 라 카톨리카 광장 인근 숙소" },
     barcelona: { emoji: "⛪", city: "바르셀로나", home: "카탈루냐 광장 · 에이샴플라 중심가 숙소" },
   };
-  const stay = (k, n, note) => ({ ...STAY[k], n, note });
+  const stay = (k, n, note) => ({ ...STAY[k], n, note, hue: CITY_HUE[STAY[k].city] });
 
   const granViaNight = {
     time: "21:45", icon: "🌃",
