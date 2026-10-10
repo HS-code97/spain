@@ -476,6 +476,7 @@ table.fcmp td small { display: block; color: var(--ink3); font-size: 11px; }
 .ps-segs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 4px; padding: 4px; border-radius: 16px; background: rgba(255,255,255,.08); }
 .ps-seg { border: 0; background: transparent; color: #cfe0f5; padding: 9px 4px 8px; border-radius: 12px; font-family: inherit; cursor: pointer; transition: background .25s, color .25s, box-shadow .25s; }
 .ps-seg b { display: block; font-family: var(--serif); font-size: 14.5px; line-height: 1.2; white-space: nowrap; }
+.ps-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 5px; vertical-align: .12em; }
 .ps-seg small { display: block; margin-top: 2px; font-size: 11px; opacity: .75; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .ps-seg small + small { margin-top: 0; }
 .ps-seg small em { font-style: normal; font-weight: 700; color: var(--lamp); }

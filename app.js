@@ -639,13 +639,13 @@
   const nightsOf = p => p.stays.reduce((a, s) => a + s.n, 0);
   function planSwitch() {
     $("#planSwitch").innerHTML = `
-      <div class="ps-head"><span>일정안 선택</span><em class="real">✈️ 실제 항공권</em></div>
+      <div class="ps-head"><span>일정안 선택 · 모두 현지 ${nightsOf(Object.values(PLANS)[0])}박</span><em class="real">✈️ 실제 항공권</em></div>
       <div class="ps-segs" role="radiogroup" aria-label="일정안">
         ${Object.entries(PLANS).map(([k, p]) => `
           <button class="ps-seg" type="button" role="radio" data-p="${k}">
-            <b>${esc(p.route.split(" · ")[0])}</b>
-            <small>${p.badge ? `<em>${esc(p.badge)}</em> · ` : ""}현지 ${nightsOf(p)}박</small>
-            <small>${p.range}</small>
+            <b><i class="ps-dot" style="background:${p.stays.find(s => s.city === p.course).hue}"></i>${esc(p.course)} 코스</b>
+            <small>${esc(p.entry)}</small>
+            <small>${p.badge ? `<em>${esc(p.badge)}</em> · ` : ""}${p.range}</small>
           </button>`).join("")}
       </div>`;
     $$("#planSwitch .ps-seg").forEach(b => b.onclick = () => { if (b.dataset.p !== plan.key) applyPlan(b.dataset.p, true); });
