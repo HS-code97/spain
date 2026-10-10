@@ -473,7 +473,7 @@ table.fcmp td small { display: block; color: var(--ink3); font-size: 11px; }
 }
 .ps-head { display: flex; justify-content: space-between; align-items: center; padding: 0 6px 8px; font-size: 11px; letter-spacing: .16em; font-weight: 600; color: var(--ice); }
 .ps-head em { font-style: normal; letter-spacing: 0; font-size: 11px; color: var(--lamp); background: rgba(255,180,92,.14); padding: 2px 9px; border-radius: 999px; }
-.ps-segs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; padding: 4px; border-radius: 16px; background: rgba(255,255,255,.08); }
+.ps-segs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 4px; padding: 4px; border-radius: 16px; background: rgba(255,255,255,.08); }
 .ps-seg { border: 0; background: transparent; color: #cfe0f5; padding: 9px 4px 8px; border-radius: 12px; font-family: inherit; cursor: pointer; transition: background .25s, color .25s, box-shadow .25s; }
 .ps-seg b { display: block; font-family: var(--serif); font-size: 14.5px; line-height: 1.2; white-space: nowrap; }
 .ps-seg small { display: block; margin-top: 2px; font-size: 11px; opacity: .75; font-variant-numeric: tabular-nums; white-space: nowrap; }

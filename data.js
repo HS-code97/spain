@@ -1,6 +1,7 @@
 /* =========================================================
    태양의 나라, 스페인 2027 — 두 가족 6인(어른 4 · 중3 딸 2) 여행 데이터
-   마드리드 (IN) · 그라나다 · 바르셀로나 (OUT) | 2027.09.10(금) ~ 09.19(일)
+   마드리드 (IN) · 세비야 · 바르셀로나 (OUT) | 2027.09.10(금) ~ 09.19(일)
+   (기본 일정안 p7s = 세비야 코스 · 그라나다 코스 p7a 등은 일정안 선택에서 그대로 볼 수 있음)
    ========================================================= */
 
 const W = "https://thumb.wikimedia.org/wikipedia/commons/thumb/";
@@ -10,10 +11,11 @@ const TRIP = {
   title: "태양의 나라, 스페인 여행",
   start: "2027-09-10T17:50:00+09:00",
   end: "2027-09-19T10:50:00+09:00",
-  stay: "마드리드(3박) · 그라나다(2박) · 바르셀로나(3박) 6인 가족형 숙소",
+  stay: "마드리드(2박) · 세비야(2박) · 바르셀로나(3박) 6인 가족형 숙소",
   members: { adult: 4, teenGirls: 2 },
   heroes: [
     { src: W + "e/ef/SF_maig_2_cropped.jpg/960px-SF_maig_2_cropped.jpg", file: "SF_maig_2_cropped.jpg", pos: "center 40%" },
+    { src: "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b6/Plaza_de_Espa%C3%B1a_%28Sevilla%29_-_01.jpg/960px-Plaza_de_Espa%C3%B1a_%28Sevilla%29_-_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail", file: "Plaza de España (Sevilla) - 01.jpg", pos: "center 55%" },
     { src: W + "d/de/Dawn_Charles_V_Palace_Alhambra_Granada_Andalusia_Spain.jpg/960px-Dawn_Charles_V_Palace_Alhambra_Granada_Andalusia_Spain.jpg", file: "Dawn_Charles_V_Palace_Alhambra_Granada_Andalusia_Spain.jpg", pos: "center 50%" },
     { src: W + "9/9b/Palacio_Real_de_Madrid_Julio_2016_%28cropped%29.jpg/960px-Palacio_Real_de_Madrid_Julio_2016_%28cropped%29.jpg", file: "Palacio_Real_de_Madrid_Julio_2016_(cropped).jpg", pos: "center 50%" },
     { src: W + "b/bf/Casa_Batllo_Overview_Barcelona_Spain_cut.jpg/960px-Casa_Batllo_Overview_Barcelona_Spain_cut.jpg", file: "Casa_Batllo_Overview_Barcelona_Spain_cut.jpg", pos: "center 45%" },
@@ -817,6 +819,458 @@ const PLACES = {
     },
     price: "1유로부터 Tax Free 가능 (백화점/상점)",
   },
+
+  /* =====================================================================
+     세비야 (SEVILLA) — 그라나다 대신 세비야를 넣은 일정안(p7s)에서 사용
+     ===================================================================== */
+  stay_sevilla: {
+    type: "stay", emoji: "🏠", name: "세비야 숙소 (대성당·살바도르 광장 인근)", jp: "Centro / Barrio de Santa Cruz, Sevilla",
+    img: "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/95/Casas_%28Barrio_Santa_Cruz%29.jpg/960px-Casas_%28Barrio_Santa_Cruz%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail", credit: "Casas (Barrio Santa Cruz).jpg",
+    imgNote: "숙소 인근 산타 크루스 골목",
+    lat: 37.3893, lng: -5.9926, area: "세비야 센트로 (대성당 도보 5분)",
+    desc: "세비야 베이스캠프. 대성당과 살바도르 광장 사이(프랑코스 거리·알팔파 광장 주변)에 잡으면 알카사르·대성당·시에르페스 쇼핑 거리·라스 세타스가 모두 걸어서 5~10분입니다. 세비야 구시가지는 평지라 알바이신 같은 언덕이 없고, 6명이 걷기에 훨씬 편합니다.",
+    tips: [
+      "산타 크루스 지구 안쪽 골목은 차가 못 들어가요. 택시가 문 앞까지 오는 큰길가(콘스티투시온 대로·프랑코스 거리·알팔파 광장 주변) 숙소가 캐리어 6개에 유리합니다",
+      "9월 중순 세비야는 낮 최고 32°C 안팎이라 에어컨과 엘리베이터 유무를 예약 전에 꼭 확인하세요",
+      "6인이면 3베드룸 아파트 또는 호텔 트리플룸 2개. 9월은 성수기라 일찍 예약할수록 좋습니다"
+    ],
+    q: "Plaza del Salvador Sevilla",
+  },
+
+  /* ---------- 세비야 교통 카드 ---------- */
+  move_ave_sevilla: {
+    type: "move", emoji: "🚄", name: "AVE 고속열차: 마드리드 → 세비야", jp: "Renfe AVE · Madrid Puerta de Atocha → Sevilla Santa Justa",
+    img: U + "e/ed/Trenes.jpg", credit: "Trenes.jpg",
+    lat: 38.7000, lng: -4.2000, area: "소요 약 2시간 40분 · 직통 고속열차",
+    desc: "스페인 최초의 고속철 노선(1992년 개통)으로 마드리드 아토차 역에서 세비야 산타 후스타 역까지 환승 없이 약 2시간 40분입니다. 그라나다행(약 3시간 25분)보다 45분 짧고, 하루 20편 이상 다녀서 시간 선택이 훨씬 자유롭습니다. 코르도바를 지나며 창밖으로 올리브 구릉지가 이어집니다.",
+    tips: [
+      "2026년 10월 시간표 기준 오전 직통편 예: 10:00→12:41, 10:40→13:21, 11:25→14:04, 12:00→14:39. 2027년 9월 시간표는 출발 2~3개월 전에 열리니 그때 10시 전후 편으로 예매하세요",
+      "렌페(AVE) 외에 이리요(iryo)·위고(OUIGO)도 같은 구간을 달립니다. 세 회사 가격을 비교하면 1인 €20~€30대 표도 나옵니다 (트레인라인·오미오 앱에서 한 번에 비교)",
+      "6인이면 마주 보는 4인 테이블석 + 옆 2인석으로 좌석을 지정하세요",
+      "아토차 역은 탑승 전 수하물 보안검색이 있어 출발 30분 전까지 도착해야 여유롭습니다"
+    ],
+    menu: {
+      order: [
+        "출발/도착: 마드리드 푸에르타 데 아토차 → 세비야 산타 후스타 (직통)",
+        "소요 시간: 약 2시간 39분 ~ 2시간 45분",
+        "운행: 첫차 06:55경 ~ 막차 21:00경, 하루 20편 이상",
+        "추천 좌석: 4인 테이블석 + 인접 2인석 (사전 지정)"
+      ]
+    },
+    price: "1인 약 €30~€70 (일찍 예매할수록 저렴)",
+    q: "Estacion de Sevilla Santa Justa",
+  },
+  move_svq_station_taxi: {
+    type: "move", emoji: "🚕", name: "산타 후스타 역 → 세비야 숙소 (택시 2대)", jp: "Estación de Santa Justa → Centro",
+    img: "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e1/Estaci%C3%B3n_de_Sevilla_Santa_Justa_001.jpg/960px-Estaci%C3%B3n_de_Sevilla_Santa_Justa_001.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail", credit: "Estación de Sevilla Santa Justa 001.jpg",
+    lat: 37.3920, lng: -5.9756, area: "소요 약 10분 · 택시 2대",
+    desc: "산타 후스타 역 정문 앞 택시 승강장에서 2대에 나눠 타고 구시가지 숙소로 이동합니다. 걸으면 25분 정도인데 한낮 더위에 캐리어 6개를 끌기는 무리라 택시가 맞습니다.",
+    tips: [
+      "세비야 택시는 미터 요금에 산타 후스타 역 출발 추가요금 €3.70이 붙습니다 (2026년 공시 요금)",
+      "구시가지는 일방통행이 많아요. 숙소 주소를 화면으로 보여주고, 차가 못 들어가는 골목이면 가장 가까운 큰길에서 내려 걷습니다"
+    ],
+    menu: {
+      order: [
+        "이동 수단: 역 앞 공식 택시 2대 분승 (3명 + 3명)",
+        "소요 시간: 약 8~12분",
+        "예상 요금: 대당 약 €10~€13 (역 추가요금 €3.70 포함)"
+      ]
+    },
+    price: "택시 2대 총 약 €20~€26",
+    q: "Estacion de Sevilla Santa Justa",
+  },
+  move_svq_city_taxi: {
+    type: "move", emoji: "🚕", name: "세비야 시내 이동 (택시 2대 · 도보)", jp: "Taxi en Sevilla · Centro ↔ Plaza de España",
+    img: "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b3/Puente_de_Triana_%28Sevilla%29_01.jpg/960px-Puente_de_Triana_%28Sevilla%29_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail", credit: "Puente de Triana (Sevilla) 01.jpg",
+    lat: 37.3822, lng: -5.9940, area: "시내 어디든 5~10분 · 택시 2대",
+    desc: "세비야 구시가지는 평지에 볼거리가 모여 있어 대부분 걸어서 다닙니다. 다만 한낮과 늦은 오후 햇볕이 강해서 스페인 광장처럼 20분 넘게 걸어야 하는 곳은 택시 2대로 이동하는 편이 체력에 좋습니다.",
+    tips: [
+      "흰색 차체에 노란 대각선 띠가 공식 택시입니다. 길에서 잡거나 Free Now·Cabify 앱으로 부르면 됩니다",
+      "시내 구간은 미터 요금으로 대당 €6~€9 정도. 최소 요금은 평일 낮 €4.62입니다",
+      "대성당에서 스페인 광장까지 걷는다면 산 텔모 궁전 → 마리아 루이사 공원 그늘길로 약 20분"
+    ],
+    menu: {
+      order: [
+        "숙소 → 스페인 광장: 택시 약 8분",
+        "스페인 광장 → 쿠나 거리(플라멩코 공연장): 택시 약 10분",
+        "대성당 → 트리아나 다리: 걸어서 약 15분 (강변 산책로)"
+      ]
+    },
+    price: "택시 2대 1회 약 €12~€18",
+    q: "Puerta de Jerez Sevilla",
+  },
+  move_svq_to_airport: {
+    type: "move", emoji: "🚕", name: "세비야 숙소 → 세비야 공항(SVQ) (정액 택시 2대)", jp: "Sevilla Centro → Aeropuerto de Sevilla (SVQ)",
+    img: "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/82/Seville_San_Pablo_Airport_Terminal_-_April_2018.jpg/960px-Seville_San_Pablo_Airport_Terminal_-_April_2018.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail", credit: "Seville San Pablo Airport Terminal - April 2018.jpg",
+    lat: 37.4180, lng: -5.8931, area: "소요 약 20~25분 · 정액 택시",
+    desc: "세비야 공항은 시내에서 약 10km로 가깝고, 택시 요금이 정액제라 흥정할 필요가 없습니다. 이른 아침이라 숙소에 전날 미리 택시 2대 예약을 부탁해 두세요.",
+    tips: [
+      "2026년 공시 정액 요금: 평일 07:00~21:00 €26, 그 외 시간·주말·공휴일 €29 (대당). 07:00 이전 탑승이면 €29입니다",
+      "전화·앱 호출 시 픽업 지점까지의 미터 요금이 조금 더 붙을 수 있습니다",
+      "공항버스(EA)는 편도 €4·약 35분이지만 정류장까지 캐리어를 끌어야 해서 6인에게는 택시가 낫습니다"
+    ],
+    menu: {
+      order: [
+        "이동 수단: 정액 택시 2대 (전날 숙소에 예약 요청)",
+        "소요 시간: 약 20~25분",
+        "요금: 대당 €26 (평일 낮) / €29 (이른 아침·야간·주말)"
+      ]
+    },
+    price: "택시 2대 총 약 €52~€58",
+    q: "Aeropuerto de Sevilla",
+  },
+  move_vueling_svq_bcn: {
+    type: "move", emoji: "✈️", name: "부엘링 국내선: 세비야 → 바르셀로나", jp: "Vueling · SVQ → BCN (Terminal 1)",
+    img: W + "f/ff/Vueling_A320-214_%28EC-JZQ%29_departing_Barcelona_Airport.jpg/960px-Vueling_A320-214_%28EC-JZQ%29_departing_Barcelona_Airport.jpg", credit: "Vueling_A320-214_(EC-JZQ)_departing_Barcelona_Airport.jpg",
+    lat: 39.3000, lng: -1.8000, area: "비행 약 1시간 45분 · 국내선 직항",
+    desc: "세비야에서 바르셀로나는 기차로 5시간 반 이상이라 비행기가 정답입니다. 부엘링 직항이 하루 5~6편 있어 그라나다 출발보다 시간 선택 폭이 넓습니다. 바르셀로나 엘 프라트 공항 T1에 도착합니다.",
+    tips: [
+      "2026년 10월 시간표 기준 부엘링 직항: 06:40, 07:35, 09:40(VY2211, 11:25 도착), 13:40(15:25 도착), 15:25. 이 일정은 09:40편 기준입니다",
+      "세비야 아침을 더 즐기고 싶으면 13:40편도 가능합니다. 대신 바르셀로나 도착일 오후가 2시간쯤 짧아집니다",
+      "기본 요금은 작은 기내 가방만 포함입니다. 6명 모두 위탁수하물(23~25kg)이 포함된 요금제로 예매하세요. 공항에서 추가하면 훨씬 비쌉니다",
+      "라이언에어도 같은 구간을 운항합니다 (12:55 출발편 등). 수하물 포함 총액으로 비교하세요",
+      "국내선이어도 탑승 때 여권 확인을 하니 손가방에 넣어 두세요"
+    ],
+    menu: {
+      order: [
+        "구간: 세비야 공항(SVQ) → 바르셀로나 엘 프라트(BCN T1)",
+        "비행 시간: 약 1시간 40~45분",
+        "필수 체크: 위탁수하물 포함 요금제 + 모바일 체크인"
+      ]
+    },
+    price: "1인 약 €50~€110 (수하물 포함 · 일찍 예매 기준)",
+    q: "Barcelona El Prat Airport Terminal 1",
+  },
+
+  /* ---------- 세비야 관광지 ---------- */
+  alcazar: {
+    type: "spot", emoji: "🏰", name: "세비야 알카사르 (레알 알카사르 왕궁)", jp: "Real Alcázar de Sevilla",
+    img: "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/65/Patio_de_las_Doncellas_%28Alc%C3%A1zar_de_Sevilla%29.jpg/960px-Patio_de_las_Doncellas_%28Alc%C3%A1zar_de_Sevilla%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail", credit: "Patio de las Doncellas (Alcázar de Sevilla).jpg",
+    lat: 37.3831, lng: -5.9902, area: "세비야 산타 크루스 (대성당 맞은편)",
+    desc: "지금도 스페인 왕실이 쓰는, 유럽에서 가장 오래된 현역 왕궁입니다. 14세기 페드로 1세가 이슬람 장인들을 불러 지은 ‘무데하르 궁전’은 알함브라 나스르 궁전과 같은 계보의 아라베스크 장식으로 가득합니다. ‘소녀의 중정’, 황금 돔이 있는 ‘대사의 방’, 그리고 오렌지 나무와 공작이 있는 넓은 정원까지 2시간 반 정도 천천히 둘러봅니다. 드라마 ‘왕좌의 게임’ 도른 궁전 촬영지라 딸들이 사진 찍기에도 좋습니다.",
+    tips: [
+      "⚠️ 공식 사이트(alcazarsevilla.org)에서 날짜·입장 시각을 지정해 미리 예매하세요. 표는 보통 2개월 전쯤 열리고, 9월 오전 시간대는 일찍 매진됩니다",
+      "더위와 단체 관광객을 피하려면 문 여는 09:30 첫 타임이 가장 좋습니다 (4~9월 09:30~19:00)",
+      "입장 때 신분증으로 표를 확인하니 6명 모두 여권을 가져가세요. 13~30세 학생 할인 표를 샀다면 학생증(국제학생증)도 필요합니다",
+      "입구는 대성당 쪽 ‘사자의 문(Puerta del León)’. 예매 시각 10~15분 전에 줄을 서세요",
+      "정원 안쪽 ‘마리아 데 파디야의 목욕탕’(지하 저수조)은 사진이 가장 잘 나오는 곳입니다"
+    ],
+    price: "일반 €15.50 · 13~30세 학생 €8 · 13세 이하 무료 (온라인 예매 수수료 별도)",
+    q: "Real Alcazar de Sevilla",
+  },
+  sevilla_cathedral: {
+    type: "spot", emoji: "⛪", name: "세비야 대성당 & 히랄다 탑", jp: "Catedral de Sevilla & La Giralda",
+    img: "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9f/Giralda_cath%C3%A9drale_tour_Seville_Espagne.jpg/960px-Giralda_cath%C3%A9drale_tour_Seville_Espagne.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail", credit: "Giralda cathédrale tour Seville Espagne.jpg",
+    lat: 37.3858, lng: -5.9931, area: "세비야 센트로",
+    desc: "세계에서 가장 큰 고딕 성당입니다. 네 왕이 관을 멘 콜럼버스의 묘, 황금 1.5톤을 썼다는 중앙 제단, 오렌지 나무 중정을 본 뒤 히랄다 탑에 오릅니다. 히랄다는 원래 이슬람 사원의 첨탑이라 계단이 아니라 완만한 경사로 35개로 되어 있어, 높이 약 70m 전망대까지 생각보다 수월하게 올라갑니다. 꼭대기에서 세비야 구시가지가 한눈에 들어옵니다.",
+    tips: [
+      "관람 시간: 월~토 10:45~19:00, 일 14:30~19:00 (매표 18:00 마감). 온라인으로 시간 지정 예매하면 줄을 서지 않습니다",
+      "표에 히랄다 탑과 살바도르 성당 입장이 포함됩니다",
+      "히랄다는 올라가는 데 15분쯤. 종이 15분마다 울리니 전망대에서 놀라지 마세요",
+      "어깨와 무릎이 드러나는 옷은 입장이 제한될 수 있어 얇은 겉옷을 챙기세요"
+    ],
+    price: "온라인 €13 (현장 €14) · 25세 이하 학생 €7 · 13세 이하 무료",
+    q: "Catedral de Sevilla",
+  },
+  plaza_espana_sev: {
+    type: "spot", emoji: "🚣", name: "스페인 광장 & 마리아 루이사 공원", jp: "Plaza de España & Parque de María Luisa",
+    img: "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b6/Plaza_de_Espa%C3%B1a_%28Sevilla%29_-_01.jpg/960px-Plaza_de_Espa%C3%B1a_%28Sevilla%29_-_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail", credit: "Plaza de España (Sevilla) - 01.jpg",
+    lat: 37.3772, lng: -5.9869, area: "세비야 남쪽 (대성당에서 택시 8분)",
+    desc: "1929년 박람회를 위해 지은 반원형 광장으로, 세비야에서 가장 사진이 잘 나오는 곳입니다. 건물을 따라 스페인 48개 주를 그린 타일 벤치가 늘어서 있고, 운하에서는 노 젓는 배를 탈 수 있습니다. 영화 ‘스타워즈 에피소드 2’의 나부 행성 촬영지이기도 합니다. 해가 기울면 붉은 벽돌과 타일이 황금빛으로 물듭니다.",
+    tips: [
+      "입장 무료, 예약 없음. 4~10월은 08:00~24:00 개방",
+      "운하 보트: 노 젓는 배 4인승 약 €6(35분) + 보증금 €4. 6명이면 2척으로 나눠 타세요. 운영 시간은 선착장에서 확인",
+      "타일 벤치는 주 이름 가나다(알파벳) 순서입니다. 마드리드·그라나다·바르셀로나 벤치를 찾아 사진을 남겨 보세요",
+      "그늘이 적어 한낮은 피하고, 17시 이후에 가는 것이 좋습니다. 물을 꼭 챙기세요",
+      "아케이드 아래에서 플라멩코 버스킹을 자주 합니다"
+    ],
+    price: "입장 무료 · 보트 1척 약 €6",
+    q: "Plaza de España Sevilla",
+  },
+  setas: {
+    type: "spot", emoji: "🍄", name: "라스 세타스 (메트로폴 파라솔) 전망대", jp: "Setas de Sevilla (Metropol Parasol)",
+    img: "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1d/Metropol_Parasol_Plaza_de_la_Encarnaci%C3%B3n_1.jpg/960px-Metropol_Parasol_Plaza_de_la_Encarnaci%C3%B3n_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail", credit: "Metropol Parasol Plaza de la Encarnación 1.jpg",
+    lat: 37.3933, lng: -5.9917, area: "엔카르나시온 광장 (숙소에서 도보 5분)",
+    desc: "버섯 모양의 세계 최대급 목조 구조물입니다. 엘리베이터로 올라가 물결치는 지붕 위 산책로를 걸으며 대성당과 히랄다가 보이는 세비야 야경을 360도로 봅니다. 밤에는 지붕 전체에 조명 쇼 ‘오로라(Aurora)’가 켜져 낮과 전혀 다른 분위기입니다.",
+    tips: [
+      "09:30부터 자정 넘어서까지 운영 (마지막 입장 00:15경). 오로라 조명 쇼는 4~10월 21:30경부터",
+      "입장권에 전망대 + 몰입형 영상 ‘필링 세비야’ + 오로라 조명이 포함됩니다",
+      "일몰 시간대는 온라인 예매가 빨리 마감돼요. 저녁 식사 후 22시쯤 가면 한결 여유롭습니다",
+      "지하에는 로마 시대 유적 박물관(안티콰리움)이 있습니다"
+    ],
+    price: "일반 약 €16부터",
+    q: "Setas de Sevilla",
+  },
+  santa_cruz: {
+    type: "spot", emoji: "🍊", name: "산타 크루스 지구 골목 산책", jp: "Barrio de Santa Cruz",
+    img: "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/95/Casas_%28Barrio_Santa_Cruz%29.jpg/960px-Casas_%28Barrio_Santa_Cruz%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail", credit: "Casas (Barrio Santa Cruz).jpg",
+    lat: 37.3846, lng: -5.9893, area: "알카사르 뒤편 (옛 유대인 지구)",
+    desc: "알카사르 성벽 뒤로 이어지는 하얀 골목 미로입니다. 오렌지 나무가 있는 ‘도냐 엘비라 광장’, 성벽을 따라 걷는 ‘물의 골목(Callejón del Agua)’, 두 사람이 겨우 지나가는 ‘키스 골목(Calle de los Besos)’을 지나 무리요 정원까지 20~30분이면 충분합니다. 골목이 좁아 한낮에도 그늘이 집니다.",
+    tips: [
+      "알카사르 출구(파티오 데 반데라스)로 나오면 바로 산타 크루스 지구로 이어집니다",
+      "길을 잃어도 괜찮아요. 히랄다 탑이 보이는 쪽이 대성당입니다",
+      "기념품은 골목 초입 가게보다 트리아나 도자기 가게나 시에르페스 거리가 종류도 많고 가격도 낫습니다"
+    ],
+    price: "무료",
+    q: "Plaza de Doña Elvira Sevilla",
+  },
+  triana: {
+    type: "spot", emoji: "🌉", name: "트리아나 다리 & 과달키비르 강변 노을", jp: "Puente de Isabel II (Triana) & Calle Betis",
+    img: "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d8/Puente_de_Triana_anochecer.jpg/960px-Puente_de_Triana_anochecer.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail", credit: "Puente de Triana anochecer.jpg",
+    lat: 37.3862, lng: -6.0026, area: "트리아나 (대성당에서 도보 15분)",
+    desc: "강 건너 트리아나는 플라멩코와 도자기의 고향입니다. 이사벨 2세 다리(트리아나 다리)를 건너 알록달록한 집이 늘어선 베티스 거리 강변에 서면, 강 건너편 황금의 탑과 히랄다 탑 뒤로 해가 지는 세비야 최고의 노을을 볼 수 있습니다.",
+    tips: [
+      "9월 중순 일몰은 20:30경. 20:00쯤 다리 위나 베티스 거리 강변에 자리를 잡으세요",
+      "다리 초입 ‘트리아나 시장(Mercado de Triana)’은 신선식품 가게가 월~토 09:00~15:00이라 저녁에는 대부분 닫습니다",
+      "베티스 거리 식당은 전망값이 붙어 비싼 편이에요. 식사는 골목 안쪽 타파스 바에서, 강변에서는 음료 한 잔만 추천합니다"
+    ],
+    price: "무료",
+    q: "Puente de Isabel II Sevilla",
+  },
+
+  /* ---------- 세비야 쇼핑 · 공연 ---------- */
+  ceramica_ruiz: {
+    type: "shop", emoji: "🏺", name: "세라미카 루이스 (트리아나 도자기 가게)", jp: "Cerámica Ruiz · Calle San Jorge 27, Triana",
+    img: "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fe/Cer%C3%A1mica_Triana_001.jpg/960px-Cer%C3%A1mica_Triana_001.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail", credit: "Cerámica Triana 001.jpg",
+    lat: 37.3859, lng: -6.0044, area: "트리아나 산 호르헤 거리",
+    desc: "트리아나 다리를 건너면 바로 나오는 산 호르헤 거리는 세비야 타일·도자기 가게가 모인 골목입니다. 그중 세라미카 루이스는 손으로 그린 접시, 타일, 컵받침, 작은 종지처럼 캐리어에 넣기 좋은 소품이 많아 기념품 고르기에 알맞습니다.",
+    tips: [
+      "작은 타일 마그넷·컵받침은 €3~€8, 손그림 접시는 €15~€40 정도",
+      "깨지지 않게 포장을 부탁하세요: “¿Me lo puede envolver para viajar?”",
+      "같은 거리와 알파레리아 거리, 안티야노 캄포스 거리에 도자기 가게가 서너 곳 더 있어 함께 둘러보기 좋습니다",
+      "근처 ‘트리아나 도자기 센터(Centro Cerámica Triana, 안티야노 캄포스 14)’는 옛 가마를 볼 수 있는 작은 박물관 (화~토, 월요일 휴관)"
+    ],
+    price: "소품 €3~ · 접시 €15~€40",
+    q: "Ceramica Ruiz Calle San Jorge 27 Sevilla",
+  },
+  sierpes_tetuan: {
+    type: "shop", emoji: "🛍️", name: "시에르페스·테투안 거리 쇼핑", jp: "Calle Sierpes & Calle Tetuán",
+    img: "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/21/Lonas%2C_Calle_Sierpes%2C_Sevilla%2C_Espa%C3%B1a%2C_2015.JPG/960px-Lonas%2C_Calle_Sierpes%2C_Sevilla%2C_Espa%C3%B1a%2C_2015.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail", credit: "Lonas, Calle Sierpes, Sevilla, España, 2015.JPG",
+    lat: 37.3912, lng: -5.9949, area: "세비야 센트로 (숙소에서 도보 5분)",
+    desc: "세비야에서 가장 번화한 보행자 쇼핑 거리 두 곳이 나란히 달립니다. 테투안 거리에는 자라·풀앤베어·스트라디바리우스 같은 인디텍스 브랜드가, 시에르페스 거리에는 화장품 편집숍 프리모르와 부채·만티야 같은 전통 가게가 모여 있습니다. 한낮에는 거리 위에 큰 차양막을 쳐서 그늘이 지고, 매장 안은 에어컨이 시원해 시에스타 시간에 딸들과 다니기 좋습니다.",
+    tips: [
+      "🎀 프리모르(Primor) 시에르페스점: Calle Sierpes 72, 월~토 09:30~21:30. 마티덤 앰플·향수·립 제품이 한국보다 훨씬 쌉니다",
+      "👗 자라·버쉬카·스트라디바리우스: 테투안 거리와 두케 광장 주변에 모여 있어요",
+      "🏬 엘 코르테 잉글레스 두케 광장점: 꼭대기 층 ‘고메 익스피리언스’ 테라스에서 시내 전망을 볼 수 있습니다",
+      "🧾 Tax Free 매장에서는 여권을 보여주고 DIVA 서류를 받아 두세요 (바르셀로나 공항에서 한꺼번에 처리)",
+      "대부분의 체인 매장은 시에스타 없이 21시 넘어서까지 엽니다"
+    ],
+    price: "구경 무료",
+    q: "Calle Sierpes Sevilla",
+  },
+  casa_memoria: {
+    type: "spot", emoji: "💃", name: "카사 데 라 메모리아 (정통 플라멩코 공연)", jp: "Casa de la Memoria · Calle Cuna 6",
+    img: "https://upload.wikimedia.org/wikipedia/commons/1/1a/Sevilla_flamenco_19496136099_3e8d453006_o.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled", credit: "Sevilla flamenco 19496136099 3e8d453006 o.jpg",
+    lat: 37.3922, lng: -5.9935, area: "세비야 센트로 쿠나 거리",
+    desc: "플라멩코의 본고장 세비야에서 가장 평이 좋은 소극장 공연입니다. 16세기 저택 안 100석 남짓한 공간에서 마이크 없이 노래·기타·춤을 바로 눈앞에서 봅니다. 식사나 술을 끼워 팔지 않고 약 1시간 공연에만 집중하는 곳이라 중3 딸들과 보기에도 알맞습니다.",
+    tips: [
+      "공연은 매일 19:30·21:00 (시즌에 따라 18:00·22:30 추가). 좌석이 적어 공식 사이트(casadelamemoria.es)에서 미리 예매하세요",
+      "자유석이라 30분 전에 가서 줄을 서면 앞줄에 앉을 수 있습니다",
+      "공연 중 사진·영상 촬영은 금지이고, 마지막 앙코르 때만 허용됩니다",
+      "매진이면 대안: 플라멩코 무용 박물관(Museo del Baile Flamenco, 19:00 공연 약 €20~€25) 또는 라 카사 델 플라멩코(산타 크루스, 19:00·20:30)"
+    ],
+    price: "1인 약 €22~€25 (학생·어린이 할인 있음 · 예매 시 확인)",
+    q: "Casa de la Memoria Calle Cuna 6 Sevilla",
+  },
+
+  /* ---------- 세비야 식당 ---------- */
+  el_rinconcillo: {
+    type: "food", emoji: "🍷", name: "엘 린콘시요 (1670년 창업 · 세비야에서 가장 오래된 바)", jp: "El Rinconcillo · Calle Gerona 40",
+    img: "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fb/El_Rinconcillo.jpg/960px-El_Rinconcillo.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail", credit: "El Rinconcillo.jpg",
+    imgNote: "350년 된 타일 벽과 하몬이 걸린 바",
+    lat: 37.3942, lng: -5.9887, area: "세비야 센트로 (라스 세타스 도보 4분)",
+    desc: "1670년에 문을 연 세비야에서 가장 오래된 타파스 바입니다. 천장에 하몬이 매달린 앞쪽 바에서는 지금도 종업원이 계산을 나무 바 위에 분필로 적습니다. 바 뒤편에 테이블 식당이 따로 있어 6명이 앉아서 식사할 수 있습니다.",
+    tips: [
+      "매일 13:00~01:30 영업 (월요일에도 엽니다). 뒤편 식당은 23:30에 주문 마감",
+      "6인 테이블은 공식 사이트(elrinconcillo.es)나 전화(+34 954 22 31 83)로 미리 예약하세요",
+      "앞쪽 바는 서서 먹는 자리라 분위기만 보고, 식사는 테이블에서 하는 것이 편합니다"
+    ],
+    q: "El Rinconcillo Calle Gerona 40 Sevilla",
+    menu: {
+      adult: ["🥬 에스피나카스 콘 가르반소스 (시금치 병아리콩 볶음 · 이 집 간판 메뉴)", "🐟 파비아스 데 바칼라오 (대구 튀김)", "🥩 카리야다 (이베리코 볼살 조림) & 하몬 이베리코", "🍷 만사니야 또는 피노 셰리 한 잔"],
+      teen: ["🧆 크로케타스 데 하몬 (하몬 크로켓)", "🥩 솔로미요 (돼지 안심 구이) & 감자튀김", "🍅 살모레호 (차가운 토마토 크림 수프)", "🥤 틴토 데 베라노 대신 레몬 탄산(Fanta Limón)"],
+    },
+    price: "1인 약 €20~€30",
+  },
+  las_teresas: {
+    type: "food", emoji: "🍖", name: "라스 테레사스 (1870년 창업 · 하몬 바)", jp: "Bar Las Teresas · Calle Santa Teresa 2",
+    img: "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/49/Plato_de_jamon_iberico_2014.jpg/960px-Plato_de_jamon_iberico_2014.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail", credit: "Plato de jamon iberico 2014.jpg",
+    imgNote: "손으로 썬 하몬 이베리코",
+    lat: 37.3853, lng: -5.9885, area: "산타 크루스 지구",
+    desc: "산타 크루스 골목 안, 천장 가득 하몬이 걸린 오래된 바입니다. 주문하면 그 자리에서 손으로 썰어 주는 하몬 이베리코 데 베요타가 유명하고, 골목에 테이블이 있어 앉아서 먹을 수 있습니다.",
+    tips: [
+      "매일 10:00~24:00 영업 (월요일에도 엽니다)",
+      "타파 1접시 €3~€7. 여러 개 시켜 나눠 먹기 좋습니다",
+      "점심 13:30 전에 가면 골목 테이블을 잡기 쉽습니다"
+    ],
+    q: "Bar Las Teresas Calle Santa Teresa 2 Sevilla",
+    menu: {
+      adult: ["🍖 하몬 이베리코 데 베요타 (손으로 썬 도토리 하몬)", "🥬 에스피나카스 콘 가르반소스 (시금치 병아리콩)", "🧀 케소 만체고 & 셰리 와인"],
+      teen: ["🍅 살모레호 (토마토 크림 수프 + 하몬 가루)", "🧆 크로케타스 & 토르티야 (감자 오믈렛)", "🥖 판 콘 토마테 (토마토 바게트)"],
+    },
+    price: "1인 약 €15~€25",
+  },
+  bodega_santa_cruz: {
+    type: "food", emoji: "🥪", name: "보데가 산타 크루스 ‘라스 콜룸나스’ (몬타디토 바)", jp: "Bodega Santa Cruz Las Columnas · Calle Rodrigo Caro 1",
+    /* 사진 미정: 이모지로 표시 */
+    lat: 37.3861, lng: -5.9912, area: "대성당 뒤편 (히랄다 도보 2분)",
+    desc: "히랄다 탑 바로 뒤, 기둥이 있는 모퉁이의 서서 먹는 바입니다. 세비야 사람들처럼 바에 붙어 서서 작은 샌드위치(몬타디토)와 맥주 한 잔을 시키면 종업원이 계산을 바 위에 분필로 적어 둡니다. 음식보다 분위기를 맛보는 곳이라 15~20분 가볍게 들르기에 좋습니다.",
+    tips: [
+      "의자가 거의 없는 스탠딩 바입니다. 6명이 제대로 앉아 먹으려면 추천 1(라스 테레사스)로",
+      "주문은 바에서 큰 소리로. 나갈 때 “La cuenta, por favor” 하면 분필 계산을 지워 줍니다",
+      "타파 1개 €2.5~€4로 세비야에서도 싼 편"
+    ],
+    q: "Bodega Santa Cruz Las Columnas Sevilla",
+    menu: {
+      adult: ["🥪 몬타디토 데 프링가 (삶은 고기를 으깨 넣은 따뜻한 미니 샌드위치)", "🍆 베렌헤나스 콘 미엘 (꿀 뿌린 가지 튀김)", "🍺 카냐 (생맥주 작은 잔)"],
+      teen: ["🥪 몬타디토 데 로모 (돼지 등심 미니 샌드위치)", "🥔 토르티야 데 파타타스 (감자 오믈렛)", "🥤 콜라·오렌지 주스"],
+    },
+    price: "1인 약 €8~€12",
+  },
+  la_brunilda: {
+    type: "food", emoji: "🍽️", name: "라 브루닐다 (모던 타파스 인기 1순위)", jp: "La Brunilda Tapas · Calle Galera 5",
+    img: "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2c/Risotto_ai_funghi_porcini.JPG/960px-Risotto_ai_funghi_porcini.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail", credit: "Risotto ai funghi porcini.JPG",
+    imgNote: "버섯 리소토 (참고 이미지)",
+    lat: 37.3876, lng: -5.9988, area: "엘 아레날 (대성당에서 도보 8분)",
+    desc: "세비야에서 줄이 가장 긴 모던 타파스 집입니다. 전통 재료를 요즘 스타일로 풀어낸 요리가 한 접시 €5~€12로 부담 없고, 간이 세지 않아 한국 입맛에도 잘 맞습니다. 밝고 깔끔한 실내에 테이블이 있어 6명이 앉아서 먹을 수 있습니다.",
+    tips: [
+      "화~토 13:00~16:00 / 20:30~00:30, 일 13:00~16:00, 월요일 휴무",
+      "예약은 전화로만 받습니다 (+34 954 22 04 81). 숙소 직원에게 6인 예약을 부탁하면 편합니다",
+      "예약을 못 했다면 문 여는 13:00 정각에 가세요. 10분만 늦어도 대기가 깁니다"
+    ],
+    q: "La Brunilda Tapas Calle Galera 5 Sevilla",
+    menu: {
+      adult: ["🍄 리소토 데 이디아사발 이 세타스 (훈제 치즈 버섯 리소토)", "🦆 콘피 데 파토 (당근 크림을 곁들인 오리 콩피)", "🥗 염소 치즈 무화과 샐러드", "🍷 리베라 델 두에로 레드 와인"],
+      teen: ["🍔 미니 소고기 버거 (Hamburguesa de buey)", "🥔 파타타스 브라바스", "🍰 초콜릿 디저트 · 프렌치토스트(Torrija)"],
+    },
+    price: "1인 약 €20~€30",
+  },
+  bodeguita_romero: {
+    type: "food", emoji: "🥖", name: "보데기타 로메로 (프링가 샌드위치 원조)", jp: "Bodeguita Romero · Calle Harinas 10",
+    /* 사진 미정: 이모지로 표시 */
+    lat: 37.3869, lng: -5.9962, area: "엘 아레날 (대성당에서 도보 5분)",
+    desc: "1939년부터 한 가족이 운영해 온 전통 타파스 바입니다. 세비야 명물 ‘몬타디토 데 프링가’가 가장 맛있는 집으로 꼽히고, 부드러운 이베리코 볼살 조림(카리야다)도 유명합니다.",
+    tips: [
+      "화~토 12:00~16:00 / 20:00~23:30, 일 12:00~16:00, 월요일 휴무",
+      "타파 1접시 €3~€6. 주문이 빨리 돌아가니 메뉴를 미리 정하고 들어가세요",
+      "테이블 수가 적어 12:30~13:00에 가야 6명 자리를 잡기 쉽습니다"
+    ],
+    q: "Bodeguita Romero Calle Harinas 10 Sevilla",
+    menu: {
+      adult: ["🥪 몬타디토 데 프링가 (약 €3.50 · 꼭 주문)", "🥩 카리야다 이베리카 (이베리코 볼살 조림)", "🥔 파파스 알리냐스 (참치를 얹은 차가운 감자 샐러드)"],
+      teen: ["🥪 몬타디토 데 프링가 & 로모 샌드위치", "🧆 크로케타스", "🍟 감자튀김을 곁들인 솔로미요 (돼지 안심)"],
+    },
+    price: "1인 약 €15~€20",
+  },
+  las_golondrinas: {
+    type: "food", emoji: "🍄", name: "라스 골론드리나스 (트리아나 타파스 명가)", jp: "Bar Las Golondrinas · Pagés del Corro 76 / Antillano Campos 26",
+    img: "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d5/Solomillo_al_whisky.JPG/960px-Solomillo_al_whisky.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail", credit: "Solomillo al whisky.JPG",
+    imgNote: "세비야식 돼지 안심 구이 (참고 이미지)",
+    lat: 37.3855, lng: -6.0061, area: "트리아나",
+    desc: "트리아나 사람들이 줄 서서 먹는 타파스 바입니다. 철판에 구운 돼지 안심을 빵에 올린 ‘푼타 데 솔로미요’와 마늘 소스를 얹은 양송이 구이가 대표 메뉴이고, 타일로 장식한 실내가 트리아나다운 분위기입니다.",
+    tips: [
+      "가게가 두 곳입니다. 원조(안티야노 캄포스 26)는 작고 서서 먹는 분위기, 2호점(파헤스 델 코로 76)은 넓고 예약을 받아 6명은 2호점이 맞습니다",
+      "영업 12:00~16:00 / 20:00~24:00. 휴무일은 출처마다 달라(일요일 또는 월요일) 방문 전 구글맵에서 확인하세요",
+      "타파 1접시 €3~€5. 20:30 전에 가면 대기가 짧습니다"
+    ],
+    q: "Bar Las Golondrinas Pages del Corro 76 Sevilla",
+    menu: {
+      adult: ["🥩 푼타 데 솔로미요 (돼지 안심 구이 · 꼭 주문)", "🍄 참피뇨네스 아 라 플란차 (마늘 파슬리 양송이 구이)", "🦑 치피로네스 (꼴뚜기 구이)", "🍺 크루스캄포 생맥주 (세비야 로컬 맥주)"],
+      teen: ["🥩 푼타 데 솔로미요 (빵 위에 올린 안심)", "🐟 파비아스 데 바칼라오 (대구 튀김)", "🥔 파타타스 알리올리 (마늘 마요 감자)"],
+    },
+    price: "1인 약 €15~€25",
+  },
+  abades_triana: {
+    type: "food", emoji: "🌇", name: "아바데스 트리아나 (강변 통유리 전망 레스토랑)", jp: "Abades Triana · Calle Betis 69",
+    img: "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/70/Calle_Betis_de_noche.jpg/960px-Calle_Betis_de_noche.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail", credit: "Calle Betis de noche.jpg",
+    imgNote: "베티스 거리에서 본 황금의 탑과 히랄다",
+    lat: 37.3829, lng: -6.0000, area: "트리아나 베티스 거리 강변",
+    desc: "과달키비르 강 위로 통유리가 나 있어 황금의 탑과 히랄다 탑 야경을 보며 식사하는 레스토랑입니다. 타파스 바보다 격식 있는 코스·단품 요리를 내는 곳이라, 세비야 마지막 밤을 분위기 있게 보내고 싶을 때 좋습니다.",
+    tips: [
+      "매일 13:00~16:00 / 20:00~24:00",
+      "예약 필수. 예약할 때 창가 테이블을 요청하세요: “Mesa junto a la ventana, por favor”",
+      "가격대가 높으니(1인 €40~€70) 분위기를 원할 때만. 가볍게 먹으려면 추천 1(라스 골론드리나스)로"
+    ],
+    q: "Abades Triana Calle Betis 69 Sevilla",
+    menu: {
+      adult: ["🐟 오늘의 생선 구이 또는 아로스(쌀 요리)", "🥩 이베리코 프레사·소고기 안심 스테이크", "🍷 안달루시아 화이트 와인"],
+      teen: ["🥩 소고기 안심 스테이크 & 감자", "🍝 파스타 또는 리소토", "🍫 초콜릿 디저트"],
+    },
+    price: "1인 약 €40~€70",
+  },
+  lonja_barranco: {
+    type: "food", emoji: "🍤", name: "론하 델 바랑코 시장 (강변 푸드홀)", jp: "Mercado Lonja del Barranco",
+    img: "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/db/Mercado_de_la_Lonja_del_Barranco.JPG/960px-Mercado_de_la_Lonja_del_Barranco.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail", credit: "Mercado de la Lonja del Barranco.JPG",
+    imgNote: "철골 유리로 지은 옛 어시장 건물",
+    lat: 37.3878, lng: -6.0018, area: "트리아나 다리 옆 강변 (엘 아레날)",
+    desc: "19세기 철골 유리 건물(에펠의 설계로 알려져 있습니다)을 고친 푸드홀입니다. 스무 곳 넘는 매대에서 해산물 튀김, 하몬, 빠에야, 크로켓, 버거, 디저트를 각자 골라 와 한 테이블에서 먹습니다. 입맛이 다른 6명이 메뉴를 통일할 필요가 없어 편합니다.",
+    tips: [
+      "매일 영업하고 중간 휴식 시간이 없어, 월요일이나 식사 시간이 어긋났을 때 대안으로 좋습니다 (영업시간은 방문 전 확인)",
+      "강변 야외 테라스 자리는 해 질 무렵이 가장 좋습니다",
+      "매대마다 따로 계산합니다. 자리를 먼저 잡고 두세 명씩 번갈아 주문하세요"
+    ],
+    q: "Mercado Lonja del Barranco Sevilla",
+    menu: {
+      adult: ["🍤 페스카이토 프리토 (안달루시아식 생선·오징어 튀김 모둠)", "🍖 하몬 이베리코 & 치즈 플레이트", "🥘 아로스 네그로 (먹물 쌀 요리)", "🍷 틴토 데 베라노 (레드 와인 + 레몬 탄산)"],
+      teen: ["🧆 크로케타스 모둠 (하몬·치즈·버섯)", "🍔 미니 버거 · 감자튀김", "🍦 젤라토 · 츄러스"],
+    },
+    price: "1인 약 €15~€25",
+  },
+  el_comercio: {
+    type: "food", emoji: "🍩", name: "바르 엘 코메르시오 (1904년 창업 · 츄러스)", jp: "Bar El Comercio · Calle Lineros 9",
+    img: "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9a/Churros_and_chocolate.jpg/960px-Churros_and_chocolate.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail", credit: "Churros and chocolate.jpg",
+    imgNote: "세비야식 굵은 츄러스와 초콜라테",
+    lat: 37.3905, lng: -5.9920, area: "세비야 센트로 (살바도르 광장 옆)",
+    desc: "1904년부터 같은 자리를 지키는 타일 장식 바입니다. 주문하면 바로 튀겨 주는 세비야식 츄러스는 마드리드 것보다 굵고 속이 폭신합니다. 진한 초콜라테에 찍어 먹는 세비야의 아침 식사입니다.",
+    tips: [
+      "월~토 07:30~21:00, 일요일 휴무",
+      "츄러스 5개 한 접시 약 €2.50. 6명이면 츄러스 3~4접시 + 초콜라테 3잔 정도",
+      "대성당 관람객이 몰리는 11시 전에 가면 줄이 짧습니다. 서서 먹는 카운터가 가장 빠릅니다"
+    ],
+    q: "Bar El Comercio Calle Lineros 9 Sevilla",
+    menu: {
+      adult: ["🍩 추로스 콘 초콜라테", "☕ 카페 콘 레체", "🥪 몬타디토 데 하몬 (하몬 미니 샌드위치)"],
+      teen: ["🍩 추로스 + 진한 초콜라테 (찍어 먹기)", "🍊 수모 데 나랑하 (생오렌지 주스)"],
+    },
+    price: "1인 약 €4~€7",
+  },
+  la_campana: {
+    type: "food", emoji: "🧁", name: "콘피테리아 라 캄파나 (1885년 창업 · 과자점 카페)", jp: "Confitería La Campana · Calle Sierpes 1",
+    img: "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c3/Sevilla_-_Confiter%C3%ADa_La_Campana_2.jpg/960px-Sevilla_-_Confiter%C3%ADa_La_Campana_2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail", credit: "Sevilla - Confitería La Campana 2.jpg",
+    imgNote: "시에르페스 거리 초입의 라 캄파나",
+    lat: 37.3930, lng: -5.9953, area: "시에르페스 거리 초입",
+    desc: "1885년에 문을 연 세비야의 대표 과자점입니다. 모더니즘 양식 진열장에 세비야 전통 과자와 케이크가 가득하고, 거리 쪽 테라스에 앉아 커피와 함께 먹을 수 있습니다. 예쁜 카페를 좋아하는 분에게 권하는 곳입니다.",
+    tips: [
+      "매일 08:00~22:00",
+      "안쪽 스탠딩 카운터가 가장 빠르고, 테라스 자리는 자릿값이 조금 붙습니다",
+      "선물용으로는 ‘예마스 세비야나스(달걀 노른자 과자)’와 ‘폴보로네스’ 상자가 좋습니다"
+    ],
+    q: "Confiteria La Campana Calle Sierpes 1 Sevilla",
+    menu: {
+      adult: ["☕ 카페 콘 레체 + 세비야 전통 과자 한 조각", "🥐 토스타다 (올리브유·토마토 토스트)", "🍮 토시노 데 시엘로 (달걀 푸딩)"],
+      teen: ["🍰 조각 케이크 · 밀푀유", "🍦 수제 아이스크림 (여름철)", "🍫 초콜라테 & 크루아상"],
+    },
+    price: "1인 약 €5~€9",
+  },
+  eme_rooftop: {
+    type: "food", emoji: "🍹", name: "EME 카테드랄 루프톱 (히랄다 정면 전망 테라스)", jp: "La Terraza del EME · Calle Alemanes 27",
+    img: "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/44/La_Giralda%2C_Seville%2C_Spain_-_Sep_2009.jpg/960px-La_Giralda%2C_Seville%2C_Spain_-_Sep_2009.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail", credit: "La Giralda, Seville, Spain - Sep 2009.jpg",
+    imgNote: "히랄다 탑 (참고 이미지)",
+    lat: 37.3866, lng: -5.9931, area: "대성당 바로 앞",
+    desc: "대성당 북쪽 길 건너 호텔 옥상 테라스입니다. 히랄다 탑과 대성당 지붕이 손에 닿을 듯 가까워 세비야에서 전망이 가장 좋은 카페·바로 꼽힙니다. 대성당 관람을 마치고 올라가 음료 한 잔과 함께 쉬어 가기 좋습니다.",
+    tips: [
+      "호텔 로비에서 엘리베이터로 올라갑니다. 숙박객이 아니어도 이용할 수 있어요",
+      "전망값이 포함돼 음료가 비쌉니다 (무알콜 음료 €6~€9, 칵테일 €14~€18 정도). 식사는 하지 말고 한 잔만",
+      "해 질 무렵에는 자리가 금방 차요. 18:30~19:00쯤이 비교적 여유롭습니다",
+      "만석이면 대안: 길 건너 도냐 마리아 호텔 옥상 테라스 (같은 히랄다 전망)"
+    ],
+    q: "EME Catedral Mercer Hotel Sevilla",
+    menu: {
+      adult: ["🍹 틴토 데 베라노 · 칵테일 · 카바 한 잔", "☕ 아이스 커피 (Café con hielo)"],
+      teen: ["🍋 무알콜 모히토 · 레모네이드", "🍊 생오렌지 주스"],
+    },
+    price: "1인 약 €7~€18 (음료 1잔)",
+  },
 };
 
 /* ---------------------------------------------------------
@@ -1611,7 +2065,7 @@ const PLANS = (() => {
   const I = (id, k, set) => Object.assign(copy(DAY[id].items[k]), set);
   const sub = (o, a, b) => { o.text = o.text.replace(a, b); return o; };
   // 도시별 색: 그날 밤 머무는 도시 기준 (이동일은 도착 도시, 출국일은 출발 도시, 귀국일은 슬레이트)
-  const CITY_HUE = { 마드리드: "#fb7185", 그라나다: "#34d399", 바르셀로나: "#60a5fa" };
+  const CITY_HUE = { 마드리드: "#fb7185", 그라나다: "#34d399", 세비야: "#f59e0b", 바르셀로나: "#60a5fa" };
   const HOME_HUE = "#94a3b8";
   const cityHue = city => {
     const [a, b] = city.split("→").map(s => s.trim());
@@ -1632,6 +2086,7 @@ const PLANS = (() => {
   const STAY = {
     madrid: { emoji: "👑", city: "마드리드", home: "솔 광장 · 마요르 광장 인근 6인용 아파트" },
     granada: { emoji: "🏰", city: "그라나다", home: "이사벨 라 카톨리카 광장 인근 숙소" },
+    sevilla: { emoji: "💃", city: "세비야", home: "대성당 · 살바도르 광장 인근 숙소 (구시가지 평지)" },
     barcelona: { emoji: "⛪", city: "바르셀로나", home: "카탈루냐 광장 · 에이샴플라 중심가 숙소" },
   };
   const stay = (k, n, note) => ({ ...STAY[k], n, note, hue: CITY_HUE[STAY[k].city] });
@@ -1675,12 +2130,12 @@ const PLANS = (() => {
     ];
   };
 
-  /* ---------- 현지 7박 · 추천 마드리드 IN (EY823·EY101 / EY112·EY822) — 기본 일정 ---------- */
+  /* ---------- 현지 7박 · 그라나다 코스 · 마드리드 IN (EY823·EY101 / EY112·EY822) — 세비야 코스(p7s)의 원본 ---------- */
   const p7a = mkPlan("2027-09-10", {
-    name: "현지 7박", sub: "추천 · 마드리드 IN · 아침 도착", badge: "⭐추천", range: "9.10–9.19", chip: ["7박", "추천 MAD"], flight: "n7-3",
+    name: "현지 7박", sub: "그라나다 코스 · 마드리드 IN", range: "9.10–9.19", chip: ["7박", "그라나다"], flight: "n7-3",
     from: ["9.10", "금"], to: ["9.19", "일"],
     start: "2027-09-10T17:50:00+09:00", end: "2027-09-19T10:50:00+09:00",
-    route: "마드리드 IN · 바르셀로나 OUT",
+    route: "그라나다 코스 · 마드리드 IN · 바르셀로나 OUT",
     stays: [
       stay("madrid", 2, "토요일 아침 도착 · 왕궁 · 레티로 · 프라도 · 게르니카 · 그란 비아 · 데보드 노을"),
       stay("granada", 2, "렌페(AVE) 이동 · 알함브라 궁전 · 알바이신 산 니콜라스 노을 · 무료 타파스 투어"),
@@ -1945,7 +2400,203 @@ const PLANS = (() => {
     ],
   });
 
-  return { p7a, p7m, p7b };
+
+  /* ---------- 현지 7박 · 세비야 코스 (그라나다 → 세비야 교체 · EY823·EY101 / EY112·EY822) — 기본 일정 ---------- */
+  // 그라나다 코스(p7a)와 같은 날을 복제하면서 문구 속 도시 이름만 세비야 코스에 맞게 바꿈
+  const sev = d => JSON.parse(JSON.stringify(d).replace(/알함브라·사그라다 파밀리아/g, "알카사르·사그라다 파밀리아").replace(/마드리드, 그라나다, 바르셀로나/g, "마드리드, 세비야, 바르셀로나"));
+  const p7s = mkPlan("2027-09-10", {
+    name: "현지 7박", sub: "세비야 코스 · 마드리드 IN", badge: "⭐추천", range: "9.10–9.19", chip: ["7박", "세비야"], flight: "n7-3",
+    from: ["9.10", "금"], to: ["9.19", "일"],
+    start: "2027-09-10T17:50:00+09:00", end: "2027-09-19T10:50:00+09:00",
+    route: "세비야 코스 · 마드리드 IN · 바르셀로나 OUT",
+    stays: [
+      stay("madrid", 2, "토요일 아침 도착 · 왕궁 · 레티로 · 프라도 · 게르니카 · 그란 비아 · 데보드 노을"),
+      stay("sevilla", 2, "AVE 2시간 40분 · 알카사르 · 대성당 히랄다 탑 · 스페인 광장 · 플라멩코 · 트리아나 노을"),
+      stay("barcelona", 3, "부엘링 항공 이동 · 가우디 투어(사그라다 파밀리아·구엘·바트요·밀라) · 고딕지구 & 바르셀로네타 · 토요일 아침 출국"),
+    ],
+    days: [
+      sev(p7a.days[0]), sev(p7a.days[1]), V("d3"),
+
+      /* ===== DAY 4 · 9/13(월) 마드리드 → 세비야 ===== */
+      {
+        id: "s4", city: "마드리드 → 세비야",
+        title: "고속열차 타고 안달루시아 세비야로",
+        subtitle: "AVE 2시간 40분 · 산타 크루스 타파스 · 스페인 광장 · 정통 플라멩코 · 세타스 야경",
+        stamina: 2, sunset: "20:34", temp: "32° / 19°",
+        items: [
+          I("d4", 0, { time: "09:00" }),
+          { time: "10:00", icon: "🚄", badge: "🚄 고속열차 카드",
+            title: "[교통] AVE 고속열차: 마드리드 아토차 → 세비야 산타 후스타 (약 2시간 40분)",
+            text: "시속 300km 고속열차로 세비야까지 환승 없이 달립니다. 아토차 역에서 산 샌드위치와 커피를 먹으며 창밖 올리브 구릉지를 구경하다 보면 금방 도착해요. (예: 10:00 출발 → 12:41 도착)",
+            place: "move_ave_sevilla" },
+          { time: "12:45", icon: "🚕", badge: "🚕 교통 카드",
+            title: "[교통] 산타 후스타 역 → 세비야 숙소 (택시 2대, 약 10분)",
+            text: "역 정문 앞 승강장에서 택시 2대에 3명씩 나눠 타고 대성당 인근 숙소로 이동합니다. 체크인 전이면 캐리어만 먼저 맡기고 점심을 먹으러 나섭니다.",
+            place: "move_svq_station_taxi" },
+          { time: "13:15", icon: "🏠",
+            title: "세비야 숙소 짐 맡기기",
+            text: "2박 동안 머물 세비야 베이스캠프에 도착! 캐리어 6개를 맡기고 가벼운 차림으로 바꿉니다. 세비야는 마드리드보다 4~5도 더우니 모자와 선글라스, 물을 챙기세요.",
+            place: "stay_sevilla" },
+          { time: "13:40", icon: "🍖", badge: "🍽️ 점심 (2곳 추천)",
+            options: [
+              { title: "점심 추천 1: 라스 테레사스 (산타 크루스 골목의 하몬 바)",
+                text: "숙소에서 걸어서 5분. 천장 가득 하몬이 걸린 오래된 바의 골목 테이블에 앉아 손으로 썬 하몬 이베리코, 시금치 병아리콩 볶음, 차가운 살모레호로 세비야 첫 끼를 시작합니다. 월요일에도 엽니다.",
+                place: "las_teresas" },
+              { title: "점심 추천 2: 보데가 산타 크루스 ‘라스 콜룸나스’ (서서 먹는 몬타디토 바)",
+                text: "히랄다 탑 바로 뒤. 세비야 사람들처럼 바에 서서 따뜻한 프링가 미니 샌드위치와 꿀 뿌린 가지 튀김을 가볍게 먹습니다. 계산을 바 위에 분필로 적어 주는 모습이 볼거리예요.",
+                place: "bodega_santa_cruz" },
+            ] },
+          { time: "15:15", icon: "😴",
+            title: "숙소 체크인 & 시에스타 (가장 더운 시간 피하기)",
+            text: "15~17시는 세비야에서 햇볕이 가장 강한 시간입니다. 현지인처럼 숙소에서 에어컨을 켜고 1시간 반쯤 쉬었다가 해가 기울면 다시 나갑니다.",
+            place: "stay_sevilla" },
+          { time: "17:15", icon: "🚕", badge: "🚕 교통 카드",
+            title: "[교통] 숙소 → 스페인 광장 (택시 2대, 약 8분)",
+            text: "걸으면 20분 넘게 걸리는 거리라 택시 2대로 광장 입구까지 바로 갑니다. 대당 €6~€9 정도예요.",
+            place: "move_svq_city_taxi" },
+          { time: "17:30", icon: "🚣",
+            title: "스페인 광장 — 운하 보트 타기 & 48개 주 타일 벤치",
+            text: "세비야에서 가장 화려한 광장입니다. 4인승 보트 2척을 빌려 운하를 한 바퀴 돌고, 타일 벤치에서 마드리드·바르셀로나 칸을 찾아 사진을 남깁니다. 18시가 넘으면 벽돌 건물이 황금빛으로 물들기 시작해요.",
+            place: "plaza_espana_sev" },
+          { time: "19:00", icon: "🚕", badge: "🚕 교통 카드",
+            title: "[교통] 스페인 광장 → 쿠나 거리 플라멩코 공연장 (택시 2대, 약 10분)",
+            text: "광장 앞 대로에서 택시 2대를 잡아 센트로 쿠나 거리로 이동합니다. 자유석이라 공연 20~30분 전에 도착하면 앞자리에 앉을 수 있어요.",
+            place: "move_svq_city_taxi" },
+          { time: "19:30", icon: "💃",
+            title: "카사 데 라 메모리아 — 정통 플라멩코 공연 (약 1시간)",
+            text: "플라멩코의 본고장에서 보는 진짜 공연! 100석 남짓한 작은 무대에서 마이크 없이 울리는 기타와 노래, 바닥을 구르는 발소리를 코앞에서 느낍니다. 식사 없이 공연만 보는 곳이라 중3 딸들과 보기에도 좋습니다.",
+            place: "casa_memoria" },
+          { time: "20:45", icon: "🍷", badge: "🍽️ 저녁 (2곳 추천)",
+            options: [
+              { title: "저녁 추천 1: 엘 린콘시요 (1670년 창업, 세비야에서 가장 오래된 바)",
+                text: "공연장에서 걸어서 6분. 350년 된 타일 벽 아래 뒤편 테이블 식당에서 이 집 간판 메뉴인 시금치 병아리콩 볶음, 대구 튀김, 이베리코 볼살 조림을 나눠 먹습니다. 6인 테이블은 미리 예약하세요.",
+                place: "el_rinconcillo" },
+              { title: "저녁 추천 2: 론하 델 바랑코 시장 (강변 푸드홀)",
+                text: "각자 먹고 싶은 것이 다르다면 강변 푸드홀로! 해산물 튀김, 하몬, 먹물 쌀 요리, 크로켓, 버거를 매대에서 골라 와 한 테이블에서 먹습니다. 공연장에서 택시로 7분, 걸어서 15분입니다.",
+                place: "lonja_barranco" },
+            ] },
+          { time: "22:15", icon: "🍄",
+            title: "라스 세타스 전망대 야경 & 오로라 조명 쇼 (선택)",
+            text: "기운이 남았다면 엘 린콘시요에서 걸어서 4분 거리의 라스 세타스로! 물결치는 지붕 위 산책로에서 조명이 켜진 대성당과 히랄다를 내려다봅니다. 피곤하면 광장에서 조명만 구경하고 숙소로 돌아가도 충분해요.",
+            place: "setas" },
+        ],
+        mission: [
+          "🚣 스페인 광장 운하에서 두 가족 보트 경주 한 판 하기",
+          "💃 플라멩코 공연에서 ‘올레(¡Olé!)’ 한 번 외쳐 보기",
+          "🥬 세비야 명물 ‘시금치 병아리콩 볶음’ 맛보고 별점 매기기"
+        ],
+      },
+
+      /* ===== DAY 5 · 9/14(화) 세비야 ===== */
+      {
+        id: "s5", city: "세비야",
+        title: "왕궁과 대성당, 그리고 트리아나의 노을",
+        subtitle: "츄러스 아침 · 알카사르 · 산타 크루스 골목 · 대성당 히랄다 탑 · 루프톱 카페 · 트리아나 노을",
+        stamina: 3, sunset: "20:33", temp: "32° / 19°",
+        items: [
+          { time: "08:30", icon: "🍩", badge: "☕ 아침 (2곳 추천)",
+            options: [
+              { title: "아침 추천 1: 바르 엘 코메르시오 (1904년 전통 츄러스)",
+                text: "숙소에서 걸어서 3분. 주문하면 바로 튀겨 주는 굵고 폭신한 세비야식 츄러스를 진한 초콜라테에 찍어 먹습니다. 마드리드 산 히네스와 어느 쪽이 더 맛있는지 비교해 보세요!",
+                place: "el_comercio" },
+              { title: "아침 추천 2: 콘피테리아 라 캄파나 (1885년 전통 과자점 카페)",
+                text: "시에르페스 거리 초입의 예쁜 과자점. 테라스에 앉아 카페 콘 레체와 세비야 전통 과자, 토마토 토스트로 여유로운 아침을 먹습니다.",
+                place: "la_campana" },
+            ] },
+          { time: "09:30", icon: "🏰",
+            title: "세비야 알카사르 — 무데하르 궁전 & 왕실 정원 (약 2시간 30분)",
+            text: "문 여는 09:30 첫 타임으로 입장해 선선하고 한적할 때 궁전부터 봅니다. 레이스 같은 아라베스크 장식의 ‘소녀의 중정’, 황금 돔 ‘대사의 방’을 지나 공작이 돌아다니는 오렌지 정원을 천천히 걷습니다. 6명 모두 여권을 꼭 가져가세요.",
+            place: "alcazar" },
+          { time: "12:00", icon: "🍊",
+            title: "산타 크루스 지구 골목 산책 (도냐 엘비라 광장 · 물의 골목)",
+            text: "알카사르 출구로 나오면 바로 이어지는 하얀 골목 미로입니다. 오렌지 나무 광장과 성벽을 따라 난 ‘물의 골목’, 두 사람이 겨우 지나가는 ‘키스 골목’을 그늘 따라 걸으며 점심 식당 쪽으로 이동합니다.",
+            place: "santa_cruz" },
+          { time: "13:00", icon: "🍽️", badge: "🍽️ 점심 (2곳 추천)",
+            options: [
+              { title: "점심 추천 1: 라 브루닐다 (세비야 모던 타파스 인기 1순위)",
+                text: "대성당에서 걸어서 8분. 훈제 치즈 버섯 리소토, 오리 콩피, 미니 소고기 버거처럼 간이 세지 않은 모던 타파스를 여러 접시 시켜 나눠 먹습니다. 전화 예약을 해 두거나 문 여는 13:00 정각에 도착하세요.",
+                place: "la_brunilda" },
+              { title: "점심 추천 2: 보데기타 로메로 (프링가 샌드위치 원조)",
+                text: "대성당에서 걸어서 5분. 1939년부터 이어 온 전통 타파스 바에서 세비야 명물 프링가 샌드위치와 입에서 녹는 이베리코 볼살 조림을 먹습니다.",
+                place: "bodeguita_romero" },
+            ] },
+          { time: "14:45", icon: "🛍️",
+            title: "시에스타 또는 시에르페스·테투안 거리 쇼핑 (프리모르 · 자라)",
+            text: "가장 더운 시간이라 두 팀으로 나눠도 좋아요. 쉬고 싶은 사람은 숙소에서 낮잠, 딸들은 차양막이 쳐진 쇼핑 거리로! 프리모르 시에르페스점(Calle Sierpes 72)에서 화장품을, 테투안 거리 자라·버쉬카에서 옷을 구경하고 라 캄파나에서 간식을 먹습니다.",
+            place: "sierpes_tetuan" },
+          { time: "17:00", icon: "⛪",
+            title: "세비야 대성당 & 히랄다 탑 전망대 (약 1시간 30분)",
+            text: "세계에서 가장 큰 고딕 성당에서 콜럼버스의 묘와 황금 제단을 보고, 경사로 35개를 따라 히랄다 탑에 올라 세비야 구시가지를 내려다봅니다. 늦은 오후라 단체 관광객이 빠져 한결 여유롭습니다. (19:00 폐장)",
+            place: "sevilla_cathedral" },
+          { time: "18:40", icon: "🍹", badge: "☕ 카페",
+            title: "EME 카테드랄 루프톱 — 히랄다를 마주 보는 옥상 테라스",
+            text: "방금 올라갔던 히랄다 탑을 이번에는 옥상 테라스에서 정면으로 바라봅니다. 시원한 음료 한 잔과 함께 30~40분 쉬어 가는 시간. 예쁜 카페를 좋아하는 분들이 가장 좋아할 자리입니다.",
+            place: "eme_rooftop" },
+          { time: "19:30", icon: "🏺",
+            title: "트리아나 다리 건너 도자기 골목 — 세라미카 루이스",
+            text: "강변 산책로를 따라 15분 걸어 트리아나 다리를 건넙니다. 다리 끝 산 호르헤 거리의 세라미카 루이스(Calle San Jorge 27)에서 손그림 타일 컵받침이나 작은 접시를 기념품으로 고릅니다.",
+            place: "ceramica_ruiz" },
+          { time: "20:10", icon: "🌇",
+            title: "베티스 거리 강변 — 황금의 탑과 히랄다 너머 노을",
+            text: "알록달록한 집이 늘어선 베티스 거리 강변에 서서, 강 건너 황금의 탑과 히랄다 탑이 석양에 물드는 세비야 최고의 노을을 봅니다. 일몰은 20:33경입니다.",
+            place: "triana" },
+          { time: "20:45", icon: "🍄", badge: "🍽️ 저녁 (2곳 추천)",
+            options: [
+              { title: "저녁 추천 1: 라스 골론드리나스 (트리아나 타파스 명가)",
+                text: "트리아나 사람들이 줄 서서 먹는 집. 빵 위에 올린 돼지 안심 구이 ‘푼타 데 솔로미요’와 마늘 양송이 구이를 꼭 주문하세요. 6명이면 넓고 예약이 되는 2호점(파헤스 델 코로 76)으로 갑니다.",
+                place: "las_golondrinas" },
+              { title: "저녁 추천 2: 아바데스 트리아나 (강변 통유리 전망 레스토랑)",
+                text: "세비야 마지막 밤을 분위기 있게 보내고 싶다면! 강 위로 난 통유리 창가에서 조명이 켜진 황금의 탑과 히랄다를 보며 식사합니다. 창가 자리로 미리 예약하세요.",
+                place: "abades_triana" },
+            ] },
+          { time: "22:15", icon: "🚕", badge: "🚕 교통 카드",
+            title: "[교통] 트리아나 → 숙소 (택시 2대, 약 8분) · 짐 싸기",
+            text: "내일 아침 일찍 공항으로 가야 하니 택시로 바로 돌아와 캐리어를 미리 싸 둡니다. 숙소에 내일 07:15 택시 2대 예약을 부탁해 두세요.",
+            place: "move_svq_city_taxi" },
+        ],
+        mission: [
+          "🏰 알카사르 정원에서 공작새 찾아 사진 찍기",
+          "🔔 히랄다 탑 경사로 35개를 세면서 꼭대기까지 오르기",
+          "🌇 트리아나 강변에서 노을 배경 두 가족 단체 사진 남기기"
+        ],
+      },
+
+      /* ===== DAY 6 · 9/15(수) 세비야 → 바르셀로나 ===== */
+      {
+        id: "s6", city: "세비야 → 바르셀로나",
+        title: "하늘길로 지중해의 도시 바르셀로나로",
+        subtitle: "부엘링 국내선 09:40 · 그라시아 거리 카사 바트요 · 비니투스 꿀대구",
+        stamina: 2, sunset: "20:02", temp: "26° / 19°",
+        items: [
+          { time: "07:15", icon: "🚕", badge: "🚕 교통 카드",
+            title: "[교통] 세비야 숙소 체크아웃 → 세비야 공항(SVQ) (정액 택시 2대, 약 25분)",
+            text: "전날 예약해 둔 택시 2대에 캐리어 6개를 나눠 싣고 공항으로 갑니다. 정액 요금이라 대당 €26(평일 07시 이후)입니다. 아침은 공항 카페에서 크루아상과 커피로 간단히!",
+            place: "move_svq_to_airport" },
+          { time: "09:40", icon: "✈️", badge: "✈️ 항공 카드",
+            title: "[교통] 부엘링 국내선: 세비야(SVQ) → 바르셀로나(BCN) (약 1시간 45분)",
+            text: "기차로 5시간 반 넘게 걸리는 거리를 1시간 45분 만에! 11:25경 바르셀로나 엘 프라트 공항 T1에 도착합니다. 창가 자리에 앉으면 지중해 해안선이 보여요.",
+            place: "move_vueling_svq_bcn" },
+          I("d6", 2, { time: "12:00" }),
+          { time: "12:45", icon: "🏠",
+            title: "바르셀로나 숙소 짐 맡기기 (얼리 체크인 요청)",
+            text: "3박 동안 머물 바르셀로나 베이스캠프 도착! 체크인 시간 전이라 캐리어를 먼저 맡기고 점심을 먹으러 나섭니다.",
+            place: "stay_bcn" },
+          I("d6", 4, { time: "13:15" }),
+          { time: "15:00", icon: "😴",
+            title: "숙소 체크인 & 휴식 (이른 아침 이동 회복)",
+            text: "새벽같이 움직였으니 체크인 후 1시간쯤 쉬어 갑니다. 바르셀로나 관광세는 체크인 때 카드로 결제해요.",
+            place: "stay_bcn" },
+          I("d6", 5, { time: "16:30" }),
+          I("d6", 6, { time: "20:00" }),
+        ],
+        mission: DAY.d6.mission.slice(),
+      },
+
+      V("d7"), V("d8"), sev(p7a.days[8]), sev(p7a.days[9]),
+    ],
+  });
+
+  return { p7s, p7a, p7m, p7b };
 })();
 
 /* ---------------------------------------------------------
@@ -1988,7 +2639,7 @@ const DONKI = [
     items: [
       "FC 바르셀로나 / 레알 마드리드 공식 스토어 유니폼 & 키링·머플러",
       "가우디 모자이크 타일(트렌카디스) 컵받침 & 도마뱀 마그넷",
-      "그라나다 알카이세리아 석류 문양 도자기 & 모로코풍 유리 램프",
+      "세비야 트리아나 손그림 타일·도자기 소품 (세라미카 루이스)",
       "프라도 미술관 뮤지엄샵 명화 엽서 & 에코백·책갈피"
     ]
   }
@@ -2001,11 +2652,11 @@ const PACKING = [
   {
     cat: "📄 필수 서류 · 예약 바우처 · 결제",
     items: [
-      "여권 원본 (유효기간 6개월 이상 — 알함브라 궁전 입장 시 6명 전원 실물 필수!)",
+      "여권 원본 (유효기간 6개월 이상 — 세비야 알카사르 입장·국내선 탑승 때 6명 전원 실물 필요!)",
       "여권 컬러 사본 2부 & 스마트폰 사진 저장 (평소 시내 다닐 때 지참용)",
       "해외결제 트래블 카드 (트래블월렛·트래블로그 등) + 예비 VISA/Master 신용카드",
       "유로(€) 현금 (소액권 €5·€10·€20 위주 — 미니버스·소규모 가게·팁용)",
-      "사전 예약 바우처 출력/저장 (알함브라 궁전 · 사그라다 파밀리아 · 구엘 공원 · 프라도 · 렌페 AVE · 부엘링 항공)",
+      "사전 예약 바우처 출력/저장 (세비야 알카사르 · 세비야 대성당 · 플라멩코 공연 · 사그라다 파밀리아 · 구엘 공원 · 프라도 · AVE 고속열차 · 부엘링 항공)",
       "해외 여행자 보험 가입 증명서"
     ]
   },
@@ -2025,7 +2676,7 @@ const PACKING = [
       "아침·저녁 및 기내/기차 냉방 대비 가디건·경량 바람막이 자켓 (일교차 10도 이상)",
       "하루 1만 보 이상 걸어도 발이 편한 검증된 운동화 2켤레",
       "강렬한 지중해·안달루시아 햇살 차단용 선글라스 & 챙 넓은 모자",
-      "사그라다 파밀리아·알함브라 사진용 화사한 색감(화이트·레드·옐로우) 의상"
+      "사그라다 파밀리아·스페인 광장 사진용 화사한 색감(화이트·레드·옐로우) 의상"
     ]
   },
   {
@@ -2036,7 +2687,7 @@ const PACKING = [
       "유럽형 C타입 멀티탭 (스페인은 한국과 같은 220V 동그란 2구 콘센트라 별도 돼지코 없이도 대부분 호환되나 멀티탭이 있으면 편리!)",
       "유럽 로밍 또는 대용량 eSIM / 유심",
       "상비약 (소화제·진통제·지사제·멀미약·발 물집 방지 밴드·인공눈물)",
-      "선크림 & 보습 립밤·수분크림 (마드리드·그라나다는 내륙이라 건조해요)",
+      "선크림 & 보습 립밤·수분크림 (마드리드·세비야는 내륙이라 건조하고 햇볕이 강해요)",
       "접이식 장바구니 / 보조가방 (쇼핑 및 마트용)"
     ]
   }
@@ -2099,7 +2750,7 @@ const FLIGHTS = [
     out:  { date: "9/10(금)", from: "ICN", dep: "17:50", to: "MAD", arr: "08:10", arrDate: "9/11(토)", wait: "아부다비 3h55m" },
     back: { date: "9/18(토)", from: "BCN", dep: "10:45", to: "ICN", arr: "10:50", arrDate: "9/19(일)", wait: "아부다비 약 2h" },
     arrive: "9/19(일) 10:50 인천 도착", bag: "23kg × 1개", pp: "1,567,200", total: "4,701,600",
-    tags: [["⭐ 지금 추천 일정과 같은 항공편", "good"]] },
+    tags: [["⭐ 추천 일정(세비야 코스)과 같은 항공편", "good"]] },
   { id: "f07", no: "07", air: "캐세이퍼시픽", nights: "7박8일", trip: "9/10(금)~9/17(금)", route: R_BM,
     out:  { date: "9/10(금)", from: "ICN", dep: "15:10", to: "BCN", arr: "08:35", arrDate: "9/11(토)", wait: "홍콩 4h10m" },
     back: { date: "9/17(금)", from: "MAD", dep: "12:25", to: "ICN", arr: "12:40", arrDate: "9/18(토)", wait: "홍콩 2h30m" },

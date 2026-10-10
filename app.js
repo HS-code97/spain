@@ -23,12 +23,19 @@
   let plan, DAYS;
   // 장소가 등장하는 날짜 매핑 (플랜이 바뀌면 다시 계산)
   let placeDays = {};
+  // 다른 일정안에만 나오는 장소(예: 세비야 코스를 볼 때 그라나다 장소)는 지도·맛집 목록에서 숨김
+  let otherPlanOnly = new Set();
   function indexPlaces() {
     placeDays = {};
     DAYS.forEach((d, i) => d.items.forEach(it => optsOf(it).forEach(o => {
       if (!o.place) return;
       (placeDays[o.place] ||= new Set()).add(i);
     })));
+    otherPlanOnly = new Set();
+    Object.values(PLANS).forEach(pl => pl.days.forEach(dd => dd.items.forEach(it => optsOf(it).forEach(o => {
+      if (o.place && !placeDays[o.place]) otherPlanOnly.add(o.place);
+    }))));
+    Object.keys(PLACES).forEach(id => { if (PLACES[id].type === "stay" && !placeDays[id]) otherPlanOnly.add(id); });
   }
   // 도시별 숙박 구간 (예: 1~3박)
   function stayRanges() {
@@ -358,11 +365,14 @@
   const FOOD_FILTERS = [
     ["all", "전체"],
     ["madrid", "👑 마드리드"],
+    ["sevilla", "💃 세비야"],
     ["granada", "🏰 그라나다"],
     ["barcelona", "⛪ 바르셀로나"],
     ["sweet", "🍫 츄러스·디저트"],
   ];
   const SWEET = new Set(["san_gines", "valor_madrid", "xurreria", "granja_viader", "la_pallaresa"]);
+  const SEVILLA_FOOD = new Set(["el_rinconcillo", "las_teresas", "bodega_santa_cruz", "la_brunilda", "bodeguita_romero", "las_golondrinas", "abades_triana", "lonja_barranco", "el_comercio", "la_campana", "eme_rooftop"]);
+  SWEET.add("el_comercio"); SWEET.add("la_campana");
   let foodFilter = "all";
   function foodView() {
     $("#foodFilters").innerHTML = FOOD_FILTERS.map(([k, l]) => `<button class="chip" data-f="${k}">${l}</button>`).join("");
@@ -370,12 +380,16 @@
     renderFood();
   }
   function renderFood() {
+    const CITY_CHIP = { madrid: "마드리드", sevilla: "세비야", granada: "그라나다", barcelona: "바르셀로나" };
+    $$("#foodFilters .chip").forEach(b => { const c = CITY_CHIP[b.dataset.f]; b.style.display = c && !plan.stays.some(s => s.city === c) ? "none" : ""; });
+    if (CITY_CHIP[foodFilter] && !plan.stays.some(s => s.city === CITY_CHIP[foodFilter])) foodFilter = "all";
     $$("#foodFilters .chip").forEach(b => b.classList.toggle("active", b.dataset.f === foodFilter));
-    const ids = Object.keys(PLACES).filter(id => PLACES[id].type === "food" && PLACES[id].menu).filter(id => {
+    const ids = Object.keys(PLACES).filter(id => PLACES[id].type === "food" && PLACES[id].menu && !otherPlanOnly.has(id)).filter(id => {
       const p = PLACES[id];
       if (foodFilter === "all") return true;
       if (foodFilter === "sweet") return SWEET.has(id);
       if (foodFilter === "madrid") return (p.area || "").includes("마드리드");
+      if (foodFilter === "sevilla") return SEVILLA_FOOD.has(id);
       if (foodFilter === "granada") return (p.area || "").includes("그라나다");
       if (foodFilter === "barcelona") return (p.area || "").includes("바르셀로나");
       return true;
@@ -422,6 +436,7 @@
   const VIEWS = {
     madrid: [[40.398, -3.725], [40.460, -3.670]],
     granada: [[37.168, -3.610], [37.190, -3.580]],
+    sevilla: [[37.374, -6.010], [37.397, -5.972]],
     barcelona: [[41.365, 2.140], [41.422, 2.195]],
     all: [[36.5, -4.5], [42.0, 2.8]],
   };
@@ -445,7 +460,7 @@
     Object.values(markers).forEach(x => x.m.remove());
     markers = {};
     Object.entries(PLACES).forEach(([id, p]) => {
-      if (!p.lat) return;
+      if (!p.lat || otherPlanOnly.has(id)) return;
       const di = [...(placeDays[id] || [])];
       const isHome = p.type === "stay";
       const color = isHome ? "#ff5a5f" : di.length ? DAYS[Math.min(...di)].hue : "#9cc6ec";
@@ -610,15 +625,15 @@
   let tt;
   function toast(msg) { const t = $("#toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(tt); tt = setTimeout(() => t.classList.remove("show"), 1600); }
   $("#shareBtn").onclick = async () => {
-    const data = { title: "🇪🇸 태양의 나라, 스페인 여행", text: `두 가족 6인의 스페인(마드리드·그라나다·바르셀로나) 여행 일정 · ${planTitle()} (2027.${plan.range})`, url: location.href };
+    const data = { title: "🇪🇸 태양의 나라, 스페인 여행", text: `두 가족 6인의 스페인(${plan.stays.map(s => s.city).join("·")}) 여행 일정 · ${planTitle()} (2027.${plan.range})`, url: location.href };
     try {
       if (navigator.share) await navigator.share(data);
       else { await navigator.clipboard.writeText(location.href); toast("링크를 복사했어요 📋"); }
     } catch {}
   };
 
-  /* ---------- 일정안 선택 (실제 항공권이 있는 현지 7박 3가지) ---------- */
-  const DEFAULT_PLAN = "p7a";
+  /* ---------- 일정안 선택 (기본 = 세비야 코스 p7s · 그라나다 코스 p7a 등은 선택해서 보기) ---------- */
+  const DEFAULT_PLAN = "p7s";
   const planTitle = (p = plan) => p.name + (p.sub ? " · " + p.sub : "");
   const planOfFlight = id => Object.keys(PLANS).find(k => PLANS[k].flight === id);
   const nightsOf = p => p.stays.reduce((a, s) => a + s.n, 0);
@@ -643,6 +658,9 @@
     });
     $("#planChip").innerHTML = `${esc(plan.chip[0])}<small>${esc(plan.chip[1])}</small>`;
     $("#heroDates").innerHTML = `<span>${plan.from[0]} <small>${plan.from[1]}</small></span><i></i><span>${plan.to[0]} <small>${plan.to[1]}</small></span>`;
+    const cities = plan.stays.map(s => s.city).join(" · ");
+    const hs = $("#heroSub"); if (hs) hs.textContent = "두 가족 여섯 명이 여유롭고 깊숙이 걷는 " + cities;
+    $$("#jumpRow [data-city]").forEach(b => { b.style.display = plan.stays.some(s => s.city === b.dataset.city) ? "" : "none"; });
     $("#stayNote").innerHTML = `<b>🏠 6인 가족 도시별 숙소 베이스캠프</b> <small>(${esc(planTitle())})</small><br>` +
       stayRanges().map(s => `<i class="city-dot" style="background:${s.hue}"></i><b>${s.city} (${s.range})</b>: ${esc(s.home)}`).join("<br>");
   }
@@ -688,7 +706,7 @@
       slides[i].classList.remove("on"); i = (i + 1) % slides.length; slides[i].classList.add("on");
     }, 8000);
   })();
-  // 기본은 추천 마드리드 IN, ?plan=p7m / p7b 링크로 열면 해당 일정안
+  // 기본은 세비야 코스(p7s), ?plan=p7a / p7m / p7b 링크로 열면 해당 일정안
   planSwitch();
   applyPlan(new URLSearchParams(location.search).get("plan") || DEFAULT_PLAN);
   snow(); countdown();
