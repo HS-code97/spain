@@ -552,33 +552,31 @@
       <div class="leg"><div class="lh">${lab} · ${l.date}</div>
         <div class="lt">
           <div class="pt"><b>${l.dep}</b><span>${l.from}</span></div>
-          <div class="mid">${esc(l.via)}<i></i>총 <b>${l.total}</b></div>
-          <div class="pt"><b>${l.arr}</b><span>${l.to}${l.arrDate !== l.date ? " · " + l.arrDate : ""}</span></div>
+          <div class="mid">${esc(l.wait)}<i></i>경유</div>
+          <div class="pt"><b>${l.arr}<sup>+1</sup></b><span>${l.to} · ${l.arrDate}</span></div>
         </div>
-        <div class="fl-no">${l.fl}</div>
       </div>`;
-    const groups = [...new Set(FLIGHTS.map(f => f.group))];
+    const dir = f => f.out.to === "BCN" ? "BCN→MAD" : "MAD→BCN";
     $("#airCmp").innerHTML = `
       <table class="fcmp">
-        <tr><th>옵션</th><th>3인 금액</th><th>현지 체류</th><th>도시</th><th>항공사</th></tr>
-        ${groups.map(g => `<tr><td colspan="5" class="grp">${g}</td></tr>` + FLIGHTS.filter(f => f.group === g).map(f => `
-          <tr data-o="${f.id}" tabindex="0"><td><b>${f.no}번</b></td><td>${f.usd ? "$" + f.usd : "₩" + f.krw}</td>
-            <td>${f.stay.replace(/\(.\) /g, " ").replace(" 도착 ~ ", " → ").replace(" 출발", "")}</td>
-            <td>${f.cities.includes("바르셀로나 IN") ? "BCN→MAD" : "MAD→BCN"}</td><td>${f.air.replace("항공", "")}</td></tr>`).join("")).join("")}
+        <tr><th>옵션</th><th>항공사</th><th>일정</th><th>도시</th><th>1인(원)</th></tr>
+        ${FLIGHTS.map(f => `
+          <tr data-o="${f.id}" tabindex="0"><td><b>${f.no}</b></td><td>${f.air.replace("항공", "").replace("퍼시픽", "")}</td>
+            <td>${f.trip.replace(/\(.\)/g, "").replace("~", "→")}<small>${f.nights}</small></td>
+            <td>${dir(f)}</td><td>${f.pp}</td></tr>`).join("")}
       </table>`;
-    $("#airList").innerHTML = groups.map(g => `
-      <h3 class="fgrp">🌙 ${g} <span>${FLIGHTS.filter(f => f.group === g).length}개</span></h3>` + FLIGHTS.filter(f => f.group === g).map(f => `
+    $("#airList").innerHTML = FLIGHTS.map(f => `
       <article class="fo" id="fo-${f.id}">
         <div class="fh">
-          <div><span class="no">${g} ${f.no}번</span><h4>${f.air}</h4><div class="fare">${f.fare} · ${f.cities}</div></div>
-          <div class="pr"><b>${f.usd ? "$" + f.usd : "₩" + f.krw}</b><small>${f.usd ? `약 ₩${f.krw} · 3인` : "3인 합산"}</small><small>1인 약 ${f.pp}만원</small></div>
+          <div><span class="no">${f.no} · ${f.nights}</span><h4>${f.air}</h4><div class="fare">${f.trip} · ${f.route}</div></div>
+          <div class="pr"><b>₩${f.total}</b><small>3인 합산</small><small>1인 ₩${f.pp}</small></div>
         </div>
-        ${legHTML("가는편", f.out)}${legHTML("오는편", f.back)}
-        <div class="stay">🏨 현지 체류 <b>${f.nights}박</b> · ${f.stay}</div>
-        <div class="ft">${f.tags.map(([t, c]) => `<span class="fchip ${c}">${esc(t)}</span>`).join("")}</div>
-        <div class="rules">${f.rules.map(r => `<span>${esc(r)}</span>`).join("")}</div>
+        ${legHTML("출국", f.out)}${legHTML("귀국", f.back)}
+        <div class="stay">🛬 <b>${f.arrive}</b></div>
+        ${f.tags.length ? `<div class="ft">${f.tags.map(([t, c]) => `<span class="fchip ${c}">${esc(t)}</span>`).join("")}</div>` : ""}
+        <div class="rules"><span>🧳 위탁수하물 ${esc(f.bag)}</span></div>
         ${planOfFlight(f.id) ? `<button class="btn dark fo-plan" type="button" data-plan="${planOfFlight(f.id)}">📅 이 항공편 일정 보기 · ${esc(PLANS[planOfFlight(f.id)].name)} ${esc(PLANS[planOfFlight(f.id)].sub || "")}</button>` : ""}
-      </article>`).join("")).join("");
+      </article>`).join("");
     $$("#airList .fo-plan").forEach(b => b.onclick = e => {
       e.stopPropagation();
       applyPlan(b.dataset.plan, true);
