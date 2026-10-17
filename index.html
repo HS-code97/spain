@@ -17,7 +17,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Serif+JP:wght@500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
-<link rel="stylesheet" href="style.css?v=18">
+<link rel="stylesheet" href="style.css?v=19">
 </head>
 <body>
 <canvas id="snow" aria-hidden="true"></canvas>
@@ -88,6 +88,12 @@
     </header>
     <div class="map-filters" id="mapFilters"></div>
     <div class="map-box"><div id="map"></div></div>
+    <div class="map-legend">
+      <span><i style="background:#facc15"></i>숙소</span>
+      <span><i style="background:#f97316"></i>식당·카페</span>
+      <span><i style="background:#3b82f6"></i>관광지·쇼핑</span>
+      <span><i style="background:#94a3b8"></i>교통</span>
+    </div>
     <div class="jump-row" id="jumpRow">
       <button data-fly="madrid">👑 마드리드</button>
       <button data-fly="sevilla" data-city="세비야">💃 세비야</button>
@@ -271,6 +277,6 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" defer></script>
 <script src="data.js?v=19" defer></script>
-<script src="app.js?v=20" defer></script>
+<script src="app.js?v=21" defer></script>
 </body>
 </html>

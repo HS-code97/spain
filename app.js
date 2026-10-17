@@ -456,6 +456,8 @@
     buildMarkers();
   }
   // 핀 색·날짜 필터는 플랜의 날짜에 따라 달라지므로 플랜이 바뀌면 다시 생성
+  // 지도 핀 색은 장소 종류별로 통일 (숙소 노랑 · 식당·카페 주황 · 관광지·쇼핑 파랑 · 교통 회색)
+  const PIN_COLOR = { stay: "#facc15", food: "#f97316", spot: "#3b82f6", shop: "#3b82f6", move: "#94a3b8" };
   function buildMarkers() {
     Object.values(markers).forEach(x => x.m.remove());
     markers = {};
@@ -463,7 +465,7 @@
       if (!p.lat || otherPlanOnly.has(id)) return;
       const di = [...(placeDays[id] || [])];
       const isHome = p.type === "stay";
-      const color = isHome ? "#ff5a5f" : di.length ? DAYS[Math.min(...di)].hue : "#9cc6ec";
+      const color = PIN_COLOR[p.type] || PIN_COLOR.move;
       const icon = L.divIcon({
         className: "", iconSize: [34, 34], iconAnchor: [4, 34], popupAnchor: [13, -30],
         html: `<div class="pin${isHome ? " home" : ""}" style="background:${color}"><span>${p.emoji}</span></div>`,
