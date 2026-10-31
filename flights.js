@@ -9,8 +9,8 @@
 const FLIGHT_META = {
   updated: "2026-10-31",
   lastOk: "2026-10-31",
-  status: "ok", // "ok" | "stale" (자동 조회 실패 시 기존 데이터 유지)
-  note: "",
+  status: "stale", // "ok" | "stale" (자동 조회 실패 시 기존 데이터 유지)
+  note: "Trip.com 봇 차단(whaleguard)으로 수하물 확인 불가, Kayak 운임명 기준 8박 후보 3개뿐(5개 미만) — 기존 데이터 유지",
   sources: ["Trip.com", "Kayak", "스카이스캐너"],
 };
 
