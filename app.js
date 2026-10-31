@@ -564,52 +564,67 @@
   }
 
   /* ---------- 항공일정 ---------- */
+  const won = n => (+n).toLocaleString("ko-KR");
+  const md = s => s.replace(/-0?/g, "/").replace(/^\d+\//, ""); // "2026-10-31" → "10/31"
+  const AIR_GROUPS = ["9박", "8박"];
   function airView() {
     const legHTML = (lab, l) => `
-      <div class="leg"><div class="lh">${lab} · ${l.date}</div>
+      <div class="leg"><div class="lh">${lab} · ${esc(l.date)} · ${esc(l.airline)}</div>
         <div class="lt">
           <div class="pt"><b>${l.dep}</b><span>${l.from}</span></div>
-          <div class="mid">${esc(l.wait)}<i></i>경유</div>
-          <div class="pt"><b>${l.arr}<sup>+1</sup></b><span>${l.to} · ${l.arrDate}</span></div>
+          <div class="mid">${l.via ? `<b>${esc(l.via)}</b> ${esc(l.wait)}<i></i>1회 경유` : `<b>직항</b><i></i>논스톱`}</div>
+          <div class="pt"><b>${l.arr}${l.arrDate !== l.date ? "<sup>+1</sup>" : ""}</b><span>${l.to} · ${esc(l.arrDate)}</span></div>
         </div>
       </div>`;
-    const dir = f => f.out.to === "BCN" ? "BCN→MAD" : "MAD→BCN";
-    $("#airCmp").innerHTML = `
-      <table class="fcmp">
-        <tr><th>옵션</th><th>항공사</th><th>일정</th><th>도시</th><th>1인(원)</th></tr>
-        ${FLIGHTS.map(f => `
-          <tr data-o="${f.id}" tabindex="0"><td><b>${f.no}</b></td><td>${f.air.replace("항공", "").replace("퍼시픽", "")}</td>
-            <td>${f.trip.replace(/\(.\)/g, "").replace("~", "→")}<small>${f.nights}</small></td>
-            <td>${dir(f)}</td><td>${f.pp}</td></tr>`).join("")}
-      </table>`;
-    $("#airList").innerHTML = FLIGHTS.map(f => `
-      <article class="fo" id="fo-${f.id}">
-        <div class="fh">
-          <div><span class="no">${f.no} · ${f.nights}</span><h4>${f.air}</h4><div class="fare">${f.trip} · ${f.route}</div></div>
-          <div class="pr"><b>₩${f.total}</b><small>3인 합산</small><small>1인 ₩${f.pp}</small></div>
-        </div>
-        ${legHTML("출국", f.out)}${legHTML("귀국", f.back)}
-        <div class="stay">🛬 <b>${f.arrive}</b></div>
-        ${f.tags.length ? `<div class="ft">${f.tags.map(([t, c]) => `<span class="fchip ${c}">${esc(t)}</span>`).join("")}</div>` : ""}
-        <div class="rules"><span>🧳 위탁수하물 ${esc(f.bag)}</span></div>
-        ${planOfFlight(f.id) ? `<button class="btn dark fo-plan" type="button" data-plan="${planOfFlight(f.id)}">📅 이 항공편 일정 보기 · ${esc(PLANS[planOfFlight(f.id)].name)} ${esc(PLANS[planOfFlight(f.id)].sub || "")}</button>` : ""}
-      </article>`).join("");
-    $$("#airList .fo-plan").forEach(b => b.onclick = e => {
-      e.stopPropagation();
-      applyPlan(b.dataset.plan, true);
-      showView("plan");
-    });
+    const short = f => [f.out.airline, f.back.airline].map(a => a.replace(/\(.*?\)/g, "").split("·")[0].trim())
+      .filter((a, i, all) => all.indexOf(a) === i).join(" / ");
+    const meta = FLIGHT_META;
+    $("#airMeta").innerHTML = meta.status === "stale"
+      ? `<p class="air-stale">⚠️ 이번 주 자동 조회에 실패해 ${md(meta.lastOk)} 기준 결과를 보여 드려요.${meta.note ? ` (${esc(meta.note)})` : ""}</p>`
+      : `<p class="air-upd">🔄 ${md(meta.updated)} 조회 · ${meta.sources.map(esc).join(" · ")} 취합 · 매주 목요일 16시 자동 업데이트</p>`;
+    let group = store.get("airGroup", AIR_GROUPS[0]);
+    if (!AIR_GROUPS.includes(group)) group = AIR_GROUPS[0];
+    const render = () => {
+      const list = FLIGHTS.filter(f => f.group === group).sort((a, b) => a.rank - b.rank);
+      $("#airTabs").innerHTML = AIR_GROUPS.map(g => {
+        const first = FLIGHTS.filter(f => f.group === g).sort((a, b) => a.rank - b.rank)[0];
+        return `<button class="chip${g === group ? " active" : ""}" type="button" role="tab" aria-selected="${g === group}" data-g="${g}">${g} TOP 10 <small>${first ? first.trip.split("~")[0] + " 출발~" : ""}</small></button>`;
+      }).join("");
+      $$("#airTabs [data-g]").forEach(b => b.onclick = () => { group = b.dataset.g; store.set("airGroup", group); render(); });
+      let dow = "";
+      $("#airCmp").innerHTML = `
+        <table class="fcmp">
+          <tr><th>순위</th><th>항공사 · 경유</th><th>인천 도착</th><th>1인(원)</th></tr>
+          ${list.map(f => {
+            const d = f.out.date.match(/\((.)\)/)[1], head = d !== dow ? (dow = d, `<tr><td class="grp" colspan="4">${esc(f.trip)} · ${d}요일 출발</td></tr>`) : "";
+            return `${head}
+            <tr data-o="${f.id}" tabindex="0"><td><b>${f.rank}</b></td><td class="wrap">${esc(short(f))}<small>${f.pattern} ${f.out.to}→${f.back.from} · ${f.out.via ? esc(f.out.via) : "직항"} / ${f.back.via ? esc(f.back.via) : "직항"}</small></td>
+              <td>${f.back.arr}<small>${esc(f.back.arrDate)}</small></td><td>${won(f.pp)}<small>3인 ${won(f.total)}</small></td></tr>`;
+          }).join("")}
+        </table>`;
+      $("#airList").innerHTML = list.map(f => `
+        <article class="fo" id="fo-${f.id}">
+          <div class="fh">
+            <div><span class="no">${f.group} ${f.rank}위 · 패턴 ${f.pattern}</span><h4>${esc(short(f))}</h4><div class="fare">${esc(f.trip)} · ${esc(f.route)}</div></div>
+            <div class="pr"><b>₩${won(f.total)}</b><small>성인 3인 합산</small><small>1인 ₩${won(f.pp)}</small></div>
+          </div>
+          ${legHTML("출국", f.out)}${legHTML("귀국", f.back)}
+          <div class="stay">🛬 <b>${esc(f.back.arrDate)} ${f.back.arr} 인천 도착</b></div>
+          ${f.tags.length ? `<div class="ft">${f.tags.map(([t, c]) => `<span class="fchip ${c}">${esc(t)}</span>`).join("")}</div>` : ""}
+          <div class="rules"><span>🧳 ${esc(f.bag)}</span><span>🔎 출처 ${esc(f.src)}</span></div>
+        </article>`).join("");
+      $$("#airCmp tr[data-o]").forEach(r => {
+        r.onclick = () => pick(r.dataset.o, true);
+        r.onkeydown = e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pick(r.dataset.o, true); } };
+      });
+      $$("#airList .fo").forEach(c => c.onclick = () => pick(c.id.slice(3), false));
+    };
     const pick = (id, go) => {
       $$("#airCmp tr[data-o]").forEach(r => r.classList.toggle("sel", r.dataset.o === id));
       $$("#airList .fo").forEach(c => c.classList.toggle("sel", c.id === "fo-" + id));
       if (go) $("#fo-" + id).scrollIntoView({ behavior: "smooth", block: "start" });
     };
-    $$("#airCmp tr[data-o]").forEach(r => {
-      r.onclick = () => pick(r.dataset.o, true);
-      r.onkeydown = e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pick(r.dataset.o, true); } };
-    });
-    $$("#airList .fo").forEach(c => c.onclick = () => pick(c.id.slice(3), false));
-    $("#airBtn").onclick = () => showView("air");
+    render();
     $("#airBack").onclick = () => showView("plan");
   }
 
@@ -634,30 +649,33 @@
     } catch {}
   };
 
-  /* ---------- 일정안 선택 (기본 = 세비야 코스 p7s · 그라나다 코스 p7a 등은 선택해서 보기) ---------- */
+  /* ---------- 일정안 (세비야 코스 p7s) + 항공일정 바로가기 ---------- */
   const DEFAULT_PLAN = "p7s";
   const planTitle = (p = plan) => p.name + (p.sub ? " · " + p.sub : "");
-  const planOfFlight = id => Object.keys(PLANS).find(k => PLANS[k].flight === id);
   const nightsOf = p => p.stays.reduce((a, s) => a + s.n, 0);
   function planSwitch() {
+    const cheapest = FLIGHTS.reduce((m, f) => (!m || f.pp < m.pp ? f : m), null);
     $("#planSwitch").innerHTML = `
-      <div class="ps-head"><span>일정안 선택 · 모두 현지 ${nightsOf(Object.values(PLANS)[0])}박</span><em class="real">✈️ 실제 항공권</em></div>
-      <div class="ps-segs" role="radiogroup" aria-label="일정안">
+      <div class="ps-head"><span>우리 일정 · 현지 ${nightsOf(Object.values(PLANS)[0])}박</span></div>
+      <div class="ps-segs">
         ${Object.entries(PLANS).map(([k, p]) => `
-          <button class="ps-seg" type="button" role="radio" data-p="${k}">
+          <button class="ps-seg" type="button" data-p="${k}">
             <b><i class="ps-dot" style="background:${p.stays.find(s => s.city === p.course).hue}"></i>${esc(p.course)} 코스</b>
             <small>${esc(p.entry)}</small>
             <small>${p.badge ? `<em>${esc(p.badge)}</em> · ` : ""}${p.range}</small>
           </button>`).join("")}
+        <button class="ps-seg ps-air" id="airBtn" type="button">
+          <b>✈️ 항공일정</b>
+          <small>9박·8박 TOP 10 · ${md(FLIGHT_META.updated)} 기준</small>
+          <small>${cheapest ? `<em>1인 ₩${won(cheapest.pp)}~</em>` : ""}</small>
+        </button>
       </div>`;
-    $$("#planSwitch .ps-seg").forEach(b => b.onclick = () => { if (b.dataset.p !== plan.key) applyPlan(b.dataset.p, true); });
+    $$("#planSwitch .ps-seg[data-p]").forEach(b => b.onclick = () => { if (b.dataset.p !== plan.key) applyPlan(b.dataset.p, true); });
+    $("#airBtn").onclick = () => showView("air");
     $("#planChip").onclick = () => scrollTo({ top: 0, behavior: "smooth" });
   }
   function syncPlanUI() {
-    $$("#planSwitch .ps-seg").forEach(b => {
-      const on = b.dataset.p === plan.key;
-      b.classList.toggle("active", on); b.setAttribute("aria-checked", on);
-    });
+    $$("#planSwitch .ps-seg[data-p]").forEach(b => b.classList.toggle("active", b.dataset.p === plan.key));
     $("#planChip").innerHTML = `${esc(plan.chip[0])}<small>${esc(plan.chip[1])}</small>`;
     $("#heroDates").innerHTML = `<span>${plan.from[0]} <small>${plan.from[1]}</small></span><i></i><span>${plan.to[0]} <small>${plan.to[1]}</small></span>`;
     const cities = plan.stays.map(s => s.city).join(" · ");
@@ -708,7 +726,7 @@
       slides[i].classList.remove("on"); i = (i + 1) % slides.length; slides[i].classList.add("on");
     }, 8000);
   })();
-  // 기본은 세비야 코스(p7s), ?plan=p7a / p7m / p7b 링크로 열면 해당 일정안
+  // 세비야 코스(p7s) 하나뿐 — 예전 ?plan=p7a 등 링크도 세비야 코스로 열림
   planSwitch();
   applyPlan(new URLSearchParams(location.search).get("plan") || DEFAULT_PLAN);
   snow(); countdown();

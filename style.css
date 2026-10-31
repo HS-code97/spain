@@ -476,7 +476,7 @@ table.fcmp td small { display: block; color: var(--ink3); font-size: 11px; }
 }
 .ps-head { display: flex; justify-content: space-between; align-items: center; padding: 0 6px 8px; font-size: 11px; letter-spacing: .16em; font-weight: 600; color: var(--ice); }
 .ps-head em { font-style: normal; letter-spacing: 0; font-size: 11px; color: var(--lamp); background: rgba(255,180,92,.14); padding: 2px 9px; border-radius: 999px; }
-.ps-segs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 4px; padding: 4px; border-radius: 16px; background: rgba(255,255,255,.08); }
+.ps-segs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; padding: 4px; border-radius: 16px; background: rgba(255,255,255,.08); }
 .ps-seg { border: 0; background: transparent; color: #cfe0f5; padding: 9px 4px 8px; border-radius: 12px; font-family: inherit; cursor: pointer; transition: background .25s, color .25s, box-shadow .25s; }
 .ps-seg b { display: block; font-family: var(--serif); font-size: 14.5px; line-height: 1.2; white-space: nowrap; }
 .ps-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 5px; vertical-align: .12em; }
@@ -506,3 +506,13 @@ table.fcmp td small { display: block; color: var(--ink3); font-size: 11px; }
 .city-dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin: 0 6px 1px 0; vertical-align: middle; box-shadow: 0 0 0 2px rgba(255,255,255,.12); }
 
 .ps-head em.real { color: #8ef0c6; background: rgba(52,211,153,.16); }
+.ps-seg.ps-air { color: #fff; background: rgba(255,180,92,.14); box-shadow: inset 0 0 0 1.5px rgba(255,180,92,.55); }
+.ps-seg.ps-air:hover { background: rgba(255,180,92,.24); }
+.ps-seg.ps-air small em { color: var(--lamp); }
+.air-meta { padding: 0 16px 10px; }
+.air-meta p { margin: 0; font-size: 12.5px; padding: 9px 12px; border-radius: 12px; }
+.air-upd { color: #b7cbe4; background: rgba(255,255,255,.05); }
+.air-stale { color: #ffd9a3; background: rgba(255,180,92,.14); }
+table.fcmp td.wrap { white-space: normal; }
+.air-tabs .chip { cursor: pointer; font-family: inherit; }
+.air-tabs .chip small { font-weight: 500; opacity: .7; margin-left: 4px; }
