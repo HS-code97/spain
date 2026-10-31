@@ -419,8 +419,9 @@ button { font: inherit; color: inherit; cursor: pointer; }
 }
 
 /* ---------- 항공일정 ---------- */
-.hero-actions { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 8px; }
-.hero-actions .share-btn { margin-top: 0; }
+.crew { gap: 5px; }
+.crew .crew-chip { padding: 6px 9px; }
+.crew .share-btn { margin-top: 0; padding: 6px 10px; font-size: 13px; gap: 5px; box-shadow: 0 4px 14px rgba(0,0,0,.2); }
 .back-btn { border: 1px solid rgba(255,255,255,.2); background: rgba(255,255,255,.08); color: #fff; border-radius: 999px; padding: 7px 14px; font-size: 13px; font-weight: 600; margin-bottom: 14px; }
 .air-cmp { overflow-x: auto; padding: 8px 12px 12px; }
 .air-cmp h3 { margin: 6px 4px 6px; }
