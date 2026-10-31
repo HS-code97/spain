@@ -566,7 +566,7 @@
   /* ---------- 항공일정 ---------- */
   const won = n => (+n).toLocaleString("ko-KR");
   const md = s => s.replace(/-0?/g, "/").replace(/^\d+\//, ""); // "2026-10-31" → "10/31"
-  const AIR_GROUPS = ["9박", "8박"];
+  const AIR_GROUPS = ["8박", "9박"];
   function airView() {
     const legHTML = (lab, l) => `
       <div class="leg"><div class="lh">${lab} · ${esc(l.date)} · ${esc(l.airline)}</div>
@@ -580,8 +580,8 @@
       .filter((a, i, all) => all.indexOf(a) === i).join(" / ");
     const meta = FLIGHT_META;
     $("#airMeta").innerHTML = meta.status === "stale"
-      ? `<p class="air-stale">⚠️ 이번 주 자동 조회에 실패해 ${md(meta.lastOk)} 기준 결과를 보여 드려요.${meta.note ? ` (${esc(meta.note)})` : ""}</p>`
-      : `<p class="air-upd">🔄 ${md(meta.updated)} 조회 · ${meta.sources.map(esc).join(" · ")} 취합 · 매주 목요일 16시 자동 업데이트</p>`;
+      ? `<p class="air-stale"><b>⚠️ 조회</b><span>이번 주 자동 조회 실패 · ${md(meta.lastOk)} 기준 결과${meta.note ? ` (${esc(meta.note)})` : ""}</span></p>`
+      : `<p><b>🔄 조회</b><span>${md(meta.updated)} · ${meta.sources.map(esc).join("·")} 취합 · 매주 목 16시 갱신</span></p>`;
     let group = store.get("airGroup", AIR_GROUPS[0]);
     if (!AIR_GROUPS.includes(group)) group = AIR_GROUPS[0];
     const render = () => {

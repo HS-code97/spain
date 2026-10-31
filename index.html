@@ -17,7 +17,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Serif+JP:wght@500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
-<link rel="stylesheet" href="style.css?v=20">
+<link rel="stylesheet" href="style.css?v=21">
 </head>
 <body>
 <canvas id="snow" aria-hidden="true"></canvas>
@@ -64,11 +64,10 @@
       <button class="back-btn" id="airBack" type="button">‹ 일정으로</button>
       <p class="page-kicker">FLIGHT · VUELOS</p>
       <h2>항공일정 후보</h2>
-      <p class="page-desc">인천 ⇄ 스페인 오픈조(마드리드·바르셀로나) 9박·8박 TOP 10이에요. 매주 목요일 오후 4시에 자동으로 다시 조사해 바뀌어요.</p>
     </header>
-    <div class="air-meta" id="airMeta"></div>
-    <div class="chips air-chips">
-      <span class="chip">🔁 직항 또는 1회 경유 · 대기 6시간 이내</span><span class="chip">🚫 중동 경유 제외</span><span class="chip">🧳 1인 23kg 위탁 수하물 포함</span><span class="chip">🛬 인천 9/19(일) 17시 전 도착</span>
+    <div class="air-info">
+      <div id="airMeta"></div>
+      <p><b>✅ 조건</b><span>직항·1회 경유(대기 6h 이내) · 중동 경유 제외 · 1인 23kg 수하물 포함 · 인천 9/19(일) 17시 전 도착</span></p>
     </div>
     <div class="chips air-tabs" id="airTabs" role="tablist"></div>
     <div class="card air-cmp">
@@ -77,7 +76,7 @@
       <p class="small air-hint">줄을 누르면 아래 상세 카드로 이동해요.</p>
     </div>
     <div id="airList"></div>
-    <p class="small air-note">금액은 세금·유류할증료 포함 원화 기준이고, 총액은 성인 3인 합산이에요. Trip.com 표시 항공편은 사이트의 ‘위탁 수하물 포함’ 표시로, Kayak 항공편은 운임명으로 수하물을 판단했으니 예약 전에 꼭 다시 확인하세요. 금액·스케줄은 조회 시점 기준이라 바뀔 수 있어요.</p>
+    <p class="small air-note">금액은 세금·유류할증료 포함, 총액은 성인 3인 기준이에요. 요금·수하물은 조회 시점 기준이니 예약 전에 다시 확인하세요.</p>
   </section>
 
   <!-- ============ 지도 ============ -->
@@ -279,6 +278,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" defer></script>
 <script src="data.js?v=20" defer></script>
 <script src="flights.js?v=20261031" defer></script>
-<script src="app.js?v=22" defer></script>
+<script src="app.js?v=23" defer></script>
 </body>
 </html>
