@@ -513,7 +513,6 @@ table.fcmp td small { display: block; color: var(--ink3); font-size: 11px; }
 .air-info p { margin: 0; padding: 8px 0; display: flex; gap: 10px; }
 .air-info div + p { border-top: 1px solid rgba(255,255,255,.08); }
 .air-info b { flex: 0 0 auto; color: #fff; font-weight: 700; }
-.air-info .air-stale, .air-info .air-stale b { color: #ffd9a3; }
 table.fcmp td.wrap { white-space: normal; }
 .air-tabs .chip { cursor: pointer; font-family: inherit; }
 .air-tabs .chip small { font-weight: 500; opacity: .7; margin-left: 4px; }

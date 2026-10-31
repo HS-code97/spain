@@ -579,9 +579,7 @@
     const short = f => [f.out.airline, f.back.airline].map(a => a.replace(/\(.*?\)/g, "").split("·")[0].trim())
       .filter((a, i, all) => all.indexOf(a) === i).join(" / ");
     const meta = FLIGHT_META;
-    $("#airMeta").innerHTML = meta.status === "stale"
-      ? `<p class="air-stale"><b>⚠️ 조회</b><span>이번 주 자동 조회 실패 · ${md(meta.lastOk)} 기준 결과${meta.note ? ` (${esc(meta.note)})` : ""}</span></p>`
-      : `<p><b>🔄 조회</b><span>${md(meta.updated)} · ${meta.sources.map(esc).join("·")} 취합 · 매주 목 16시 갱신</span></p>`;
+    $("#airMeta").innerHTML = `<p><b>🔄 조회</b><span>${md(meta.updated)} · ${meta.sources.map(esc).join("·")} 취합</span></p>`;
     let group = store.get("airGroup", AIR_GROUPS[0]);
     if (!AIR_GROUPS.includes(group)) group = AIR_GROUPS[0];
     const render = () => {
