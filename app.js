@@ -609,7 +609,7 @@
           ${legHTML("출국", f.out)}${legHTML("귀국", f.back)}
           <div class="stay">🛬 <b>${esc(f.back.arrDate)} ${f.back.arr} 인천 도착</b></div>
           ${f.tags.length ? `<div class="ft">${f.tags.map(([t, c]) => `<span class="fchip ${c}">${esc(t)}</span>`).join("")}</div>` : ""}
-          <div class="rules"><span>🧳 ${esc(f.bag)}</span><span>🔎 출처 ${esc(f.src)}</span></div>
+          <div class="rules"><span>🧳 ${esc(f.bag)}</span><span>🎫 조회·예매 ${esc(f.src)}</span>${f.link ? `<a class="flink" href="${esc(f.link)}" target="_blank" rel="noopener">🔗 카약에서 이 일정 검색 ↗</a>` : ""}</div>
         </article>`).join("");
       $$("#airCmp tr[data-o]").forEach(r => {
         r.onclick = () => pick(r.dataset.o, true);
