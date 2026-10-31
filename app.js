@@ -592,19 +592,19 @@
       let dow = "";
       $("#airCmp").innerHTML = `
         <table class="fcmp">
-          <tr><th>순위</th><th>항공사 · 경유</th><th>인천 도착</th><th>1인(원)</th></tr>
+          <tr><th>순위</th><th>항공사 · 경유</th><th>인천 도착</th><th>3인(원)</th></tr>
           ${list.map(f => {
             const d = f.out.date.match(/\((.)\)/)[1], head = d !== dow ? (dow = d, `<tr><td class="grp" colspan="4">${esc(f.trip)} · ${d}요일 출발</td></tr>`) : "";
             return `${head}
             <tr data-o="${f.id}" tabindex="0"><td><b>${f.rank}</b></td><td class="wrap">${esc(short(f))}<small>${f.pattern} ${f.out.to}→${f.back.from} · ${f.out.via ? esc(f.out.via) : "직항"} / ${f.back.via ? esc(f.back.via) : "직항"}</small></td>
-              <td>${f.back.arr}<small>${esc(f.back.arrDate)}</small></td><td>${won(f.pp)}<small>3인 ${won(f.total)}</small></td></tr>`;
+              <td>${f.back.arr}<small>${esc(f.back.arrDate)}</small></td><td>${won(f.total)}</td></tr>`;
           }).join("")}
         </table>`;
       $("#airList").innerHTML = list.map(f => `
         <article class="fo" id="fo-${f.id}">
           <div class="fh">
             <div><span class="no">${f.group} ${f.rank}위 · 패턴 ${f.pattern}</span><h4>${esc(short(f))}</h4><div class="fare">${esc(f.trip)} · ${esc(f.route)}</div></div>
-            <div class="pr"><b>₩${won(f.total)}</b><small>성인 3인 합산</small><small>1인 ₩${won(f.pp)}</small></div>
+            <div class="pr"><b>₩${won(f.total)}</b><small>성인 3인 합산</small></div>
           </div>
           ${legHTML("출국", f.out)}${legHTML("귀국", f.back)}
           <div class="stay">🛬 <b>${esc(f.back.arrDate)} ${f.back.arr} 인천 도착</b></div>
@@ -652,7 +652,7 @@
   const planTitle = (p = plan) => p.name + (p.sub ? " · " + p.sub : "");
   const nightsOf = p => p.stays.reduce((a, s) => a + s.n, 0);
   function planSwitch() {
-    const cheapest = FLIGHTS.reduce((m, f) => (!m || f.pp < m.pp ? f : m), null);
+    const cheapest = FLIGHTS.reduce((m, f) => (!m || f.total < m.total ? f : m), null);
     $("#planSwitch").innerHTML = `
       <div class="ps-head"><span>우리 일정 · 현지 ${nightsOf(Object.values(PLANS)[0])}박</span></div>
       <div class="ps-segs">
@@ -665,7 +665,7 @@
         <button class="ps-seg ps-air" id="airBtn" type="button">
           <b>✈️ 항공일정</b>
           <small>9박·8박 TOP 10 · ${md(FLIGHT_META.updated)} 기준</small>
-          <small>${cheapest ? `<em>1인 ₩${won(cheapest.pp)}~</em>` : ""}</small>
+          <small>${cheapest ? `<em>3인 ₩${won(cheapest.total)}~</em>` : ""}</small>
         </button>
       </div>`;
     $$("#planSwitch .ps-seg[data-p]").forEach(b => b.onclick = () => { if (b.dataset.p !== plan.key) applyPlan(b.dataset.p, true); });
